@@ -12,7 +12,9 @@ import { Route, Switch } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global-styles';
 
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
-import { HomePage } from './containers/HomePage/Loadable';
+import { AuthPage } from './containers/AuthPage/Loadable';
+import { PrivateRoute } from './containers/Routing/Private';
+import { PublicRoutes } from './containers/Routing/routes';
 export function App() {
   return (
     <>
@@ -23,7 +25,8 @@ export function App() {
         <meta name="description" content="A React Boilerplate application" />
       </Helmet>
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route path={PublicRoutes.LOGIN} component={AuthPage} />
+        <PrivateRoute privateComponent={NotFoundPage} path="/dashboard" />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

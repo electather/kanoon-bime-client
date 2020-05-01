@@ -3,6 +3,19 @@ export type UserState =
   | 'fetchingInfo'
   | 'locked'
   | 'unAuthenticated';
+
+export type UserData = {
+  id: string;
+  name: string;
+};
+
+export enum ErrorType {
+  RESPONSE_ERROR = 1,
+  USER_NOT_FOUND = 2,
+}
+
 export interface AuthState {
   readonly authState: UserState;
+  readonly user?: UserData;
+  readonly error?: ErrorType;
 }

@@ -1,3 +1,13 @@
 {
-  "title": "welcome"
+  "authPage": {
+    "header": "DASHBOARD",
+    "rememberCheckBox": "remember me",
+    "signIn": "Sign In",
+    "help": "Help text",
+    "facebook": "Login with facebook",
+    "google": "Login with google",
+    "auth0": "Login with auth0",
+    "forgotPass": "restore password",
+    "createAcc": "create a new accout"
+  }
 }

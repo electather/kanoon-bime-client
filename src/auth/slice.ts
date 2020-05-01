@@ -1,7 +1,7 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'types';
 
-import { AuthState } from './types';
+import { AuthState, ErrorType, UserData } from './types';
 import { getToken } from './utils';
 
 export const initialState: AuthState = {
@@ -15,11 +15,13 @@ const authSlice = createSlice({
     fetchUserData(state) {
       state.authState = 'fetchingInfo';
     },
-    fetchUserDataSuccess(state) {
+    fetchUserDataSuccess(state, action: PayloadAction<UserData>) {
       state.authState = 'loggedIn';
+      state.user = action.payload;
     },
-    fetchUserDataFailure(state) {
+    fetchUserDataFailure(state, action: PayloadAction<ErrorType>) {
       state.authState = 'unAuthenticated';
+      state.error = action.payload;
     },
   },
 });
@@ -29,10 +31,4 @@ export const selectAuthState = createSelector(
   settings => settings.authState,
 );
 
-export const {
-  fetchUserData,
-  fetchUserDataSuccess,
-  fetchUserDataFailure,
-} = authSlice.actions;
-export const reducer = authSlice.reducer;
-export const settingsSliceKey = authSlice.name;
+export const { actions, reducer, name: sliceKey } = authSlice;

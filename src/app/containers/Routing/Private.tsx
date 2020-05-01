@@ -1,11 +1,11 @@
-import { selectAuthState } from 'auth/slice';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
+import { selectAuthState } from '../../../auth/slice';
 import { PublicRoutes } from './routes';
 
-const PrivateRoute: React.FunctionComponent<{
+export const PrivateRoute: React.FunctionComponent<{
   privateComponent: React.ComponentType<any>;
   path: string;
 }> = ({ privateComponent, path, ...rest }) => {
@@ -40,4 +40,3 @@ const PrivateRoute: React.FunctionComponent<{
       return <p>Error!</p>;
   }
 };
-export default PrivateRoute;

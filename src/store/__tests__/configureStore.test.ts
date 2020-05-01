@@ -1,5 +1,5 @@
-import { configureAppStore } from '../configureStore';
 import { history } from '../../utils/history';
+import { configureAppStore } from '../configureStore';
 
 describe('configureStore', () => {
   it('should return a store with injected enhancers', () => {

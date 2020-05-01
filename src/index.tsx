@@ -7,24 +7,23 @@
 
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
-
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
-import * as serviceWorker from 'serviceWorker';
-import { history } from 'utils/history';
 import 'sanitize.css/sanitize.css';
+// Initialize languages
+import './locales/i18n';
 
 // Import root app
 import { App } from 'app';
-
+import { AuthProvider } from 'auth/AuthProvider';
+import { ConnectedRouter } from 'connected-react-router';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { HelmetProvider } from 'react-helmet-async';
-
+import { Provider } from 'react-redux';
+import * as serviceWorker from 'serviceWorker';
+import { SettingsProvider } from 'settings/SettingsProvider';
 import { configureAppStore } from 'store/configureStore';
-
-// Initialize languages
-import './locales/i18n';
+import { ThemeProvider } from 'styles/theme/ThemeProvider';
+import { history } from 'utils/history';
 
 // Create redux store with history
 const store = configureAppStore(history);
@@ -37,9 +36,15 @@ const ConnectedApp = ({ Component }: Props) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <HelmetProvider>
-        <React.StrictMode>
-          <Component />
-        </React.StrictMode>
+        <SettingsProvider>
+          <AuthProvider>
+            <ThemeProvider>
+              <React.StrictMode>
+                <Component />
+              </React.StrictMode>
+            </ThemeProvider>
+          </AuthProvider>
+        </SettingsProvider>
       </HelmetProvider>
     </ConnectedRouter>
   </Provider>

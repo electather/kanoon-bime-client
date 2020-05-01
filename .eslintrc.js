@@ -12,9 +12,10 @@ module.exports = {
     'prettier/react',
     'prettier/@typescript-eslint',
   ],
-  plugins: ['prettier'],
+  plugins: ['prettier', 'simple-import-sort'],
   rules: {
     'prettier/prettier': ['error', prettierOptions],
+    'simple-import-sort/sort': 'error',
   },
   overrides: [
     {

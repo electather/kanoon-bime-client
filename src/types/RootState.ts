@@ -1,4 +1,7 @@
+import { AuthState } from 'auth/types';
 import { RouterState } from 'connected-react-router';
+import { SettingsState } from 'settings/types';
+import { ThemeState } from 'styles/theme/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -7,5 +10,8 @@ import { RouterState } from 'connected-react-router';
 */
 export interface RootState {
   router?: RouterState;
+  settings?: SettingsState;
+  auth?: AuthState;
+  theme?: ThemeState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

@@ -4,4 +4,8 @@ enum PublicRoutes {
   FORGOT_PASSWORD = '/forgot',
 }
 
-export { PublicRoutes };
+enum PrivateRoutes {
+  DASHBOARD = '/dashboard',
+}
+
+export { PublicRoutes, PrivateRoutes };

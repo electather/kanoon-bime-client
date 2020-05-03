@@ -20,7 +20,7 @@ export const SidebarMenu: React.FC<Props> = React.memo(
   ({ singleOption, subMenuStyle, subMenuColor, ...rest }) => {
     let match = useRouteMatch();
 
-    const { key, label, leftIcon, children } = singleOption;
+    const { key, label, Icon, children } = singleOption;
     const url = stripTrailingSlash(match.url);
 
     if (children) {
@@ -29,7 +29,7 @@ export const SidebarMenu: React.FC<Props> = React.memo(
           key={key}
           title={
             <span className="isoMenuHolder" style={subMenuColor}>
-              <i className={leftIcon} />
+              <Icon />
               <span className="nav-text">{label}</span>
             </span>
           }
@@ -55,7 +55,7 @@ export const SidebarMenu: React.FC<Props> = React.memo(
       <Menu.Item key={key} {...rest}>
         <Link to={`${url}/${key}`}>
           <span className="isoMenuHolder" style={subMenuColor}>
-            <i className={leftIcon} />
+            <Icon />
             <span className="nav-text">{label}</span>
           </span>
         </Link>

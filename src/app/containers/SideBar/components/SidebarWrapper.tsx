@@ -99,7 +99,10 @@ export const SidebarWrapper = styled.div`
 
       .anticon {
         font-size: 18px;
-        margin-right: 30px;
+        margin-right: ${props =>
+          props.theme.dir === 'rtl' ? 'inherit' : '30px'};
+        margin-left: ${props =>
+          props.theme.dir === 'rtl' ? '30px' : 'inherit'};
         color: inherit;
         ${transition()};
       }

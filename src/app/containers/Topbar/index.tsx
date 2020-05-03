@@ -1,3 +1,4 @@
+import { MenuOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +8,7 @@ import { TopbarUser } from './components/TopbarUser';
 import { TopbarWrapper } from './components/TopbarWrapper';
 
 export function Topbar() {
-  const [selectedItem, setSelectedItem] = React.useState('');
+  const [, setSelectedItem] = React.useState('');
   const collapsed = useSelector(selectCollapsed);
   const openDrawer = useSelector(selectOpenDrawer);
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ export function Topbar() {
         }
       >
         <div className="isoLeft">
-          <button
+          <MenuOutlined
             className={
               isCollapsed ? 'triggerBtn menuCollapsed' : 'triggerBtn menuOpen'
             }

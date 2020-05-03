@@ -3,7 +3,7 @@ export type ViewType = 'MobileView' | 'DesktopView' | 'TabView';
 export type RouteKeyType = {
   key: string;
   label: string;
-  leftIcon?: string;
+  Icon?: React.ForwardRefExoticComponent;
   children?: RouteKeyType[];
   withoutDashboard?: boolean;
 };

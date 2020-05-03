@@ -1,23 +1,19 @@
 import React from 'react';
-import { Scrollbars } from 'react-custom-scrollbars';
+import { Scrollbar } from 'react-scrollbars-custom';
 
 export const CustomScrollBar: React.FC<{
   id?: string;
   style: React.CSSProperties;
   className?: string;
 }> = ({ id, style, children, className }) => (
-  <Scrollbars
+  <Scrollbar
     id={id}
     className={className}
     style={style}
-    autoHide
-    autoHideTimeout={1000}
-    autoHideDuration={200}
-    autoHeightMin={0}
-    autoHeightMax={200}
-    thumbMinSize={30}
-    universal={true}
+    momentum={true}
+    noScrollX={true}
+    removeTrackYWhenNotUsed
   >
     {children}
-  </Scrollbars>
+  </Scrollbar>
 );

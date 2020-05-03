@@ -38,8 +38,11 @@ const settingsSlice = createSlice({
         state.height = height;
       }
     },
-    toggleOpenDrawer(state) {
-      state.openDrawer = !state.openDrawer;
+    toggleOpenDrawer(
+      state,
+      { payload }: PayloadAction<{ openDrawer: boolean }>,
+    ) {
+      state.openDrawer = payload.openDrawer;
     },
     changeOpenKeys(state, { payload }: PayloadAction<string[]>) {
       state.openKeys = payload;

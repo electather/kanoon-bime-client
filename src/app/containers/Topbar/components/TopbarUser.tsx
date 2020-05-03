@@ -1,4 +1,4 @@
-import { Popover } from 'antd';
+import { Avatar, Badge, Popover } from 'antd';
 import { actions } from 'auth/slice';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -21,13 +21,13 @@ export function TopbarUser() {
       <Link className="isoDropdownLink" to="/dashboard/my-profile">
         my profile
       </Link>
-      <a className="isoDropdownLink" href="#">
+      <a className="isoDropdownLink" href="# ">
         settings
       </a>
-      <a className="isoDropdownLink" href="#">
+      <a className="isoDropdownLink" href="# ">
         feedback
       </a>
-      <a className="isoDropdownLink" href="#">
+      <a className="isoDropdownLink" href="# ">
         help
       </a>
       <span className="isoDropdownLink" onClick={handleLogout}>
@@ -45,10 +45,11 @@ export function TopbarUser() {
       arrowPointAtCenter={true}
       placement="bottomLeft"
     >
-      <div className="isoImgWrapper">
-        <img alt="user" />
-        <span className="userActivity online" />
-      </div>
+      <Badge dot color="blue">
+        <Avatar size="large" shape="circle">
+          {'User'.charAt(0).toUpperCase()}
+        </Avatar>
+      </Badge>
     </Popover>
   );
 }

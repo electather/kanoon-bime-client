@@ -10,7 +10,7 @@ import { Logo } from './components/Logo';
 import { SidebarMenu } from './components/SideBarMenu';
 import { SidebarWrapper } from './components/SidebarWrapper';
 
-export function AuthPage() {
+export function SideBar() {
   const dispatch = useDispatch();
   const {
     view,
@@ -46,24 +46,24 @@ export function AuthPage() {
     }
     dispatch(actions.changeOpenKeys(nextOpenKeys));
   }
-  const getAncestorKeys = key => {
+  const getAncestorKeys = (key: string) => {
     const map = {
       sub3: ['sub2'],
     };
     return map[key] || [];
   };
 
-  const isCollapsed = collapsed && openDrawer;
+  const isCollapsed = collapsed && !openDrawer;
   const mode = isCollapsed === true ? 'vertical' : 'inline';
   const onMouseEnter = () => {
     if (collapsed && openDrawer === false) {
-      dispatch(actions.toggleOpenDrawer());
+      dispatch(actions.toggleOpenDrawer({ openDrawer: true }));
     }
     return;
   };
   const onMouseLeave = () => {
     if (collapsed && openDrawer === true) {
-      dispatch(actions.toggleOpenDrawer());
+      dispatch(actions.toggleOpenDrawer({ openDrawer: false }));
     }
     return;
   };

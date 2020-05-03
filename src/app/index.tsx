@@ -13,6 +13,7 @@ import { GlobalStyle } from 'styles/global-styles';
 
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { AuthPage } from './containers/AuthPage/Loadable';
+import { DashboardPage } from './containers/Dashboard/Loadable';
 import { MainRoute } from './containers/Routing/MainRoute';
 import { PrivateRoute } from './containers/Routing/Private';
 import { PrivateRoutes, PublicRoutes } from './containers/Routing/routes';
@@ -33,7 +34,7 @@ export function App() {
           unAuthenticatedComponent={AuthPage}
         />
         <PrivateRoute
-          privateComponent={NotFoundPage}
+          privateComponent={DashboardPage}
           path={PrivateRoutes.DASHBOARD}
         />
         <Route component={NotFoundPage} />

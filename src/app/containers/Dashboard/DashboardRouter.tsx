@@ -11,7 +11,7 @@ const routes = [
   },
 ];
 
-export default function AppRouter() {
+export function DashboardRoutes() {
   const { url } = useRouteMatch();
   return (
     <Suspense fallback={<Loader />}>

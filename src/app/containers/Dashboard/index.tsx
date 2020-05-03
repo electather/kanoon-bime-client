@@ -1,34 +1,42 @@
-import { useDispatch } from 'react-redux';
-import { selectHeight } from 'settings/slice';
+import { useWindowSize } from '@react-hook/window-size';
+import { Layout } from 'antd';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions, selectHeight } from 'settings/slice';
 
-export default function Dashboard() {
+import { SideBar } from '../SideBar';
+import { Topbar } from '../Topbar';
+import { DashboardContainer } from './components/DashboardContainer';
+import { DashboardGlobalStyles } from './components/DashboardGlobalStyles';
+import { DashboardRoutes } from './DashboardRouter';
+
+export function Dashboard() {
   const dispatch = useDispatch();
   const appHeight = useSelector(selectHeight);
-  const { width, height } = useWindowSize();
+  const [width, height] = useWindowSize();
 
   React.useEffect(() => {
-    dispatch(toggleAll(width, height));
+    dispatch(actions.toggleAll({ width, height }));
   }, [width, height, dispatch]);
   return (
     <DashboardContainer>
       <DashboardGlobalStyles />
       <Layout style={{ height: height }}>
         <Topbar />
-        <Layout style={styles.layout}>
-          <Sidebar />
+        <Layout>
+          <SideBar />
           <Layout
             className="isoContentMainLayout"
             style={{
               height: appHeight,
             }}
           >
-            <Content className="isomorphicContent" style={styles.content}>
+            <Layout.Content className="isomorphicContent">
               <DashboardRoutes />
-            </Content>
-            <Footer style={styles.footer}>{siteConfig.footerText}</Footer>
+            </Layout.Content>
+            <Layout.Footer>Footer Text</Layout.Footer>
           </Layout>
         </Layout>
-        <ThemeSwitcher />
       </Layout>
     </DashboardContainer>
   );

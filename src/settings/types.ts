@@ -8,4 +8,6 @@ export interface SettingsState {
   readonly view: ViewType;
   readonly height: number;
   readonly openDrawer: boolean;
+  readonly openKeys: string[];
+  readonly current: string[];
 }

@@ -1,4 +1,5 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getDefaultPath } from 'app/containers/Routing/utlils';
 import { RootState } from 'types';
 import { getView, isServer } from 'utils';
 
@@ -10,6 +11,8 @@ export const initialState: SettingsState = {
   height: !isServer ? window.innerHeight : 0,
   view: !isServer ? getView(window.innerWidth) : 'DesktopView',
   openDrawer: false,
+  current: getDefaultPath(),
+  openKeys: getDefaultPath(),
 };
 
 const settingsSlice = createSlice({
@@ -38,8 +41,19 @@ const settingsSlice = createSlice({
     toggleOpenDrawer(state) {
       state.openDrawer = !state.openDrawer;
     },
+    changeOpenKeys(state, { payload }: PayloadAction<string[]>) {
+      state.openKeys = payload;
+    },
+    changeCurrent(state, { payload }: PayloadAction<string[]>) {
+      state.current = payload;
+    },
   },
 });
+
+export const selectSettings = createSelector(
+  [(state: RootState) => state.settings || initialState],
+  settings => settings,
+);
 
 export const selectDirection = createSelector(
   [(state: RootState) => state.settings || initialState],
@@ -66,4 +80,13 @@ export const selectOpenDrawer = createSelector(
   settings => settings.openDrawer,
 );
 
+export const selectCurrent = createSelector(
+  [(state: RootState) => state.settings || initialState],
+  settings => settings.current,
+);
+
+export const selectOpenKeys = createSelector(
+  [(state: RootState) => state.settings || initialState],
+  settings => settings.openKeys,
+);
 export const { actions, reducer, name: sliceKey } = settingsSlice;

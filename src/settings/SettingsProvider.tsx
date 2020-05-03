@@ -3,10 +3,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useInjectReducer } from 'redux-injectors';
 
-import { reducer, selectDirection, settingsSliceKey } from './slice';
+import { reducer, selectDirection, sliceKey } from './slice';
 
 export const SettingsProvider = (props: { children: React.ReactChild }) => {
-  useInjectReducer({ key: settingsSliceKey, reducer: reducer });
+  useInjectReducer({ key: sliceKey, reducer: reducer });
   const { children } = props;
 
   const direction = useSelector(selectDirection);

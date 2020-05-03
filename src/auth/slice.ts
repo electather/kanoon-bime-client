@@ -2,7 +2,7 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'types';
 
 import { AuthState, ErrorType, UserData } from './types';
-import { getToken } from './utils';
+import { clearToken, getToken } from './utils';
 
 export const initialState: AuthState = {
   authState: getToken() ? 'fetchingInfo' : 'unAuthenticated',
@@ -22,6 +22,10 @@ const authSlice = createSlice({
     fetchUserDataFailure(state, action: PayloadAction<ErrorType>) {
       state.authState = 'unAuthenticated';
       state.error = action.payload;
+    },
+    logout(state) {
+      clearToken();
+      state.authState = 'unAuthenticated';
     },
   },
 });

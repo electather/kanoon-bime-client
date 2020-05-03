@@ -1,4 +1,5 @@
 import { Popover } from 'antd';
+import { actions } from 'auth/slice';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -11,22 +12,27 @@ export function TopbarUser() {
   function handleVisibleChange() {
     setVisibility(visible => !visible);
   }
+  const handleLogout = React.useCallback(() => dispatch(actions.logout()), [
+    dispatch,
+  ]);
 
   const content = (
     <TopbarDropdownWrapper className="isoUserDropdown">
-      <Link className="isoDropdownLink" to={'/dashboard/my-profile'}>
+      <Link className="isoDropdownLink" to="/dashboard/my-profile">
         my profile
       </Link>
-      <a className="isoDropdownLink" href="# ">
+      <a className="isoDropdownLink" href="#">
         settings
       </a>
-      <a className="isoDropdownLink" href="# ">
+      <a className="isoDropdownLink" href="#">
         feedback
       </a>
-      <a className="isoDropdownLink" href="# ">
+      <a className="isoDropdownLink" href="#">
         help
       </a>
-      <a className="isoDropdownLink">logout</a>
+      <span className="isoDropdownLink" onClick={handleLogout}>
+        logout
+      </span>
     </TopbarDropdownWrapper>
   );
 

@@ -1,17 +1,20 @@
 import { Layout } from 'antd';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { actions, selectCollapsed, selectOpenDrawer } from 'settings/slice';
 
 import { TopbarUser } from './components/TopbarUser';
 import { TopbarWrapper } from './components/TopbarWrapper';
 
 export function Topbar() {
   const [selectedItem, setSelectedItem] = React.useState('');
-  const { collapsed, openDrawer } = useSelector(state => state.App);
+  const collapsed = useSelector(selectCollapsed);
+  const openDrawer = useSelector(selectOpenDrawer);
   const dispatch = useDispatch();
-  const handleToggle = React.useCallback(() => dispatch(toggleCollapsed()), [
-    dispatch,
-  ]);
+  const handleToggle = React.useCallback(
+    () => dispatch(actions.toggleCollapsed()),
+    [dispatch],
+  );
   const isCollapsed = collapsed && !openDrawer;
   const styling: React.CSSProperties = {
     position: 'fixed',
@@ -31,7 +34,6 @@ export function Topbar() {
             className={
               isCollapsed ? 'triggerBtn menuCollapsed' : 'triggerBtn menuOpen'
             }
-            style={{ color: customizedTheme.textColor }}
             onClick={handleToggle}
           />
         </div>

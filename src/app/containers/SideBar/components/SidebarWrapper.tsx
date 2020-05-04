@@ -8,6 +8,10 @@ export const SidebarWrapper = styled.div`
     width: 280px;
     flex: 0 0 280px;
 
+    .ant-menu-rtl.ant-menu-inline,
+    .ant-menu-rtl.ant-menu-vertical {
+      border: none;
+    }
     .scrollarea {
       height: calc(100vh - 70px);
     }
@@ -40,7 +44,8 @@ export const SidebarWrapper = styled.div`
           font-size: 21px;
           font-weight: 300;
           line-height: 70px;
-          letter-spacing: 3px;
+          letter-spacing: ${({ theme }) =>
+            theme.dir === 'rtl' ? 'inherit' : '3px'};
           text-transform: uppercase;
           color: ${props => props.theme.grayscale[6]};
           display: block;

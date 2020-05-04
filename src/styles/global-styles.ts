@@ -44,7 +44,6 @@ body{
       .ant-select-dropdown-menu-item {
         padding: 8px 12px;
         color: #000000;
-        font-family: 'Roboto';
         font-weight: 400;
       }
     }

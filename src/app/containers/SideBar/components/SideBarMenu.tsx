@@ -1,9 +1,10 @@
 import { Menu } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { RouteKeyType } from 'types/data';
 
-const stripTrailingSlash = str => {
+const stripTrailingSlash = (str: string) => {
   if (str.substr(-1) === '/') {
     return str.substr(0, str.length - 1);
   }
@@ -19,6 +20,7 @@ type Props = {
 export const SidebarMenu: React.FC<Props> = React.memo(
   ({ singleOption, subMenuStyle, subMenuColor, ...rest }) => {
     let match = useRouteMatch();
+    const { t } = useTranslation();
 
     const { key, label, Icon, children } = singleOption;
     const url = stripTrailingSlash(match.url);
@@ -30,7 +32,7 @@ export const SidebarMenu: React.FC<Props> = React.memo(
           title={
             <span className="isoMenuHolder" style={subMenuColor}>
               <Icon />
-              <span className="nav-text">{label}</span>
+              <span className="nav-text">{t(label)}</span>
             </span>
           }
           {...rest}
@@ -42,7 +44,7 @@ export const SidebarMenu: React.FC<Props> = React.memo(
             return (
               <Menu.Item style={subMenuStyle} key={child.key}>
                 <Link style={subMenuColor} to={linkTo}>
-                  {child.label}
+                  {t(child.label)}
                 </Link>
               </Menu.Item>
             );
@@ -56,7 +58,7 @@ export const SidebarMenu: React.FC<Props> = React.memo(
         <Link to={`${url}/${key}`}>
           <span className="isoMenuHolder" style={subMenuColor}>
             <Icon />
-            <span className="nav-text">{label}</span>
+            <span className="nav-text">{t(label)}</span>
           </span>
         </Link>
       </Menu.Item>

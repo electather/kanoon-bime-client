@@ -1,4 +1,8 @@
 {
+  "global": {
+    "siteName": "Dashboard Project",
+    "footerText": "Footer Text"
+  },
   "authPage": {
     "header": "DASHBOARD",
     "rememberCheckBox": "remember me",
@@ -9,5 +13,18 @@
     "auth0": "Login with auth0",
     "forgotPass": "restore password",
     "createAcc": "create a new accout"
+  },
+  "pages": {
+    "homePage": "Home page",
+    "mailPage": "Mails"
+  },
+  "topBar": {
+    "userDropDown": {
+      "myProfile": "my profile",
+      "settings": "settings",
+      "feedback": "feedback",
+      "help": "help",
+      "logout": "logout"
+    }
   }
 }

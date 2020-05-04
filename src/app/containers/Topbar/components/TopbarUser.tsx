@@ -1,14 +1,18 @@
 import { Avatar, Badge, Popover } from 'antd';
 import { actions } from 'auth/slice';
+import { translations } from 'locales/i18n';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { TopbarDropdownWrapper } from './TopbarDropdownWrapper';
+import { TopBarDropdownWrapper } from './TopbarDropdownWrapper';
 
 export function TopbarUser() {
   const [visible, setVisibility] = React.useState(false);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   function handleVisibleChange() {
     setVisibility(visible => !visible);
   }
@@ -17,23 +21,25 @@ export function TopbarUser() {
   ]);
 
   const content = (
-    <TopbarDropdownWrapper className="isoUserDropdown">
+    <TopBarDropdownWrapper className="isoUserDropdown">
       <Link className="isoDropdownLink" to="/dashboard/my-profile">
-        my profile
+        {t(translations.topBar.userDropDown.myProfile())}
       </Link>
-      <a className="isoDropdownLink" href="# ">
-        settings
-      </a>
-      <a className="isoDropdownLink" href="# ">
-        feedback
-      </a>
-      <a className="isoDropdownLink" href="# ">
-        help
-      </a>
-      <span className="isoDropdownLink" onClick={handleLogout}>
-        logout
+      <span className="isoDropdownLink">
+        {t(translations.topBar.userDropDown.settings())}
       </span>
-    </TopbarDropdownWrapper>
+      <span className="isoDropdownLink">
+        {' '}
+        {t(translations.topBar.userDropDown.feedback())}
+      </span>
+      <span className="isoDropdownLink">
+        {' '}
+        {t(translations.topBar.userDropDown.help())}
+      </span>
+      <span className="isoDropdownLink" onClick={handleLogout}>
+        {t(translations.topBar.userDropDown.logout())}
+      </span>
+    </TopBarDropdownWrapper>
   );
 
   return (
@@ -43,7 +49,7 @@ export function TopbarUser() {
       visible={visible}
       onVisibleChange={handleVisibleChange}
       arrowPointAtCenter={true}
-      placement="bottomLeft"
+      placement="bottomRight"
     >
       <Badge dot color="blue">
         <Avatar size="large" shape="circle">

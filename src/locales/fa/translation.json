@@ -1,0 +1,30 @@
+{
+  "global": {
+    "siteName": "پروژه داشبرد",
+    "footerText": "متن فوتر"
+  },
+  "authPage": {
+    "header": "داشبرد",
+    "rememberCheckBox": "من را به خاطر بسپار",
+    "signIn": "ورود",
+    "help": "متن راهنما",
+    "facebook": "ورود با فیس بوک",
+    "google": "ورود با گوگل",
+    "auth0": "ورود با auth0",
+    "forgotPass": "بازیابی پسورد",
+    "createAcc": "ایجاد اکانت جدید"
+  },
+  "pages": {
+    "homePage": "صفحه اصلی",
+    "mailPage": "ایمیل ها"
+  },
+  "topBar": {
+    "userDropDown": {
+      "myProfile": "پر.فایل من",
+      "settings": "تنظیمات",
+      "feedback": "بازخورد",
+      "help": "راهنما",
+      "logout": "خروج از سیستم"
+    }
+  }
+}

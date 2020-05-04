@@ -1,6 +1,8 @@
 import { useWindowSize } from '@react-hook/window-size';
 import { Layout } from 'antd';
+import { translations } from 'locales/i18n';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, selectHeight } from 'settings/slice';
 
@@ -14,6 +16,7 @@ export function Dashboard() {
   const dispatch = useDispatch();
   const appHeight = useSelector(selectHeight);
   const [width, height] = useWindowSize();
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     dispatch(actions.toggleAll({ width, height }));
@@ -34,7 +37,7 @@ export function Dashboard() {
             <Layout.Content className="isomorphicContent">
               <DashboardRoutes />
             </Layout.Content>
-            <Layout.Footer>Footer Text</Layout.Footer>
+            <Layout.Footer>{t(translations.global.footerText())}</Layout.Footer>
           </Layout>
         </Layout>
       </Layout>

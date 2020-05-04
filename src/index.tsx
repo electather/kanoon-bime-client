@@ -15,6 +15,7 @@ import './locales/i18n';
 import { App } from 'app';
 import { AuthProvider } from 'auth/AuthProvider';
 import { ConnectedRouter } from 'connected-react-router';
+import FontFaceObserver from 'fontfaceobserver';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { HelmetProvider } from 'react-helmet-async';
@@ -24,6 +25,14 @@ import { SettingsProvider } from 'settings/SettingsProvider';
 import { configureAppStore } from 'store/configureStore';
 import { ThemeProvider } from 'styles/theme/ThemeProvider';
 import { history } from 'utils/history';
+
+// Observe loading of iranyekan
+const openSansObserver = new FontFaceObserver('iranyekan', {});
+
+// When iranyekan is loaded, add a font-family using Inter to the body
+openSansObserver.load().then(() => {
+  document.body.classList.add('ir-loaded');
+});
 
 // Create redux store with history
 const store = configureAppStore(history);

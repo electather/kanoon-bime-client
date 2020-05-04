@@ -1,4 +1,5 @@
-import { HomeOutlined, MailOutlined } from '@ant-design/icons';
+import { HomeFilled, MailFilled } from '@ant-design/icons';
+import { translations } from 'locales/i18n';
 import { RouteKeyType } from 'types/data';
 
 export enum PublicRoutes {
@@ -14,12 +15,12 @@ export enum PrivateRoutes {
 export const options: RouteKeyType[] = [
   {
     key: '',
-    label: 'Home',
-    Icon: HomeOutlined,
+    label: translations.pages.homePage(),
+    Icon: HomeFilled,
   },
   {
     key: 'mail',
-    label: 'MAIL',
-    Icon: MailOutlined,
+    label: translations.pages.mailPage(),
+    Icon: MailFilled,
   },
 ];

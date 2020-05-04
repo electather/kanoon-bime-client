@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useInjectReducer } from 'redux-injectors';
 import { selectDirection } from 'settings/slice';
 import { ThemeProvider as OriginalThemeProvider } from 'styled-components';
+import { IranYekanFontLoader } from 'styles/iranyekan';
 
 import { reducer, selectTheme, themeSliceKey } from './slice';
 
@@ -15,6 +16,7 @@ export const ThemeProvider = (props: { children: React.ReactChild }) => {
   return (
     <OriginalThemeProvider theme={theme}>
       {React.Children.only(props.children)}
+      {direction === 'rtl' && <IranYekanFontLoader />}
     </OriginalThemeProvider>
   );
 };

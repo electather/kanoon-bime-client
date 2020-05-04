@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { borderRadius, boxShadow, transition } from 'utils/styleUtils';
 
-export const TopbarDropdownWrapper = styled.div`
+export const TopBarDropdownWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
@@ -275,6 +275,7 @@ export const TopbarDropdownWrapper = styled.div`
       text-decoration: none;
       display: flex;
       justify-content: flex-start;
+      cursor: pointer;
       ${transition()};
 
       &:hover {

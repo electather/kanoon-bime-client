@@ -3,12 +3,14 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
 import en from './en/translation.json';
+import fa from './fa/translation.json';
 import { ConvertedToFunctionsType } from './types';
 
 const translationsJson = {
   en: {
     translation: en,
   },
+  fa: { translation: fa },
 };
 
 export type TranslationResource = typeof en;

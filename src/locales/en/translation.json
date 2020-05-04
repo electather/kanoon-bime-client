@@ -12,7 +12,9 @@
     "google": "Login with google",
     "auth0": "Login with auth0",
     "forgotPass": "restore password",
-    "createAcc": "create a new accout"
+    "createAcc": "create a new accout",
+    "username": "username",
+    "password": "password"
   },
   "pages": {
     "homePage": "Home page",

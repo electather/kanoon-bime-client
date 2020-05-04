@@ -27,16 +27,16 @@ export function AuthPage() {
                 <div className="isoInputWrapper">
                   <Input
                     size="large"
-                    placeholder="Username"
+                    placeholder={t(translations.authPage.username())}
                     autoComplete="true"
                   />
                 </div>
 
                 <div className="isoInputWrapper">
-                  <Input
+                  <Input.Password
                     size="large"
                     type="password"
-                    placeholder="Password"
+                    placeholder={t(translations.authPage.password())}
                     autoComplete="false"
                   />
                 </div>

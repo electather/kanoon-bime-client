@@ -12,7 +12,9 @@
     "google": "ورود با گوگل",
     "auth0": "ورود با auth0",
     "forgotPass": "بازیابی پسورد",
-    "createAcc": "ایجاد اکانت جدید"
+    "createAcc": "ایجاد اکانت جدید",
+    "username": "نام کاربری",
+    "password": "پسورد"
   },
   "pages": {
     "homePage": "صفحه اصلی",

@@ -4,11 +4,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, selectCollapsed, selectOpenDrawer } from 'settings/slice';
 
-import { TopbarUser } from './components/TopbarUser';
 import { TopbarWrapper } from './components/TopbarWrapper';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { TopBarUser } from './TopbarUser';
 
 export function Topbar() {
-  const [, setSelectedItem] = React.useState('');
   const collapsed = useSelector(selectCollapsed);
   const openDrawer = useSelector(selectOpenDrawer);
   const dispatch = useDispatch();
@@ -50,16 +50,15 @@ export function Topbar() {
           >
             <TopbarNotification />
           </li> */}
-          {/* 
-          <li onClick={() => setSelectedItem('message')} className="isoMsg">
-            <TopbarMessage />
+          <li>
+            <LanguageSwitcher />
           </li>
-          <li onClick={() => setSelectedItem('addToCart')} className="isoCart">
+          {/* <li onClick={() => setSelectedItem('addToCart')} className="isoCart">
             <TopbarAddtoCart />
           </li> */}
 
-          <li onClick={() => setSelectedItem('user')} className="isoUser">
-            <TopbarUser />
+          <li>
+            <TopBarUser />
           </li>
         </ul>
       </Layout.Header>

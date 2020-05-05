@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, selectSettings } from 'settings/slice';
 
-import { options } from '../Routing/routes';
+import { privateRoutes } from '../Routing/routes';
 import { CustomScrollBar } from './components/CustomScrollbar';
 import { Logo } from './components/Logo';
 import { SidebarMenu } from './components/SideBarMenu';
@@ -89,7 +89,7 @@ export function SideBar() {
             selectedKeys={current}
             onOpenChange={onOpenChange}
           >
-            {options.map(singleOption => (
+            {privateRoutes.map(singleOption => (
               <SidebarMenu key={singleOption.key} singleOption={singleOption} />
             ))}
           </Menu>

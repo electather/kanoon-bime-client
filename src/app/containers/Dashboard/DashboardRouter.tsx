@@ -3,24 +3,23 @@ import { NotFoundPage } from 'app/components/NotFoundPage/Loadable';
 import React, { Suspense } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
-const routes = [
-  {
-    path: '',
-    component: NotFoundPage,
-    exact: true,
-  },
-];
+import { privateRoutes } from '../Routing/routes';
 
 export function DashboardRoutes() {
   const { url } = useRouteMatch();
   return (
     <Suspense fallback={<Loader />}>
       <Switch>
-        {routes.map((route, idx) => (
-          <Route exact={route.exact} key={idx} path={`${url}/${route.path}`}>
+        {privateRoutes.map((route, idx) => (
+          <Route
+            exact={route.exact === undefined ? true : route.exact}
+            key={idx}
+            path={`${url}/${route.key}`}
+          >
             <route.component />
           </Route>
         ))}
+        <Route component={NotFoundPage} />
       </Switch>
     </Suspense>
   );

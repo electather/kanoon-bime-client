@@ -1,13 +1,13 @@
 import { isServer } from 'utils';
 
-import { options } from '../routes';
+import { privateRoutes } from '../routes';
 
 export function getDefaultPath() {
   const getParent = (lastRoute: string) => {
     const parent: string[] = [];
     if (!lastRoute) return parent;
     parent.push(lastRoute);
-    options.forEach(option => {
+    privateRoutes.forEach(option => {
       if (option.children) {
         option.children.forEach(child => {
           if (child.key === lastRoute) {

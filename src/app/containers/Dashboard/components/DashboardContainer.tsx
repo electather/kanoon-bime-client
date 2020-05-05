@@ -29,12 +29,15 @@ export const DashboardContainer = styled.div`
       overflow: auto;
       overflow-x: hidden;
       @media only screen and (min-width: 768px) and (max-width: 1220px) {
-        width: calc(100% - 80px);
+        width: ${props =>
+          props.theme.dir === 'rtl'
+            ? 'calc(100% - 240px)'
+            : 'calc(100% - 80px)'};
         flex-shrink: 0;
       }
 
       @media only screen and (max-width: 767px) {
-        width: 100%;
+        width: 45%;
         flex-shrink: 0;
       }
     }

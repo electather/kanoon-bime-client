@@ -1,25 +1,26 @@
+import { translations } from 'locales/i18n';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 
 import { P } from './P';
 
 export function NotFoundPage() {
+  const { t } = useTranslation();
+
   return (
     <>
       <Helmet>
-        <title>404 Page Not Found</title>
-        <meta name="description" content="Page not found" />
+        <title>{t(translations.errorPages[404].title())}</title>
+        <meta
+          name="description"
+          content={t(translations.errorPages[404].subTitle())}
+        />
       </Helmet>
       <Wrapper>
-        <Title>
-          4
-          <span role="img" aria-label="Crying Face">
-            😢
-          </span>
-          4
-        </Title>
-        <P>Page not found.</P>
+        <Title>{t(translations.errorPages[404].title())}</Title>
+        <P>{t(translations.errorPages[404].subTitle())}</P>
       </Wrapper>
     </>
   );

@@ -3,6 +3,12 @@
     "siteName": "Dashboard Project",
     "footerText": "Footer Text"
   },
+  "errorPages": {
+    "404": {
+      "title": "4😢4",
+      "subTitle": "Page not found."
+    }
+  },
   "authPage": {
     "login": {
       "pageTitle": "Login",
@@ -29,6 +35,11 @@
       "feedback": "feedback",
       "help": "help",
       "logout": "logout"
+    },
+    "languages": {
+      "persian": "persian",
+      "english": "english",
+      "changeLanguage": "change language"
     }
   }
 }

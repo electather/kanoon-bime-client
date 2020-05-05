@@ -9,7 +9,6 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 import { TopBarUser } from './TopbarUser';
 
 export function Topbar() {
-  const [, setSelectedItem] = React.useState('');
   const collapsed = useSelector(selectCollapsed);
   const openDrawer = useSelector(selectOpenDrawer);
   const dispatch = useDispatch();
@@ -58,7 +57,7 @@ export function Topbar() {
             <TopbarAddtoCart />
           </li> */}
 
-          <li onClick={() => setSelectedItem('user')} className="isoUser">
+          <li>
             <TopBarUser />
           </li>
         </ul>

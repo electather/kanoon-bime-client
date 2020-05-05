@@ -6,4 +6,6 @@ export type RouteKeyType = {
   Icon?: React.ForwardRefExoticComponent;
   children?: RouteKeyType[];
   withoutDashboard?: boolean;
+  exact?: boolean;
+  component: (props: unknown) => JSX.Element;
 };

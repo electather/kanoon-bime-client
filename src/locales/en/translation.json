@@ -3,6 +3,12 @@
     "siteName": "Dashboard Project",
     "footerText": "Footer Text"
   },
+  "errorPages": {
+    "404": {
+      "title": "4😢4",
+      "subTitle": "Page not found."
+    }
+  },
   "authPage": {
     "header": "DASHBOARD",
     "rememberCheckBox": "remember me",

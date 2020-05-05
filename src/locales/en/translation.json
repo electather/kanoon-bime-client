@@ -27,6 +27,11 @@
       "feedback": "feedback",
       "help": "help",
       "logout": "logout"
+    },
+    "languages": {
+      "persian": "persian",
+      "english": "english",
+      "changeLanguage": "change language"
     }
   }
 }

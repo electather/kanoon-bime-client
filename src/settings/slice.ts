@@ -3,10 +3,9 @@ import { getDefaultPath } from 'app/containers/Routing/utlils';
 import { RootState } from 'types';
 import { getView, isServer } from 'utils';
 
-import { Directions, SettingsState } from './types';
+import { SettingsState } from './types';
 
 export const initialState: SettingsState = {
-  direction: 'rtl',
   collapsed: !isServer && window.innerWidth > 1220 ? false : true,
   height: !isServer ? window.innerHeight : 0,
   view: !isServer ? getView(window.innerWidth) : 'DesktopView',
@@ -19,9 +18,6 @@ const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    changeDirection(state, action: PayloadAction<Directions>) {
-      state.direction = action.payload;
-    },
     toggleCollapsed(state) {
       state.collapsed = !state.collapsed;
     },
@@ -56,11 +52,6 @@ const settingsSlice = createSlice({
 export const selectSettings = createSelector(
   [(state: RootState) => state.settings || initialState],
   settings => settings,
-);
-
-export const selectDirection = createSelector(
-  [(state: RootState) => state.settings || initialState],
-  settings => settings.direction,
 );
 
 export const selectCollapsed = createSelector(

@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { TopBarDropdownWrapper } from './TopbarDropdownWrapper';
+import { TopBarDropdownWrapper } from './components/TopBarDropdownWrapper';
 
-export function TopbarUser() {
+export function TopBarUser() {
   const [visible, setVisibility] = React.useState(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();

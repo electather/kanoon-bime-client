@@ -1,17 +1,16 @@
 import { ConfigProvider } from 'antd';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useInjectReducer } from 'redux-injectors';
 
-import { reducer, selectDirection, sliceKey } from './slice';
+import { reducer, sliceKey } from './slice';
 
 export const SettingsProvider = (props: { children: React.ReactChild }) => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   const { children } = props;
-
-  const direction = useSelector(selectDirection);
+  const { i18n } = useTranslation();
   return (
-    <ConfigProvider direction={direction}>
+    <ConfigProvider direction={i18n.dir()}>
       {React.Children.only(children)}
     </ConfigProvider>
   );

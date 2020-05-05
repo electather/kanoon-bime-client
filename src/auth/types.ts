@@ -4,6 +4,11 @@ export type UserState =
   | 'locked'
   | 'unAuthenticated';
 
+export type LoginPayload = {
+  username: string;
+  password: string;
+};
+
 export type UserData = {
   id: string;
   name: string;

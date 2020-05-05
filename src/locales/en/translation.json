@@ -12,6 +12,7 @@
   "authPage": {
     "login": {
       "pageTitle": "Login",
+      "pageDescription": "some Page desc",
       "rememberCheckBox": "remember me",
       "signIn": "Sign In",
       "help": "Help text",
@@ -19,9 +20,11 @@
       "google": "Login with google",
       "auth0": "Login with auth0",
       "forgotPass": "restore password",
-      "createAcc": "create a new accout",
+      "createAcc": "create a new account",
       "username": "username",
-      "password": "password"
+      "usernameError": "Please input your Username!",
+      "password": "password",
+      "passwordError": "Please input your Password!"
     }
   },
   "pages": {
@@ -32,14 +35,12 @@
     "userDropDown": {
       "myProfile": "my profile",
       "settings": "settings",
-      "feedback": "feedback",
-      "help": "help",
       "logout": "logout"
     },
     "languages": {
-      "persian": "persian",
-      "english": "english",
-      "changeLanguage": "change language"
+      "fa": "فارسی",
+      "en": "English",
+      "change": "change language"
     }
   }
 }

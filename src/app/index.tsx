@@ -33,6 +33,16 @@ export function App() {
           path={PublicRoutes.LOGIN}
           unAuthenticatedComponent={AuthPage}
         />
+        <UnAuthenticatedRoute
+          path={PublicRoutes.REGISTER}
+          unAuthenticatedComponent={AuthPage}
+        />
+
+        <UnAuthenticatedRoute
+          path={PublicRoutes.FORGOT_PASSWORD}
+          unAuthenticatedComponent={AuthPage}
+        />
+
         <PrivateRoute
           privateComponent={DashboardPage}
           path={PrivateRoutes.DASHBOARD}

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions, selectHeight } from 'settings/slice';
 
 import { SideBar } from '../SideBar';
-import { Topbar } from '../Topbar';
+import { TopBar } from '../Topbar';
 import { DashboardContainer } from './components/DashboardContainer';
 import { DashboardGlobalStyles } from './components/DashboardGlobalStyles';
 import { DashboardRoutes } from './DashboardRouter';
@@ -25,7 +25,7 @@ export function Dashboard() {
     <DashboardContainer>
       <DashboardGlobalStyles />
       <Layout style={{ height: height }}>
-        <Topbar />
+        <TopBar />
         <Layout>
           <SideBar />
           <Layout

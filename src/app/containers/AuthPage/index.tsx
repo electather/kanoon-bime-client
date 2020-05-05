@@ -2,16 +2,16 @@
 import { translations } from 'locales/i18n';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useRouteMatch, Switch, Route } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 
 import { AuthContainer } from './components/AuthContainer';
 import { Loader } from 'app/components/Loader';
-import { LoginPage } from './Login';
 import { NotFoundPage } from 'app/components/NotFoundPage';
+import { PublicRoutes } from '../Routing/routes';
+import { LoginPage } from './Login/Loadable';
 
 export function AuthPage() {
   const { t } = useTranslation();
-  const { url } = useRouteMatch();
 
   return (
     <AuthContainer>
@@ -22,11 +22,15 @@ export function AuthPage() {
           </div>
           <React.Suspense fallback={<Loader />}>
             <Switch>
-              <Route exact path={`${url}/login`} component={LoginPage} />
-              <Route exact path={`${url}/register`} component={NotFoundPage} />
+              <Route exact path={PublicRoutes.LOGIN} component={LoginPage} />
               <Route
                 exact
-                path={`${url}/forgot-password`}
+                path={PublicRoutes.REGISTER}
+                component={NotFoundPage}
+              />
+              <Route
+                exact
+                path={PublicRoutes.FORGOT_PASSWORD}
                 component={NotFoundPage}
               />
             </Switch>

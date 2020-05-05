@@ -8,7 +8,7 @@ import { TopbarWrapper } from './components/TopbarWrapper';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { TopBarUser } from './TopbarUser';
 
-export function Topbar() {
+export function TopBar() {
   const collapsed = useSelector(selectCollapsed);
   const openDrawer = useSelector(selectOpenDrawer);
   const dispatch = useDispatch();
@@ -39,28 +39,10 @@ export function Topbar() {
           />
         </div>
 
-        <ul className="isoRight">
-          {/* <li className="isoSearch">
-            <TopbarSearch />
-          </li> */}
-
-          {/* <li
-            onClick={() => setSelectedItem('notification')}
-            className="isoNotify"
-          >
-            <TopbarNotification />
-          </li> */}
-          <li>
-            <LanguageSwitcher />
-          </li>
-          {/* <li onClick={() => setSelectedItem('addToCart')} className="isoCart">
-            <TopbarAddtoCart />
-          </li> */}
-
-          <li>
-            <TopBarUser />
-          </li>
-        </ul>
+        <div className="isoRight">
+          <LanguageSwitcher />
+          <TopBarUser />
+        </div>
       </Layout.Header>
     </TopbarWrapper>
   );

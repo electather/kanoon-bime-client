@@ -190,4 +190,22 @@ svg {
   align-items: center;
   justify-content: center;
   width: 100%;
-}`;
+}
+
+/* ANTD STYLE FIX */
+
+
+.menu {
+    .anticon {
+      margin-right: ${props => (props.theme.dir === 'rtl' ? 'inherit' : '8px')};
+      margin-left: ${props => (props.theme.dir === 'rtl' ? '8px' : 'inherit')};
+    }
+    .ant-dropdown-menu-item {
+      min-width: 160px;
+    }
+    .ant-dropdown-menu-item > a, .ant-dropdown-menu-submenu-title > a {
+      margin: 0;
+    padding: 0;}
+
+  }
+`;

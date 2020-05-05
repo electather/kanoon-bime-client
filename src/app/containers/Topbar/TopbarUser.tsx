@@ -1,61 +1,56 @@
-import { Avatar, Badge, Popover } from 'antd';
-import { actions } from 'auth/slice';
+import {
+  LogoutOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
+import { Avatar, Dropdown, Menu } from 'antd';
+import { actions, selectLoggedInUser } from 'auth/slice';
 import { translations } from 'locales/i18n';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { TopBarDropdownWrapper } from './components/TopBarDropdownWrapper';
+import { HeaderDropdownWrapper } from './components/HeaderDropdownWrapper';
 
 export function TopBarUser() {
-  const [visible, setVisibility] = React.useState(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
-  function handleVisibleChange() {
-    setVisibility(visible => !visible);
-  }
+  const loggedInUser = useSelector(selectLoggedInUser);
   const handleLogout = React.useCallback(() => dispatch(actions.logout()), [
     dispatch,
   ]);
-
   const content = (
-    <TopBarDropdownWrapper className="isoUserDropdown">
-      <Link className="isoDropdownLink" to="/dashboard/my-profile">
-        {t(translations.topBar.userDropDown.myProfile())}
-      </Link>
-      <span className="isoDropdownLink">
+    <Menu className="menu" selectedKeys={[]}>
+      <Menu.Item key="center">
+        <Link className="isoDropdownLink" to="/dashboard/my-profile">
+          <UserOutlined />
+          {t(translations.topBar.userDropDown.myProfile())}
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="settings">
+        <SettingOutlined />
         {t(translations.topBar.userDropDown.settings())}
-      </span>
-      <span className="isoDropdownLink">
-        {' '}
-        {t(translations.topBar.userDropDown.feedback())}
-      </span>
-      <span className="isoDropdownLink">
-        {' '}
-        {t(translations.topBar.userDropDown.help())}
-      </span>
-      <span className="isoDropdownLink" onClick={handleLogout}>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="logout" onClick={handleLogout}>
+        <LogoutOutlined />
         {t(translations.topBar.userDropDown.logout())}
-      </span>
-    </TopBarDropdownWrapper>
+      </Menu.Item>
+    </Menu>
   );
 
   return (
-    <Popover
-      content={content}
-      trigger="click"
-      visible={visible}
-      onVisibleChange={handleVisibleChange}
-      arrowPointAtCenter={true}
-      placement="bottomRight"
-    >
-      <Badge dot color="blue">
-        <Avatar size="large" shape="circle">
-          {'User'.charAt(0).toUpperCase()}
-        </Avatar>
-      </Badge>
-    </Popover>
+    <Dropdown overlay={content}>
+      <HeaderDropdownWrapper>
+        <Avatar
+          size="default"
+          className="avatar"
+          alt="avatar"
+          icon={<UserOutlined />}
+        />
+        <span className="name">{loggedInUser?.name}</span>
+      </HeaderDropdownWrapper>
+    </Dropdown>
   );
 }

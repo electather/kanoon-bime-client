@@ -67,31 +67,13 @@ export const TopbarWrapper = styled.div`
 
     .isoRight {
       display: flex;
-      align-items: center;
+      float: right;
+      height: 70px;
+      margin-right: ${props =>
+        props.theme.dir === 'rtl' ? 'auto' : 'inherit'};
+      margin-left: ${props => (props.theme.dir === 'rtl' ? 'inherit' : 'auto')};
 
-      li {
-        margin-left: ${props => (props.theme.dir === 'rtl' ? '35px' : '0')};
-        margin-right: ${props => (props.theme.dir === 'rtl' ? '0' : '35px')};
-        cursor: pointer;
-        line-height: normal;
-        position: relative;
-        display: inline-block;
-
-        @media only screen and (max-width: 360px) {
-          margin-left: ${props => (props.theme.dir === 'rtl' ? '25px' : '0')};
-          margin-right: ${props => (props.theme.dir === 'rtl' ? '0' : '25px')};
-        }
-
-        &:last-child {
-          margin: 0;
-        }
-
-        i {
-          font-size: 24px;
-          color: ${props => props.theme.text[0]};
-          line-height: 1;
-        }
-
+      overflow: hidden;
         .isoIconWrapper {
           position: relative;
           line-height: normal;

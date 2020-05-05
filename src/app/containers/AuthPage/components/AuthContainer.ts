@@ -2,7 +2,7 @@
 /* eslint-disable no-confusing-arrow */
 import styled from 'styled-components';
 
-import bgImage from '../media/sign.jpg';
+import bgImage from '../media/bg.jpg';
 
 export const AuthContainer = styled.div`
   width: 100%;
@@ -71,6 +71,13 @@ export const AuthContainer = styled.div`
       flex-shrink: 0;
       flex-direction: column;
 
+      .isoLoginButton {
+        .ant-form-item-control-input-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
       .isoInputWrapper {
         margin-bottom: 15px;
 

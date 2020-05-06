@@ -2,9 +2,19 @@ import { translations } from 'locales/i18n';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
+import Lottie, { Options } from 'react-lottie';
 import styled from 'styled-components/macro';
 
-import { P } from './P';
+import * as errorData from './media/error.json';
+
+const defaultOptions: Options = {
+  loop: true,
+  autoplay: true,
+  animationData: (errorData as any).default,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice',
+  },
+};
 
 export function NotFoundPage() {
   const { t } = useTranslation();
@@ -19,7 +29,8 @@ export function NotFoundPage() {
         />
       </Helmet>
       <Wrapper>
-        <Title>{t(translations.errorPages[404].title())}</Title>
+        <Lottie options={defaultOptions} height={200} width={350} />
+
         <P>{t(translations.errorPages[404].subTitle())}</P>
       </Wrapper>
     </>
@@ -35,13 +46,8 @@ const Wrapper = styled.div`
   min-height: 320px;
 `;
 
-const Title = styled.div`
-  margin-top: -8vh;
-  font-weight: bold;
-  color: ${p => p.theme.text};
-  font-size: 3.375rem;
-
-  span {
-    font-size: 3.125rem;
-  }
+const P = styled.p`
+  font-size: 1.3rem;
+  line-height: 2.1;
+  margin: 0.625rem 0 1.5rem 0;
 `;

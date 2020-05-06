@@ -6,7 +6,7 @@ import * as loadingData from './media/loading.json';
 const defaultOptions: Options = {
   loop: true,
   autoplay: true,
-  animationData: loadingData,
+  animationData: (loadingData as any).default,
   rendererSettings: {
     preserveAspectRatio: 'xMidYMid slice',
   },
@@ -14,6 +14,6 @@ const defaultOptions: Options = {
 
 export const Loader = () => (
   <LoaderComponent>
-    <Lottie options={defaultOptions} height={120} width={120} />
+    <Lottie options={defaultOptions} height={300} width={300} />
   </LoaderComponent>
 );

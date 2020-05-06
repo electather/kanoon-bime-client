@@ -57,12 +57,12 @@ export function ForgotPassword() {
               {t(translations.authPage.forgotPass.submitBtn())}
             </Button>
           </Form.Item>
-          <Divider>{t(translations.authPage.shared.or())}</Divider>
 
           <p className="isoHelperText">
             {t(translations.authPage.forgotPass.help())}
           </p>
         </Form>
+        <Divider>{t(translations.authPage.shared.or())}</Divider>
         <div className="isoCenterComponent isoHelperWrapper">
           <Link to={PublicRoutes.LOGIN}>
             {t(translations.authPage.forgotPass.login())}

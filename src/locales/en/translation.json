@@ -10,6 +10,13 @@
     }
   },
   "authPage": {
+    "shared": {
+      "username": "username",
+      "usernameError": "Please input your Username!",
+      "password": "password",
+      "passwordError": "Please input your Password!",
+      "or": "OR"
+    },
     "login": {
       "pageTitle": "Login",
       "pageDescription": "some Page desc",
@@ -20,11 +27,14 @@
       "google": "Login with google",
       "auth0": "Login with auth0",
       "forgotPass": "restore password",
-      "createAcc": "create a new account",
-      "username": "username",
-      "usernameError": "Please input your Username!",
-      "password": "password",
-      "passwordError": "Please input your Password!"
+      "createAcc": "create a new account"
+    },
+    "forgotPass": {
+      "pageTitle": "Restore Password",
+      "pageDescription": "some Page desc",
+      "submitBtn": "Restore Password",
+      "help": "help message",
+      "login": "have an account? Login here!"
     }
   },
   "pages": {

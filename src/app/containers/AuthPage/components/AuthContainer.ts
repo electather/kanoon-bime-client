@@ -136,10 +136,6 @@ export const AuthContainer = styled.div`
       }
 
       .isoOtherLogin {
-        padding-top: 40px;
-        margin-top: 35px;
-        border-top: 1px dashed ${props => props.theme.grayscale[2]};
-
         > a {
           display: flex;
           margin-bottom: 10px;

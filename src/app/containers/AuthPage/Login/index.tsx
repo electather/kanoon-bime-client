@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Divider, Form, Input } from 'antd';
 import { PublicRoutes } from 'app/containers/Routing/routes';
 import { actions, selectAuthState } from 'auth/slice';
 import { translations } from 'locales/i18n';
@@ -41,13 +41,13 @@ export function Login() {
             rules={[
               {
                 required: true,
-                message: t(translations.authPage.login.usernameError()),
+                message: t(translations.authPage.shared.usernameError()),
               },
             ]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder={t(translations.authPage.login.username())}
+              placeholder={t(translations.authPage.shared.username())}
               size="large"
             />
           </Form.Item>
@@ -58,14 +58,14 @@ export function Login() {
             rules={[
               {
                 required: true,
-                message: t(translations.authPage.login.passwordError()),
+                message: t(translations.authPage.shared.passwordError()),
               },
             ]}
           >
             <Input.Password
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
-              placeholder={t(translations.authPage.login.password())}
+              placeholder={t(translations.authPage.shared.password())}
               size="large"
             />
           </Form.Item>
@@ -79,6 +79,7 @@ export function Login() {
             <Button
               type="primary"
               htmlType="submit"
+              size="large"
               loading={authState === 'fetchingInfo'}
             >
               {t(translations.authPage.login.signIn())}
@@ -89,6 +90,7 @@ export function Login() {
             {t(translations.authPage.login.help())}
           </p>
         </Form>
+        <Divider>{t(translations.authPage.shared.or())}</Divider>
         <div className="isoInputWrapper isoOtherLogin">
           <Button type="primary" className="btnFacebook">
             {t(translations.authPage.login.facebook())}

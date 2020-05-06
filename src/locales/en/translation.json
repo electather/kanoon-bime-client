@@ -35,6 +35,20 @@
       "submitBtn": "Restore Password",
       "help": "help message",
       "login": "have an account? Login here!"
+    },
+    "register": {
+      "pageTitle": "Create a new account",
+      "pageDescription": "some Page desc",
+      "firstName": "first name",
+      "firstNameError": "Please input your first name!",
+      "lastName": "last name",
+      "lastNameError": "Please input your last name!",
+      "email": "EMail",
+      "emailError": "Please input your EMail!",
+      "submitBtn": "Register",
+      "tos": "terms of service",
+      "help": "help message",
+      "login": "have an account? Login here!"
     }
   },
   "pages": {

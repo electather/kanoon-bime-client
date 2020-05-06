@@ -10,6 +10,7 @@ import { NotFoundPage } from 'app/components/NotFoundPage';
 import { PublicRoutes } from '../Routing/routes';
 import { LoginPage } from './Login/Loadable';
 import { ForgotPasswordPage } from './ForgotPass/Loadable';
+import { RegisterPage } from './Register/Loadable';
 
 export function AuthPage() {
   const { t } = useTranslation();
@@ -27,7 +28,7 @@ export function AuthPage() {
               <Route
                 exact
                 path={PublicRoutes.REGISTER}
-                component={NotFoundPage}
+                component={RegisterPage}
               />
               <Route
                 exact

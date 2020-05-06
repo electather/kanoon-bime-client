@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+const { login: strings } = translations.authPage;
+
 export function Login() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -21,11 +23,8 @@ export function Login() {
   return (
     <React.Fragment>
       <Helmet>
-        <title>{t(translations.authPage.login.pageTitle())}</title>
-        <meta
-          name="description"
-          content={t(translations.authPage.login.pageDescription())}
-        />
+        <title>{t(strings.pageTitle())}</title>
+        <meta name="description" content={t(strings.pageDescription())} />
       </Helmet>
 
       <div className="isoSignInForm">
@@ -72,9 +71,7 @@ export function Login() {
 
           <Form.Item className="isoLoginButton">
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>
-                {t(translations.authPage.login.rememberCheckBox())}
-              </Checkbox>
+              <Checkbox>{t(strings.rememberCheckBox())}</Checkbox>
             </Form.Item>
             <Button
               type="primary"
@@ -82,34 +79,30 @@ export function Login() {
               size="large"
               loading={authState === 'fetchingInfo'}
             >
-              {t(translations.authPage.login.signIn())}
+              {t(strings.signIn())}
             </Button>
           </Form.Item>
 
-          <p className="isoHelperText">
-            {t(translations.authPage.login.help())}
-          </p>
+          <p className="isoHelperText">{t(strings.help())}</p>
         </Form>
         <Divider>{t(translations.authPage.shared.or())}</Divider>
         <div className="isoInputWrapper isoOtherLogin">
           <Button type="primary" className="btnFacebook">
-            {t(translations.authPage.login.facebook())}
+            {t(strings.facebook())}
           </Button>
           <Button type="primary" className="btnGooglePlus">
-            {t(translations.authPage.login.google())}
+            {t(strings.google())}
           </Button>
 
           <Button type="primary" className="btnAuthZero">
-            {t(translations.authPage.login.auth0())}
+            {t(strings.auth0())}
           </Button>
         </div>
         <div className="isoCenterComponent isoHelperWrapper">
           <Link to={PublicRoutes.FORGOT_PASSWORD} className="isoForgotPass">
-            {t(translations.authPage.login.forgotPass())}
+            {t(strings.forgotPass())}
           </Link>
-          <Link to={PublicRoutes.REGISTER}>
-            {t(translations.authPage.login.createAcc())}
-          </Link>
+          <Link to={PublicRoutes.REGISTER}>{t(strings.createAcc())}</Link>
         </div>
       </div>
     </React.Fragment>

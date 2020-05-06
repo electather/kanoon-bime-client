@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+const { forgotPass: strings } = translations.authPage;
+
 export function ForgotPassword() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -21,11 +23,8 @@ export function ForgotPassword() {
   return (
     <React.Fragment>
       <Helmet>
-        <title>{t(translations.authPage.forgotPass.pageTitle())}</title>
-        <meta
-          name="description"
-          content={t(translations.authPage.forgotPass.pageDescription())}
-        />
+        <title>{t(strings.pageTitle())}</title>
+        <meta name="description" content={t(strings.pageDescription())} />
       </Helmet>
 
       <div className="isoSignInForm">
@@ -54,19 +53,15 @@ export function ForgotPassword() {
               loading={authState === 'fetchingInfo'}
               style={{ width: '100%' }}
             >
-              {t(translations.authPage.forgotPass.submitBtn())}
+              {t(strings.submitBtn())}
             </Button>
           </Form.Item>
 
-          <p className="isoHelperText">
-            {t(translations.authPage.forgotPass.help())}
-          </p>
+          <p className="isoHelperText">{t(strings.help())}</p>
         </Form>
         <Divider>{t(translations.authPage.shared.or())}</Divider>
         <div className="isoCenterComponent isoHelperWrapper">
-          <Link to={PublicRoutes.LOGIN}>
-            {t(translations.authPage.forgotPass.login())}
-          </Link>
+          <Link to={PublicRoutes.LOGIN}>{t(strings.login())}</Link>
         </div>
       </div>
     </React.Fragment>

@@ -1,18 +1,19 @@
 import React from 'react';
+import Lottie, { Options } from 'react-lottie';
 
 import { LoaderComponent } from './LoaderComponent';
+import * as loadingData from './media/loading.json';
+const defaultOptions: Options = {
+  loop: true,
+  autoplay: true,
+  animationData: loadingData,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice',
+  },
+};
 
 export const Loader = () => (
   <LoaderComponent>
-    <svg className="isoContentLoader" viewBox="0 0 50 50">
-      <circle
-        className="isoContentLoaderCircle"
-        cx="25"
-        cy="25"
-        r="20"
-        fill="none"
-        strokeWidth="3.6"
-      />
-    </svg>
+    <Lottie options={defaultOptions} height={120} width={120} />
   </LoaderComponent>
 );

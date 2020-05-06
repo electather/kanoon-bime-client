@@ -1,5 +1,4 @@
 import { Loader } from 'app/components/Loader';
-import { NotFoundPage } from 'app/components/NotFoundPage/Loadable';
 import React, { Suspense } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
@@ -19,7 +18,7 @@ export function DashboardRoutes() {
             <route.component />
           </Route>
         ))}
-        <Route component={NotFoundPage} />
+        <Route component={Loader} />
       </Switch>
     </Suspense>
   );

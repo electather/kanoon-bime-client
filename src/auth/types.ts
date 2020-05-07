@@ -1,3 +1,5 @@
+import { UserData } from 'userResponse';
+
 export type UserState =
   | 'loggedIn'
   | 'fetchingInfo'
@@ -7,11 +9,6 @@ export type UserState =
 export type LoginPayload = {
   username: string;
   password: string;
-};
-
-export type UserData = {
-  id: string;
-  name: string;
 };
 
 export enum ErrorType {

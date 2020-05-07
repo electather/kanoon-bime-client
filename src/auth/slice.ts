@@ -1,7 +1,8 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'types';
+import { UserData } from 'userResponse';
 
-import { AuthState, ErrorType, LoginPayload, UserData } from './types';
+import { AuthState, ErrorType, LoginPayload } from './types';
 import { clearToken, getToken } from './utils';
 
 export const initialState: AuthState = {

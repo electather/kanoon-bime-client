@@ -1,7 +1,12 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  EditOutlined,
+  LockOutlined,
+  MailOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { Button, Checkbox, Divider, Form, Input } from 'antd';
 import { PublicRoutes } from 'app/containers/Routing/routes';
-import { actions, selectAuthState } from 'auth/slice';
+import { actions, selectAuthLoading } from 'auth/slice';
 import { translations } from 'locales/i18n';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -9,12 +14,12 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const { login: strings } = translations.authPage;
+const { register: strings } = translations.authPage;
 
-export function Login() {
+export function Register() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const authState = useSelector(selectAuthState);
+  const authLoading = useSelector(selectAuthLoading);
 
   const onFinish = values => {
     dispatch(actions.login(values));
@@ -28,12 +33,39 @@ export function Login() {
       </Helmet>
 
       <div className="isoSignInForm">
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-        >
+        <Form name="normal_login" className="auth-form" onFinish={onFinish}>
+          <Form.Item
+            name="firstName"
+            className="isoInputWrapper"
+            rules={[
+              {
+                required: true,
+                message: t(strings.firstNameError()),
+              },
+            ]}
+          >
+            <Input
+              prefix={<EditOutlined className="site-form-item-icon" />}
+              placeholder={t(strings.firstName())}
+              size="large"
+            />
+          </Form.Item>
+          <Form.Item
+            name="lastName"
+            className="isoInputWrapper"
+            rules={[
+              {
+                required: true,
+                message: t(strings.lastNameError()),
+              },
+            ]}
+          >
+            <Input
+              prefix={<EditOutlined className="site-form-item-icon" />}
+              placeholder={t(strings.lastName())}
+              size="large"
+            />
+          </Form.Item>
           <Form.Item
             name="username"
             className="isoInputWrapper"
@@ -50,7 +82,22 @@ export function Login() {
               size="large"
             />
           </Form.Item>
-
+          <Form.Item
+            name="email"
+            className="isoInputWrapper"
+            rules={[
+              {
+                required: true,
+                message: t(strings.emailError()),
+              },
+            ]}
+          >
+            <Input
+              prefix={<MailOutlined className="site-form-item-icon" />}
+              placeholder={t(strings.email())}
+              size="large"
+            />
+          </Form.Item>
           <Form.Item
             name="password"
             className="isoInputWrapper"
@@ -63,7 +110,6 @@ export function Login() {
           >
             <Input.Password
               prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
               placeholder={t(translations.authPage.shared.password())}
               size="large"
             />
@@ -71,38 +117,23 @@ export function Login() {
 
           <Form.Item className="isoLoginButton">
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>{t(strings.rememberCheckBox())}</Checkbox>
+              <Checkbox>{t(strings.tos())}</Checkbox>
             </Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               size="large"
-              loading={authState === 'fetchingInfo'}
+              loading={authLoading}
             >
-              {t(strings.signIn())}
+              {t(strings.submitBtn())}
             </Button>
           </Form.Item>
 
           <p className="isoHelperText">{t(strings.help())}</p>
         </Form>
         <Divider>{t(translations.authPage.shared.or())}</Divider>
-        <div className="isoInputWrapper isoOtherLogin">
-          <Button type="primary" className="btnFacebook">
-            {t(strings.facebook())}
-          </Button>
-          <Button type="primary" className="btnGooglePlus">
-            {t(strings.google())}
-          </Button>
-
-          <Button type="primary" className="btnAuthZero">
-            {t(strings.auth0())}
-          </Button>
-        </div>
         <div className="isoCenterComponent isoHelperWrapper">
-          <Link to={PublicRoutes.FORGOT_PASSWORD} className="isoForgotPass">
-            {t(strings.forgotPass())}
-          </Link>
-          <Link to={PublicRoutes.REGISTER}>{t(strings.createAcc())}</Link>
+          <Link to={PublicRoutes.LOGIN}>{t(strings.login())}</Link>
         </div>
       </div>
     </React.Fragment>

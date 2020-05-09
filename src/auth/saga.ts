@@ -1,25 +1,22 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { UserData, UserResponse } from 'userResponse';
 import meData from 'utils/mock/auth/me.json';
 import { request } from 'utils/request';
 
 import { actions } from './slice';
 import { ErrorType, LoginPayload } from './types';
-import { getBearerToken, setToken } from './utils';
+import { clearToken, getBearerToken, setToken } from './utils';
 
 /**
  * Github repos request/response handler
  */
 export function* getUser() {
-  console.log('react app mock', process.env.REACT_APP_MOCK);
   if (process.env.REACT_APP_MOCK === true) {
     yield put(actions.authSuccess(meData));
     return;
   }
   try {
-    console.log('reached here');
-
     // Call our request helper (see 'utils/request')
     const options: RequestInit = {
       method: 'GET',
@@ -39,6 +36,7 @@ export function* getUser() {
         break;
       case 401:
         yield put(actions.authFailure(ErrorType.USER_NOT_AUTHORIZED));
+        clearToken();
         break;
       default:
         yield put(actions.authFailure(ErrorType.RESPONSE_ERROR));
@@ -48,14 +46,12 @@ export function* getUser() {
 
 export function* loginUser({ payload }: PayloadAction<LoginPayload>) {
   // const token = getToken();
-  if (process.env.REACT_APP_MOCK) {
+  if (process.env.REACT_APP_MOCK === true) {
     // yield put(actions.authSuccess({ id: '1', name: 'omid' }));
-    setToken('ss');
+    setToken('testToken');
     return;
   }
   try {
-    console.log('reached here', payload);
-
     const options: RequestInit = {
       method: 'POST',
       headers: {
@@ -81,6 +77,8 @@ export function* getUserSaga() {
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield takeLatest(actions.fetchUserData.type, getUser);
-  yield takeLatest(actions.login.type, loginUser);
+  yield all([
+    takeLatest(actions.fetchUserData.type, getUser),
+    takeLatest(actions.login.type, loginUser),
+  ]);
 }

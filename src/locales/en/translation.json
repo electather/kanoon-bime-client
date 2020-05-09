@@ -1,12 +1,21 @@
 {
   "global": {
     "siteName": "Dashboard Project",
-    "footerText": "Footer Text"
+    "footerText": "Footer Text",
+    "loading": "loading..."
   },
   "errorPages": {
     "404": {
       "title": "4😢4",
       "subTitle": "Page not found."
+    }
+  },
+  "errorMessages": {
+    "global": {},
+    "auth": {
+      "undefined": "check your network connection",
+      "notFound": "User not found",
+      "wrongUsernameOrPassword": "please check your username or password"
     }
   },
   "authPage": {
@@ -15,7 +24,8 @@
       "usernameError": "Please input your Username!",
       "password": "password",
       "passwordError": "Please input your Password!",
-      "or": "OR"
+      "or": "OR",
+      "loginSuccess": "login success"
     },
     "login": {
       "pageTitle": "Login",

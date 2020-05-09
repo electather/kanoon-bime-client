@@ -12,13 +12,14 @@ export type LoginPayload = {
 };
 
 export enum ErrorType {
-  RESPONSE_ERROR = 1,
-  USER_NOT_FOUND = 2,
-  USER_NOT_AUTHORIZED = 3,
+  RESPONSE_ERROR = 'undefined',
+  USER_NOT_FOUND = 'notFound',
+  USER_NOT_AUTHORIZED = 'wrongUsernameOrPassword',
 }
 
 export interface AuthState {
   readonly authState: UserState;
   readonly user?: UserData;
   readonly error?: ErrorType;
+  readonly loading: boolean;
 }

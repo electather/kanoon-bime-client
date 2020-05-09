@@ -19,3 +19,7 @@ export function getToken(): string | undefined {
     return undefined;
   }
 }
+
+export function getBearerToken(): string {
+  return `Bearer ${getToken()}`;
+}

@@ -1,42 +1,47 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { UserData, UserResponse } from 'userResponse';
-import * as meData from 'utils/mock/auth/me.json';
+import meData from 'utils/mock/auth/me.json';
 import { request } from 'utils/request';
 
 import { actions } from './slice';
 import { ErrorType, LoginPayload } from './types';
-import { setToken } from './utils';
+import { getBearerToken, setToken } from './utils';
+
 /**
  * Github repos request/response handler
  */
 export function* getUser() {
-  // const token = getToken();
-
-  console.log(process.env.REACT_APP_MOCK);
-  if (process.env.REACT_APP_MOCK) {
+  console.log('react app mock', process.env.REACT_APP_MOCK);
+  if (process.env.REACT_APP_MOCK === true) {
     yield put(actions.authSuccess(meData));
     return;
   }
   try {
+    console.log('reached here');
+
     // Call our request helper (see 'utils/request')
     const options: RequestInit = {
-      method: 'POST',
+      method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json;charset=UTF-8',
+        Authorization: getBearerToken(),
       },
-      body: JSON.stringify({
-        a: 10,
-        b: 20,
-      }),
     };
 
-    const response: UserData = yield call(request, 'auth/login', options);
+    const response: UserData = yield call(request, 'auth/me', options);
     yield put(actions.authSuccess(response));
   } catch (err) {
-    if (err.response?.status === 404) {
-      yield put(actions.authFailure(ErrorType.USER_NOT_FOUND));
+    switch (err.response?.status) {
+      case 404:
+        yield put(actions.authFailure(ErrorType.USER_NOT_FOUND));
+        break;
+      case 401:
+        yield put(actions.authFailure(ErrorType.USER_NOT_AUTHORIZED));
+        break;
+      default:
+        yield put(actions.authFailure(ErrorType.RESPONSE_ERROR));
     }
   }
 }
@@ -49,6 +54,8 @@ export function* loginUser({ payload }: PayloadAction<LoginPayload>) {
     return;
   }
   try {
+    console.log('reached here', payload);
+
     const options: RequestInit = {
       method: 'POST',
       headers: {

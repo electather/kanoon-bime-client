@@ -14,6 +14,7 @@ export type LoginPayload = {
 export enum ErrorType {
   RESPONSE_ERROR = 1,
   USER_NOT_FOUND = 2,
+  USER_NOT_AUTHORIZED = 3,
 }
 
 export interface AuthState {

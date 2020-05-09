@@ -5,12 +5,5 @@
   "firstName": "Omid",
   "lastName": "Astaraki",
   "role": "ADMIN",
-  "phone": "9123965337",
-  "info": {
-    "id": "2676583e-489d-4d09-a8d9-5f968d35f299",
-    "createdAt": "2020-04-28T06:15:24.352Z",
-    "updatedAt": "2020-04-28T06:15:24.352Z",
-    "melliCode": "0018124097",
-    "address": null
-  }
+  "phone": "9123965337"
 }

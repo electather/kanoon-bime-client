@@ -45,7 +45,7 @@ export function* getUser() {
 export function* loginUser({ payload }: PayloadAction<LoginPayload>) {
   // const token = getToken();
   if (process.env.REACT_APP_MOCK === true) {
-    // yield put(actions.authSuccess({ id: '1', name: 'omid' }));
+    yield put(actions.authSuccess(meData));
     setToken('testToken');
     return;
   }

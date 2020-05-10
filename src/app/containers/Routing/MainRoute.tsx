@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { selectAuthState } from '../../../auth/slice';
 import { PrivateRoutes, PublicRoutes } from './routes';
 
-export const MainRoute: React.FunctionComponent = props => {
+export const MainRoute: React.FunctionComponent = () => {
   const authState = useSelector(selectAuthState);
 
   switch (authState) {

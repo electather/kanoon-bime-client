@@ -35,7 +35,7 @@ export function Login() {
           onFinish={onFinish}
         >
           <Form.Item
-            name="username"
+            name="phone"
             className="isoInputWrapper"
             rules={[
               {

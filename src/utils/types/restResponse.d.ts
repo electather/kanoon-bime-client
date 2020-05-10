@@ -25,6 +25,6 @@ declare module 'userResponse' {
 
   export interface UserResponse {
     user: UserData;
-    token?: Token;
+    token: Token;
   }
 }

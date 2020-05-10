@@ -63,6 +63,7 @@ export function* loginUser({ payload }: PayloadAction<LoginPayload>) {
 
     const response: UserResponse = yield call(request, 'auth/login', options);
     yield put(actions.authSuccess(response.user));
+    setToken(response.token.accessToken);
   } catch (err) {
     if (err.response?.status === 404) {
       yield put(actions.authFailure(ErrorType.USER_NOT_FOUND));

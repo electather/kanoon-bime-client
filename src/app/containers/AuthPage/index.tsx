@@ -6,7 +6,6 @@ import { Link, Switch, Route } from 'react-router-dom';
 
 import { AuthContainer } from './components/AuthContainer';
 import { Loader } from 'app/components/Loader';
-import { NotFoundPage } from 'app/components/NotFoundPage';
 import { PublicRoutes } from '../Routing/routes';
 import { LoginPage } from './Login/Loadable';
 import { ForgotPasswordPage } from './ForgotPass/Loadable';

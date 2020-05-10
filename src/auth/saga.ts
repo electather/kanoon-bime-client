@@ -21,8 +21,6 @@ export function* getUser() {
     const options: RequestInit = {
       method: 'GET',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8',
         Authorization: getBearerToken(),
       },
     };
@@ -54,10 +52,6 @@ export function* loginUser({ payload }: PayloadAction<LoginPayload>) {
   try {
     const options: RequestInit = {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
       body: JSON.stringify(payload),
     };
 

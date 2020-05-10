@@ -1,3 +1,4 @@
+import { Loader } from 'app/components/Loader';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
@@ -28,7 +29,7 @@ export const PrivateRoute: React.FunctionComponent<{
       );
     }
     case 'fetchingInfo': {
-      return <p>loading...</p>;
+      return <Loader />;
     }
     case 'locked': {
       return <p>Locked State...</p>;

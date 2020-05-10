@@ -1,3 +1,4 @@
+import { Loader } from 'app/components/Loader';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -13,7 +14,7 @@ export const MainRoute: React.FunctionComponent = props => {
       return <Redirect to={PrivateRoutes.DASHBOARD} />;
     }
     case 'fetchingInfo': {
-      return <p>loading...</p>;
+      return <Loader />;
     }
     case 'locked': {
       return <p>Locked State...</p>;

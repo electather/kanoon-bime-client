@@ -6,8 +6,10 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
+import { translations } from 'locales/i18n';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { Route, Switch } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global-styles';
 
@@ -19,11 +21,12 @@ import { PrivateRoute } from './containers/Routing/Private';
 import { PrivateRoutes, PublicRoutes } from './containers/Routing/routes';
 import { UnAuthenticatedRoute } from './containers/Routing/UnAuthenticated';
 export function App() {
+  const { t } = useTranslation();
   return (
     <>
       <Helmet
-        titleTemplate="%s - Dashboard project"
-        defaultTitle="Dashboard project"
+        titleTemplate={`%s - ${t(translations.global.siteName())}`}
+        defaultTitle={t(translations.global.siteName())}
       >
         <meta name="description" content="A React Dashboard application" />
       </Helmet>

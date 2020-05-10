@@ -1,7 +1,8 @@
 {
   "global": {
     "siteName": "Dashboard Project",
-    "footerText": "Footer Text"
+    "footerText": "Footer Text",
+    "siteDesc": "desc"
   },
   "errorPages": {
     "404": {

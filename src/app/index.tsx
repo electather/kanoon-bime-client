@@ -28,7 +28,7 @@ export function App() {
         titleTemplate={`%s - ${t(translations.global.siteName())}`}
         defaultTitle={t(translations.global.siteName())}
       >
-        <meta name="description" content="A React Dashboard application" />
+        <meta name="description" content={t(translations.global.siteDesc())} />
       </Helmet>
       <Switch>
         <Route path="/" exact component={MainRoute} />

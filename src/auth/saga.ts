@@ -12,7 +12,7 @@ import { clearToken, getBearerToken, setToken } from './utils';
  * Github repos request/response handler
  */
 export function* getUser() {
-  if (process.env.REACT_APP_MOCK === true) {
+  if (process.env.REACT_APP_MOCK === 'true') {
     yield put(actions.authSuccess(meData));
     return;
   }
@@ -44,7 +44,7 @@ export function* getUser() {
 
 export function* loginUser({ payload }: PayloadAction<LoginPayload>) {
   // const token = getToken();
-  if (process.env.REACT_APP_MOCK === true) {
+  if (process.env.REACT_APP_MOCK === 'true') {
     yield put(actions.authSuccess(meData));
     setToken('testToken');
     return;

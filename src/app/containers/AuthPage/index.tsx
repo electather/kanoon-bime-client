@@ -7,9 +7,9 @@ import { Link, Switch, Route } from 'react-router-dom';
 import { AuthContainer } from './components/AuthContainer';
 import { Loader } from 'app/components/Loader';
 import { PublicRoutes } from '../Routing/routes';
-import { LoginPage } from './Login/Loadable';
-import { ForgotPasswordPage } from './ForgotPass/Loadable';
-import { RegisterPage } from './Register/Loadable';
+import { LoginPage } from './components/Login/Loadable';
+import { ForgotPasswordPage } from './components/ForgotPass/Loadable';
+import { RegisterPage } from './components/Register/Loadable';
 
 export function AuthPage() {
   const { t } = useTranslation();

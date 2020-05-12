@@ -3,6 +3,8 @@ import { NotFoundPage } from 'app/components/NotFoundPage/Loadable';
 import { translations } from 'locales/i18n';
 import { RouteKeyType } from 'types/data';
 
+import { HomePage } from '../HomePage/Loadable';
+
 export enum PublicRoutes {
   LOGIN = '/login',
   REGISTER = '/register',
@@ -18,7 +20,7 @@ export const privateRoutes: RouteKeyType[] = [
     key: '',
     label: translations.pages.homePage(),
     Icon: HomeFilled,
-    component: NotFoundPage,
+    component: HomePage,
   },
   {
     key: 'mail',

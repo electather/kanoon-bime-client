@@ -2,12 +2,18 @@ import styled from 'styled-components';
 
 export const DashboardContainer = styled.div`
   -webkit-overflow-scrolling: touch;
+  background: ${({ theme }) => theme.secondary[1]};
+
   .trigger {
     font-size: 18px;
     line-height: 64px;
     padding: 0 16px;
     cursor: pointer;
     transition: color 0.3s;
+  }
+
+  .isomorphicContent {
+    margin-top: 70px;
   }
 
   .trigger:hover {

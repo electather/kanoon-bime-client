@@ -49,7 +49,9 @@ export function TopBarUser() {
           alt="avatar"
           icon={<UserOutlined />}
         />
-        <span className="name">{loggedInUser?.name}</span>
+        <span className="name">
+          {loggedInUser?.firstName} {loggedInUser?.lastName}
+        </span>
       </HeaderDropdownWrapper>
     </Dropdown>
   );

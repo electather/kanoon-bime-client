@@ -48,7 +48,17 @@ export async function request(
   url: string,
   options?: RequestInit,
 ): Promise<{} | { err: ResponseError }> {
-  const fetchResponse = await fetch(url, options);
+  if (options) {
+    options.headers = {
+      ...options.headers,
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8',
+    };
+  }
+  const fetchResponse = await fetch(
+    process.env.REACT_APP_BASE_URL + url,
+    options,
+  );
   const response = checkStatus(fetchResponse);
   return parseJSON(response);
 }

@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Checkbox, Divider, Form, Input } from 'antd';
 import { PublicRoutes } from 'app/containers/Routing/routes';
-import { actions, selectAuthState } from 'auth/slice';
+import { actions, selectAuthLoading } from 'auth/slice';
 import { translations } from 'locales/i18n';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -19,7 +19,7 @@ const { register: strings } = translations.authPage;
 export function Register() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const authState = useSelector(selectAuthState);
+  const authLoading = useSelector(selectAuthLoading);
 
   const onFinish = values => {
     dispatch(actions.login(values));
@@ -123,7 +123,7 @@ export function Register() {
               type="primary"
               htmlType="submit"
               size="large"
-              loading={authState === 'fetchingInfo'}
+              loading={authLoading}
             >
               {t(strings.submitBtn())}
             </Button>

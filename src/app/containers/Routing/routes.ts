@@ -4,6 +4,7 @@ import { translations } from 'locales/i18n';
 import { RouteKeyType } from 'types/data';
 
 import { HomePage } from '../HomePage/Loadable';
+import { MailPage } from '../MailPage/Loadable';
 
 export enum PublicRoutes {
   LOGIN = '/login',
@@ -26,6 +27,6 @@ export const privateRoutes: RouteKeyType[] = [
     key: 'mail',
     label: translations.pages.mailPage(),
     Icon: MailFilled,
-    component: NotFoundPage,
+    component: MailPage,
   },
 ];

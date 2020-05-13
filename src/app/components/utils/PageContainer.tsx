@@ -20,7 +20,6 @@ const PageHeader = styled.h1`
   font-weight: 500;
   color: ${({ theme }) => theme.secondary[2]};
   width: 100%;
-  margin-right: 17px;
   margin-bottom: 30px;
   display: flex;
   align-items: center;
@@ -53,19 +52,19 @@ const PageHeader = styled.h1`
 `;
 
 const Wrapper = styled.div<{ hasTitle?: boolean }>`
+  padding: 40px 20px;
+  margin: 0 30px;
   .content {
-    padding: 40px 20px;
     display: flex;
     flex-flow: row wrap;
     overflow: hidden;
     ${({ hasTitle }) =>
       hasTitle &&
-      `
+      `padding: 20px;
       border-width: 1px;
     border-style: solid;
     border-color: rgb(233, 233, 233);
     background: #fff;
-      margin : 0 30px;
       ${borderRadius('5px')}`}
   }
   .ant-row {

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { borderRadius } from 'utils/styleUtils';
 
 type Props = {
   title?: string;
@@ -7,8 +8,9 @@ type Props = {
 };
 export const PageContainer: React.FC<Props> = ({ title, children }) => {
   return (
-    <Wrapper>
-      {title && <PageHeader>{title}</PageHeader>} {children}
+    <Wrapper hasTitle={!!title}>
+      {title && <PageHeader>{title}</PageHeader>}
+      <div className="content">{children}</div>
     </Wrapper>
   );
 };
@@ -50,11 +52,22 @@ const PageHeader = styled.h1`
   }
 `;
 
-const Wrapper = styled.div`
-  padding: 40px 20px;
-  display: flex;
-  flex-flow: row wrap;
-  overflow: hidden;
+const Wrapper = styled.div<{ hasTitle?: boolean }>`
+  .content {
+    padding: 40px 20px;
+    display: flex;
+    flex-flow: row wrap;
+    overflow: hidden;
+    ${({ hasTitle }) =>
+      hasTitle &&
+      `
+      border-width: 1px;
+    border-style: solid;
+    border-color: rgb(233, 233, 233);
+    background: #fff;
+      margin : 0 30px;
+      ${borderRadius('5px')}`}
+  }
   .ant-row {
     width: 100%;
     display: 'flex';

@@ -4,10 +4,10 @@ import { translations } from 'locales/i18n';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-export function Mail() {
+export function TPI() {
   const { t } = useTranslation();
   return (
-    <PageContainer title={t(translations.pages.mailPage())}>
+    <PageContainer title={t(translations.pages.thirdPartyInsurance())}>
       <Row gutter={[16, 16]}></Row>
     </PageContainer>
   );

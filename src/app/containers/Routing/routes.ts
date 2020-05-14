@@ -1,10 +1,9 @@
 import { HomeFilled, MailFilled } from '@ant-design/icons';
-import { NotFoundPage } from 'app/components/NotFoundPage/Loadable';
 import { translations } from 'locales/i18n';
 import { RouteKeyType } from 'types/data';
 
 import { HomePage } from '../HomePage/Loadable';
-import { MailPage } from '../MailPage/Loadable';
+import { TPIPage } from '../TPIPage/Loadable';
 
 export enum PublicRoutes {
   LOGIN = '/login',
@@ -24,9 +23,9 @@ export const privateRoutes: RouteKeyType[] = [
     component: HomePage,
   },
   {
-    key: 'mail',
-    label: translations.pages.mailPage(),
+    key: 'tpi',
+    label: translations.pages.thirdPartyInsurance(),
     Icon: MailFilled,
-    component: MailPage,
+    component: TPIPage,
   },
 ];

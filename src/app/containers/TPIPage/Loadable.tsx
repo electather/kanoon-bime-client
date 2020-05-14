@@ -4,7 +4,7 @@
 
 import { lazyLoad } from 'utils/loadable';
 
-export const MailPage = lazyLoad(
+export const TPIPage = lazyLoad(
   () => import('./index'),
-  module => module.Mail,
+  module => module.TPI,
 );

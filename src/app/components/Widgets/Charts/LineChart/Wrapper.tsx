@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { borderRadius, boxShadow } from 'utils/styleUtils';
+import { borderRadius } from 'utils/styleUtils';
 
 type Props = {
   width?: number;
@@ -7,7 +7,6 @@ type Props = {
   hasTitle?: boolean;
 };
 export const ChartsWrapper = styled.div<Props>`
-  margin: 0 10px;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   padding: ${props =>
@@ -15,7 +14,6 @@ export const ChartsWrapper = styled.div<Props>`
   background-color: #fff;
   direction: ltr;
   ${borderRadius('5px')}
-  ${boxShadow(`5px 5px 7px #d9d9d9`)}
   @media only screen and (max-width: 767) {
     margin-right: 0 !important;
   }

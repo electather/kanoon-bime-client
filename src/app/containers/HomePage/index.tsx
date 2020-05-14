@@ -1,9 +1,10 @@
 import { StarFilled } from '@ant-design/icons';
 import { Col, Row } from 'antd';
 import { PageContainer } from 'app/components/utils/PageContainer';
+import { LineChartWidget } from 'app/components/Widgets/Charts/LineChart';
 import { Sticker } from 'app/components/Widgets/Sticker';
 import React from 'react';
-
+import chartData from 'utils/mock/chartData.json';
 export function Home() {
   return (
     <PageContainer>
@@ -34,6 +35,18 @@ export function Home() {
             value={3}
             icon={<StarFilled />}
           />
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={12}>
+          <LineChartWidget
+            height={500}
+            data={chartData.homepage}
+            title="چارت شماره 1"
+          />
+        </Col>{' '}
+        <Col lg={12}>
+          <LineChartWidget height={500} data={chartData.homepage} />
         </Col>
       </Row>
     </PageContainer>

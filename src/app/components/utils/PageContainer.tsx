@@ -55,8 +55,6 @@ const Wrapper = styled.div<{ hasTitle?: boolean }>`
   padding: 40px 20px;
   margin: 0 30px;
   .content {
-    display: flex;
-    flex-flow: row wrap;
     overflow: hidden;
     ${({ hasTitle }) =>
       hasTitle &&

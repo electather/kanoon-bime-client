@@ -3,7 +3,8 @@
     "siteName": "Dashboard Project",
     "footerText": "Footer Text",
     "siteDesc": "desc",
-    "loading": "loading..."
+    "loading": "loading...",
+    "rials": "rials"
   },
   "errorPages": {
     "404": {
@@ -63,8 +64,82 @@
     }
   },
   "pages": {
-    "homePage": "Home page",
-    "thirdPartyInsurance": "Third Party insurance"
+    "homePage": {
+      "title": "Dashboard"
+    },
+    "thirdPartyInsurance": {
+      "title": "Third Party insurance",
+      "overViewTab": {
+        "title": "OverView",
+        "submittedInsurances": "Submitted Insurances",
+        "iranInsuranceCases": "Iran insurance",
+        "kosarInsuranceCases": "Kosar insurance",
+        "revenue": "Revenue in the past 30 days",
+        "iranInsuranceRevenue": "Iran insurance",
+        "kosarInsuranceRevenue": "Kosar insurance"
+      },
+      "dataTab": {
+        "title": "submitted insurances",
+        "table": {
+          "headers": {
+            "bimeNumber": "bime number",
+            "Insurer": "Insurer",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "price": "price",
+            "actions": "actions"
+          },
+          "general": {
+            "found": "{items, plural, =0 {nothing found, please check search criteria} =1 {found ONE Item} other {found # items in total.}}"
+          }
+        }
+      },
+      "newTab": {
+        "title": "new insurance",
+        "form": {
+          "bimeNumber": {
+            "label": "Bime Number",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "startDate": {
+            "label": "Insurance start Date",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "endDate": {
+            "label": "Insurance start Date",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "isCash": {
+            "label": "payment method",
+            "options": {
+              "cash": "Cash",
+              "Installments": "Installments"
+            },
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "fullAmount": {
+            "label": "full price",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "insurerId": {
+            "label": "Insurer",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "vehicleId": {
+            "label": "Vehicle",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "submit": "Submit insurance"
+        }
+      }
+    }
   },
   "topBar": {
     "userDropDown": {

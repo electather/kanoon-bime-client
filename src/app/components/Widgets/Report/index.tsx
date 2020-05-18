@@ -1,13 +1,15 @@
+import { Typography } from 'antd';
+import {
+  ProgressBar,
+  ProgressBarProps,
+} from 'app/components/uiElements/Progress/SingleProgressBar';
 import React from 'react';
 
 import { ReportWidgetWrapper as Wrapper } from './Wrapper';
 
 type Props = {
   label: string;
-  data: {
-    label: string;
-    value: number;
-  }[];
+  data: ProgressBarProps[];
   details: string;
 };
 
@@ -15,14 +17,13 @@ export const ReportWidget: React.FC<Props> = React.memo(
   ({ label, data, details }) => {
     return (
       <Wrapper>
-        <h3 className="isoWidgetLabel">{label}</h3>
+        <Typography.Title level={3} className="isoWidgetLabel">
+          {label}
+        </Typography.Title>
 
         <div className="isoReportsWidgetBar">
           {data.map((val, index) => (
-            <p>
-              {val}
-              {index}
-            </p>
+            <ProgressBar {...val} key={index} />
           ))}
         </div>
 

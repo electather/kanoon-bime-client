@@ -18,13 +18,13 @@ export enum PrivateRoutes {
 export const privateRoutes: RouteKeyType[] = [
   {
     key: '',
-    label: translations.pages.homePage(),
+    label: translations.pages.homePage.title(),
     Icon: HomeFilled,
     component: HomePage,
   },
   {
     key: 'tpi',
-    label: translations.pages.thirdPartyInsurance(),
+    label: translations.pages.thirdPartyInsurance.title(),
     Icon: MailFilled,
     component: TPIPage,
   },

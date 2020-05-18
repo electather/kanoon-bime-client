@@ -1,5 +1,8 @@
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import ICU from 'i18next-icu';
+import enData from 'i18next-icu/locale-data/en';
+import faData from 'i18next-icu/locale-data/fa';
 import { initReactI18next } from 'react-i18next';
 
 import en from './en/translation.json';
@@ -37,6 +40,12 @@ const convertToFunctions = (obj: any, dict: {}, current?: string) => {
 };
 
 export const i18n = i18next
+
+  .use(
+    new ICU({
+      localeData: [faData, enData], // you also can pass in array of localeData
+    }),
+  )
   // pass the i18n instance to react-i18next.
   .use(initReactI18next)
   // detect user language

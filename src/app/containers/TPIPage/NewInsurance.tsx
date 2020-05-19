@@ -1,7 +1,16 @@
-import { CheckCircleOutlined } from '@ant-design/icons';
-import { Button, DatePicker, Form, Input, InputNumber, Select } from 'antd';
+import { CheckCircleOutlined, InboxOutlined } from '@ant-design/icons';
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  Upload,
+} from 'antd';
+import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
 import { translations } from 'locales/i18n';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const formItemLayout = {
@@ -14,12 +23,41 @@ const formItemLayout = {
     sm: { span: 20 },
   },
 };
+const normFile = e => {
+  console.log('Upload event:', e);
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e && e.fileList;
+};
 
 export function NewInsuranceRequest() {
   const { t } = useTranslation();
+  const [fileList, setFileList] = useState<UploadFile<any>[]>([]);
+
   const onFinish = values => {
     console.log('Received values of form: ', values);
   };
+
+  const handleUploadChange = (info: UploadChangeParam<UploadFile<any>>) => {
+    let fileList = [...info.fileList];
+
+    // 1. Limit the number of uploaded files
+    // Only to show two recent uploaded files, and old ones will be replaced by the new
+    fileList = fileList.slice(-1);
+
+    // 2. Read from response and show file link
+    fileList = fileList.map(file => {
+      if (file.response) {
+        // Component will show file.url as link
+        file.url = file.response.url;
+      }
+      return file;
+    });
+
+    setFileList(fileList);
+  };
+
   const {
     form: FormTranslations,
   } = translations.pages.thirdPartyInsurance.newTab;
@@ -30,6 +68,19 @@ export function NewInsuranceRequest() {
       onFinish={onFinish}
       scrollToFirstError
     >
+      <Form.Item
+        name="issuer"
+        label={t(FormTranslations.issuer.label())}
+        rules={[
+          {
+            required: true,
+            message: t(FormTranslations.issuer.emptyError()),
+          },
+        ]}
+      >
+        <Select></Select>
+      </Form.Item>
+
       <Form.Item
         name="bimeNumber"
         label={t(FormTranslations.bimeNumber.label())}
@@ -120,6 +171,37 @@ export function NewInsuranceRequest() {
         ]}
       >
         <Select></Select>
+      </Form.Item>
+      <Form.Item label={t(FormTranslations.attachment.label())}>
+        <Form.Item
+          name="attachment"
+          valuePropName="attachment"
+          getValueFromEvent={normFile}
+          noStyle
+          rules={[
+            {
+              required: true,
+              message: t(FormTranslations.attachment.emptyError()),
+            },
+          ]}
+        >
+          <Upload.Dragger
+            fileList={fileList}
+            name="attachment"
+            action="/upload.do"
+            onChange={handleUploadChange}
+          >
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">
+              {t(FormTranslations.attachment.guide())}
+            </p>
+            <p className="ant-upload-hint">
+              {t(FormTranslations.attachment.help())}
+            </p>
+          </Upload.Dragger>
+        </Form.Item>
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 4 }}>
         <Button type="primary" htmlType="submit" icon={<CheckCircleOutlined />}>

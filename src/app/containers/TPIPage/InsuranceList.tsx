@@ -61,7 +61,7 @@ export function InsuranceList() {
             <Button
               type="primary"
               onClick={() => confirm()}
-              icon="search"
+              icon={<SearchOutlined />}
               size="small"
               style={{ width: 90, marginLeft: 8 }}
             >
@@ -75,10 +75,7 @@ export function InsuranceList() {
       </div>
     ),
     filterIcon: (filtered: boolean) => (
-      <SearchOutlined
-        type="search"
-        style={{ color: filtered ? '#1890ff' : undefined }}
-      />
+      <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
     ),
     onFilterDropdownVisibleChange: (visible: boolean) => {
       if (visible && options?.length === 0) {

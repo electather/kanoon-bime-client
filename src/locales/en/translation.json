@@ -102,6 +102,10 @@
             "emptyError": "The input is not valid Bime Number!",
             "invalidError": "The input is not valid Bime Number!"
           },
+          "issuer": {
+            "label": "Bime Issuer",
+            "emptyError": "please select the insurance issuer!"
+          },
           "startDate": {
             "label": "Insurance start Date",
             "emptyError": "The input is not valid Bime Number!",
@@ -135,6 +139,12 @@
             "label": "Vehicle",
             "emptyError": "The input is not valid Bime Number!",
             "invalidError": "The input is not valid Bime Number!"
+          },
+          "attachment": {
+            "label": "attachment",
+            "guide": "Click or drag file to this area to upload",
+            "help": "Support for a single or bulk upload",
+            "emptyError": "please upload required files"
           },
           "submit": "Submit insurance"
         }

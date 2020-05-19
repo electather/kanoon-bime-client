@@ -6,14 +6,13 @@ import meData from 'utils/mock/auth/me.json';
 import { request } from 'utils/request';
 
 import { actions } from './slice';
-import { ErrorType, LoginPayload } from './types';
+import { ErrorType } from './types';
 
 /**
  * Github repos request/response handler
  */
 export function* getUser() {
   if (process.env.REACT_APP_MOCK === 'true') {
-    yield put(actions.authSuccess(meData));
     return;
   }
   try {

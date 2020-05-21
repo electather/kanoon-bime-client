@@ -10,25 +10,26 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useInjectReducer } from 'redux-injectors';
 
-import { InsuranceList } from './InsuranceList';
-import { NewInsuranceRequest } from './NewInsurance';
+import { InsuranceList } from './List';
+import { NewInsuranceRequest } from './New';
 // import { tpiSaga } from './redux/saga';
 import { reducer, sliceKey } from './redux/slice';
 import { StatisticsTab } from './StatisticsTab';
 
-export function TPI() {
+export function Users() {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   // useInjectSaga({ key: sliceKey, saga: tpiSaga });
 
+  const { users: usersTranslations } = translations.pages;
   const { t } = useTranslation();
   return (
-    <PageContainer title={t(translations.pages.thirdPartyInsurance.title())}>
+    <PageContainer title={t(usersTranslations.title())}>
       <Tabs defaultActiveKey="statistics">
         <Tabs.TabPane
           tab={
             <span>
               <BarChartOutlined />
-              {t(translations.pages.thirdPartyInsurance.overViewTab.title())}
+              {t(usersTranslations.overViewTab.title())}
             </span>
           }
           key="statistics"
@@ -39,7 +40,7 @@ export function TPI() {
           tab={
             <span>
               <ContainerOutlined />
-              {t(translations.pages.thirdPartyInsurance.dataTab.title())}
+              {t(usersTranslations.dataTab.title())}
             </span>
           }
           key="data"
@@ -50,7 +51,7 @@ export function TPI() {
           tab={
             <span>
               <FormOutlined />
-              {t(translations.pages.thirdPartyInsurance.newTab.title())}
+              {t(usersTranslations.newTab.title())}
             </span>
           }
           key="new"

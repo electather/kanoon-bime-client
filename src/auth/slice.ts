@@ -1,9 +1,9 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'types';
 import { UserData } from 'userResponse';
+import { clearToken, getToken } from 'utils';
 
 import { AuthState, ErrorType, LoginPayload } from './types';
-import { clearToken, getToken } from './utils';
 
 export const initialState: AuthState = {
   authState: getToken() ? 'fetchingInfo' : 'unAuthenticated',

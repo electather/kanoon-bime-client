@@ -149,6 +149,130 @@
           "submit": "Submit insurance"
         }
       }
+    },
+    "vehicle": {
+      "title": "Vehicles",
+      "overViewTab": {
+        "title": "OverView",
+        "submittedVehicles": "Submitted vehicles",
+        "revenue": "submitted vehicles in the past 30 days"
+      },
+      "dataTab": {
+        "title": "submitted vehicles",
+        "table": {
+          "headers": {
+            "insurer": "insurer",
+            "owner": "owner",
+            "engineNumber": "engine number",
+            "chassisNumber": "chassis number",
+            "plateNumber": "plate number",
+            "actions": "actions"
+          },
+          "general": {
+            "found": "{items, plural, =0 {nothing found, please check search criteria} =1 {found ONE Item} other {found # items in total.}}"
+          }
+        }
+      },
+      "newTab": {
+        "title": "new insurance",
+        "form": {
+          "insurer": {
+            "label": "Vehicle Insurer",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "owner": {
+            "label": "Owner",
+            "phName": "Name",
+            "phLName": "Last name",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "address": {
+            "label": "full address",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "engineNumber": {
+            "label": "engine Number",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "chassisNumber": {
+            "label": "chassis Number",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "plateNumber": {
+            "label": "plate Number",
+            "firstTwo": "11",
+            "letter": "الف",
+            "lastThree": "111",
+            "irNum": "11",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "attachment": {
+            "label": "attachment",
+            "guide": "Click or drag file to this area to upload",
+            "help": "Support for a single or bulk upload",
+            "emptyError": "please upload required files"
+          },
+          "submit": "Submit vehicle"
+        }
+      }
+    },
+    "users": {
+      "title": "Users",
+      "overViewTab": {
+        "title": "OverView",
+        "total": "registered users",
+        "past30Days": "registered users in the past 30 days"
+      },
+      "dataTab": {
+        "title": "Registered Users",
+        "table": {
+          "headers": {
+            "avatar": "avatar",
+            "fullName": "insurer",
+            "role": "owner",
+            "melliCode": "engine number",
+            "actions": "actions"
+          },
+          "general": {
+            "found": "{items, plural, =0 {nothing found, please check search criteria} =1 {found ONE Item} other {found # users in total.}}"
+          }
+        }
+      },
+      "newTab": {
+        "title": "New User",
+        "form": {
+          "fullName": {
+            "label": "full name",
+            "fName": "first name",
+            "lName": "Last name",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "melliCode": {
+            "label": "Melli Code",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "phone": {
+            "label": "phone number",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "attachment": {
+            "label": "avatar",
+            "guide": "Click or drag file to this area to upload",
+            "help": "Support for a single or bulk upload",
+            "emptyError": "please upload required files"
+          },
+          "submit": "register user"
+        }
+      }
     }
   },
   "topBar": {

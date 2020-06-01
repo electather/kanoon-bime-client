@@ -1,9 +1,15 @@
-import { CarFilled, HomeFilled, MailFilled } from '@ant-design/icons';
+import {
+  CarFilled,
+  HomeFilled,
+  IdcardFilled,
+  MailFilled,
+} from '@ant-design/icons';
 import { translations } from 'locales/i18n';
 import { RouteKeyType } from 'types/data';
 
 import { HomePage } from '../HomePage/Loadable';
 import { TPIPage } from '../TPIPage/Loadable';
+import { UsersPage } from '../Users/Loadable';
 import { VehiclePage } from '../VehiclePage/Loadable';
 
 export enum PublicRoutes {
@@ -34,5 +40,11 @@ export const privateRoutes: RouteKeyType[] = [
     label: translations.pages.vehicle.title(),
     Icon: CarFilled,
     component: VehiclePage,
+  },
+  {
+    key: 'users',
+    label: translations.pages.users.title(),
+    Icon: IdcardFilled,
+    component: UsersPage,
   },
 ];

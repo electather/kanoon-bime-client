@@ -1,4 +1,5 @@
 import { TPIState } from 'app/containers/TPIPage/redux/types';
+import { UsersState } from 'app/containers/Users/redux/types';
 import { AuthState } from 'auth/types';
 import { RouterState } from 'connected-react-router';
 import { SettingsState } from 'settings/types';
@@ -15,5 +16,6 @@ export interface RootState {
   auth?: AuthState;
   theme?: ThemeState;
   tpi?: TPIState;
+  users?: UsersState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

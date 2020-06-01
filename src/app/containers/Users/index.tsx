@@ -8,17 +8,17 @@ import { PageContainer } from 'app/components/utils/PageContainer';
 import { translations } from 'locales/i18n';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useInjectReducer } from 'redux-injectors';
+import { useInjectReducer, useInjectSaga } from 'redux-injectors';
 
-import { InsuranceList } from './List';
+import { List } from './List';
 import { NewInsuranceRequest } from './New';
-// import { tpiSaga } from './redux/saga';
+import { usersSaga } from './redux/saga';
 import { reducer, sliceKey } from './redux/slice';
 import { StatisticsTab } from './StatisticsTab';
 
 export function Users() {
   useInjectReducer({ key: sliceKey, reducer: reducer });
-  // useInjectSaga({ key: sliceKey, saga: tpiSaga });
+  useInjectSaga({ key: sliceKey, saga: usersSaga });
 
   const { users: usersTranslations } = translations.pages;
   const { t } = useTranslation();
@@ -45,7 +45,7 @@ export function Users() {
           }
           key="data"
         >
-          <InsuranceList />
+          <List />
         </Tabs.TabPane>
         <Tabs.TabPane
           tab={

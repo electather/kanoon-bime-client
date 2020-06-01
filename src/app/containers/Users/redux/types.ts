@@ -1,9 +1,4 @@
-export type TPIListSchema = { id: string }[];
-
-export type NewTPISchema = {
-  username: string;
-  password: string;
-};
+import { ErrorResponse, PageMeta, UserData } from 'userResponse';
 
 export type PaginationData = {
   username: string;
@@ -11,20 +6,16 @@ export type PaginationData = {
 };
 
 export type QuerySchema = {
-  username: string;
-  password: string;
+  melliCode?: string;
+  page: number;
+  take?: number;
 };
 
-export enum ErrorType {
-  RESPONSE_ERROR = 'undefined',
-  USER_NOT_FOUND = 'notFound',
-  USER_NOT_AUTHORIZED = 'wrongUsernameOrPassword',
-}
-
-export interface TPIState {
-  readonly list?: TPIListSchema;
-  readonly paginationData?: PaginationData;
+export interface UsersState {
+  readonly list?: UserData[];
+  readonly selectedUser?: UserData;
+  readonly paginationData?: PageMeta;
   readonly filterData?: QuerySchema;
-  readonly error?: ErrorType;
+  readonly error?: ErrorResponse;
   readonly loading: boolean;
 }

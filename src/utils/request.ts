@@ -1,3 +1,5 @@
+import { stringify } from 'query-string';
+
 export class ResponseError extends Error {
   public response: Response;
 
@@ -47,6 +49,9 @@ function checkStatus(response: Response) {
 export async function request(
   url: string,
   options?: RequestInit,
+  params?: {
+    [key: string]: any;
+  },
 ): Promise<{} | { err: ResponseError }> {
   if (options) {
     options.headers = {
@@ -55,10 +60,14 @@ export async function request(
       'Content-Type': 'application/json;charset=UTF-8',
     };
   }
-  const fetchResponse = await fetch(
-    process.env.REACT_APP_BASE_URL + url,
-    options,
-  );
+
+  let address = process.env.REACT_APP_BASE_URL + url;
+
+  if (params) {
+    address += '?' + stringify(params);
+  }
+
+  const fetchResponse = await fetch(address, options);
   const response = checkStatus(fetchResponse);
   return parseJSON(response);
 }

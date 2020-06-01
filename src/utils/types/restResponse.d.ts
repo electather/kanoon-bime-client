@@ -18,6 +18,11 @@ declare module 'userResponse' {
     info?: Info;
   }
 
+  export interface UsersPage {
+    readonly data: UserData[];
+    readonly meta: PageMeta;
+  }
+
   export interface Token {
     expiresIn: number;
     accessToken: string;
@@ -26,5 +31,17 @@ declare module 'userResponse' {
   export interface UserResponse {
     user: UserData;
     token: Token;
+  }
+
+  export interface PageMeta {
+    readonly page: number;
+    readonly take: number;
+    readonly itemCount: number;
+    readonly pageCount: number;
+  }
+
+  export interface ErrorResponse {
+    readonly statusCode: number;
+    readonly message: string;
   }
 }

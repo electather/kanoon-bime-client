@@ -23,5 +23,8 @@
   },
   "jest.autoEnable": false,
   "jest.runAllTestsFirst": false,
-  "cSpell.words": ["antd"]
+  "cSpell.words": [
+    "antd",
+    "melli"
+  ]
 }

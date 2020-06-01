@@ -1,9 +1,13 @@
 import { CheckCircleOutlined, InboxOutlined } from '@ant-design/icons';
-import { Button, Form, Input, InputNumber, Select, Upload } from 'antd';
-import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
+import { Button, Form, Input, Upload } from 'antd';
 import { translations } from 'locales/i18n';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBearerToken } from 'utils';
+
+import { selectFormData } from './redux/slice';
+import { actions } from './redux/slice';
 
 const formItemLayout = {
   labelCol: {
@@ -16,7 +20,6 @@ const formItemLayout = {
   },
 };
 const normFile = e => {
-  console.log('Upload event:', e);
   if (Array.isArray(e)) {
     return e;
   }
@@ -25,29 +28,31 @@ const normFile = e => {
 
 export function NewInsuranceRequest() {
   const { t } = useTranslation();
-  const [fileList, setFileList] = useState<UploadFile<any>[]>([]);
+  const dispatch = useDispatch();
+  const { loading } = useSelector(selectFormData);
 
   const onFinish = values => {
     console.log('Received values of form: ', values);
-  };
+    const {
+      avatar,
+      melliCardScanBack,
+      melliCardScanFront,
+      payrollScan,
+      ...rest
+    } = values;
 
-  const handleUploadChange = (info: UploadChangeParam<UploadFile<any>>) => {
-    let fileList = [...info.fileList];
+    const payload = {
+      ...rest,
+      avatarId: avatar[avatar.length - 1].response.id,
+      melliCardScanFrontId:
+        melliCardScanFront[melliCardScanFront.length - 1].response.id,
+      melliCardScanBackId:
+        melliCardScanBack[melliCardScanBack.length - 1].response.id,
+      payrollScanId: payrollScan[payrollScan.length - 1].response.id,
+    };
 
-    // 1. Limit the number of uploaded files
-    // Only to show two recent uploaded files, and old ones will be replaced by the new
-    fileList = fileList.slice(-1);
-
-    // 2. Read from response and show file link
-    fileList = fileList.map(file => {
-      if (file.response) {
-        // Component will show file.url as link
-        file.url = file.response.url;
-      }
-      return file;
-    });
-
-    setFileList(fileList);
+    console.log('payload: ', payload);
+    dispatch(actions.create(payload));
   };
 
   const { form: UsersTranslations } = translations.pages.users.newTab;
@@ -114,11 +119,114 @@ export function NewInsuranceRequest() {
           },
         ]}
       >
-        <Input addonBefore="+98" />
+        <Input addonAfter="+98" />
+      </Form.Item>
+      <Form.Item
+        name="address"
+        label={t(UsersTranslations.address.label())}
+        rules={[
+          {
+            required: true,
+            message: t(UsersTranslations.address.emptyError()),
+          },
+        ]}
+      >
+        <Input.TextArea />
+      </Form.Item>
+
+      <Form.Item label={t(UsersTranslations.melliCardScanFront.label())}>
+        <Form.Item
+          name="melliCardScanFront"
+          valuePropName="melliCardScanFront"
+          getValueFromEvent={normFile}
+          noStyle
+          rules={[
+            {
+              required: true,
+              message: t(UsersTranslations.melliCardScanFront.emptyError()),
+            },
+          ]}
+        >
+          <Upload.Dragger
+            name="file"
+            headers={{ Authorization: getBearerToken() }}
+            action={process.env.REACT_APP_BASE_URL + 'file'}
+          >
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">
+              {t(UsersTranslations.melliCardScanFront.guide())}
+            </p>
+            <p className="ant-upload-hint">
+              {t(UsersTranslations.melliCardScanFront.help())}
+            </p>
+          </Upload.Dragger>
+        </Form.Item>
+      </Form.Item>
+      <Form.Item label={t(UsersTranslations.melliCardScanBack.label())}>
+        <Form.Item
+          name="melliCardScanBack"
+          valuePropName="melliCardScanBack"
+          getValueFromEvent={normFile}
+          noStyle
+          rules={[
+            {
+              required: true,
+              message: t(UsersTranslations.melliCardScanBack.emptyError()),
+            },
+          ]}
+        >
+          <Upload.Dragger
+            name="file"
+            headers={{ Authorization: getBearerToken() }}
+            action={process.env.REACT_APP_BASE_URL + 'file'}
+          >
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">
+              {t(UsersTranslations.melliCardScanBack.guide())}
+            </p>
+            <p className="ant-upload-hint">
+              {t(UsersTranslations.melliCardScanBack.help())}
+            </p>
+          </Upload.Dragger>
+        </Form.Item>
+      </Form.Item>
+      <Form.Item label={t(UsersTranslations.payrollScan.label())}>
+        <Form.Item
+          name="payrollScan"
+          valuePropName="attachment"
+          getValueFromEvent={normFile}
+          noStyle
+          rules={[
+            {
+              required: true,
+              message: t(UsersTranslations.payrollScan.emptyError()),
+            },
+          ]}
+        >
+          <Upload.Dragger
+            name="file"
+            headers={{ Authorization: getBearerToken() }}
+            action={process.env.REACT_APP_BASE_URL + 'file'}
+          >
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">
+              {t(UsersTranslations.payrollScan.guide())}
+            </p>
+            <p className="ant-upload-hint">
+              {t(UsersTranslations.payrollScan.help())}
+            </p>
+          </Upload.Dragger>
+        </Form.Item>
       </Form.Item>
       <Form.Item label={t(UsersTranslations.attachment.label())}>
         <Form.Item
-          name="attachment"
+          name="avatar"
           valuePropName="attachment"
           getValueFromEvent={normFile}
           noStyle
@@ -130,10 +238,9 @@ export function NewInsuranceRequest() {
           ]}
         >
           <Upload.Dragger
-            fileList={fileList}
-            name="attachment"
-            action="/upload.do"
-            onChange={handleUploadChange}
+            name="file"
+            headers={{ Authorization: getBearerToken() }}
+            action={process.env.REACT_APP_BASE_URL + 'file'}
           >
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
@@ -148,7 +255,12 @@ export function NewInsuranceRequest() {
         </Form.Item>
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 4 }}>
-        <Button type="primary" htmlType="submit" icon={<CheckCircleOutlined />}>
+        <Button
+          type="primary"
+          htmlType="submit"
+          icon={<CheckCircleOutlined />}
+          loading={loading}
+        >
           {t(UsersTranslations.submit())}
         </Button>
       </Form.Item>

@@ -12,6 +12,7 @@ import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
 import { translations } from 'locales/i18n';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getBearerToken } from 'utils';
 
 const formItemLayout = {
   labelCol: {
@@ -187,8 +188,9 @@ export function NewInsuranceRequest() {
         >
           <Upload.Dragger
             fileList={fileList}
-            name="attachment"
-            action="/upload.do"
+            name="file"
+            headers={{ Authorization: getBearerToken() }}
+            action={process.env.REACT_APP_BASE_URL + 'file'}
             onChange={handleUploadChange}
           >
             <p className="ant-upload-drag-icon">

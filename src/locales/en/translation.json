@@ -234,13 +234,28 @@
         "table": {
           "headers": {
             "avatar": "avatar",
-            "fullName": "insurer",
-            "role": "owner",
-            "melliCode": "engine number",
+            "fullName": "full name",
+            "role": "role",
+            "melliCode": "Melli code",
             "actions": "actions"
           },
           "general": {
             "found": "{items, plural, =0 {nothing found, please check search criteria} =1 {found ONE Item} other {found # users in total.}}"
+          }
+        },
+        "findOne": {
+          "title": "user details",
+          "elements": {
+            "firstName": "first name",
+            "lastName": "last name",
+            "role": "role",
+            "phone": "phone number",
+            "avatar": "avatar",
+            "melliCode": "Melli code",
+            "address": "address",
+            "melliCardScanFront": "melli card scan front",
+            "melliCardScanBack": "melli card scan back",
+            "payrollScan": "payroll scan"
           }
         }
       },
@@ -263,6 +278,29 @@
             "label": "phone number",
             "emptyError": "The input is not valid Bime Number!",
             "invalidError": "The input is not valid Bime Number!"
+          },
+          "address": {
+            "label": "address",
+            "emptyError": "The input is not valid address!",
+            "invalidError": "The input is not valid address!"
+          },
+          "melliCardScanFront": {
+            "label": "melli card front",
+            "guide": "Click or drag file to this area to upload",
+            "help": "Support for a single or bulk upload",
+            "emptyError": "please upload required files"
+          },
+          "melliCardScanBack": {
+            "label": "melli card back",
+            "guide": "Click or drag file to this area to upload",
+            "help": "Support for a single or bulk upload",
+            "emptyError": "please upload required files"
+          },
+          "payrollScan": {
+            "label": "payroll",
+            "guide": "Click or drag file to this area to upload",
+            "help": "Support for a single or bulk upload",
+            "emptyError": "please upload required files"
           },
           "attachment": {
             "label": "avatar",

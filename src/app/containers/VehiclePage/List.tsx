@@ -3,12 +3,23 @@ import { Button, Input, Select, Table } from 'antd';
 import type { PaginationConfig } from 'antd/lib/pagination';
 import type { Key, SorterResult } from 'antd/lib/table/interface';
 import { translations } from 'locales/i18n';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { VehicleResponse } from 'userResponse';
+
+import { alphabet } from './constants/alphabet';
+import { actions, selectListState } from './redux/slice';
 
 export function InsuranceList() {
   const { t } = useTranslation();
   const { table } = translations.pages.vehicle.dataTab;
+  const { list, paginationData, loading } = useSelector(selectListState);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.fetchList({ page: 1 }));
+  }, [dispatch]);
 
   let searchInput: Input | null = null;
   const getColumnSearchProps = (options: object[] = []) => ({
@@ -89,6 +100,13 @@ export function InsuranceList() {
     filters: Record<string, Key[] | null>,
     sorter: SorterResult<any> | SorterResult<any>[],
   ) => {
+    dispatch(
+      actions.fetchList({
+        page: pagination.current || 1,
+        take: pagination.pageSize || 10,
+      }),
+    );
+
     console.log(pagination, filters, sorter);
   };
 
@@ -96,10 +114,11 @@ export function InsuranceList() {
     <Table
       rowKey={record => record.id}
       onChange={handleTableChange}
-      dataSource={[{ id: '1' }]}
+      dataSource={list}
+      loading={loading}
       pagination={{
         defaultCurrent: 1,
-        total: 5,
+        total: paginationData?.itemCount,
         showSizeChanger: true,
         hideOnSinglePage: false,
         showTotal: total => t(table.general.found(), { items: total }),
@@ -109,25 +128,28 @@ export function InsuranceList() {
         title={t(table.headers.insurer())}
         dataIndex="insurer"
         width="20%"
-        {...getColumnSearchProps()}
-        // render={(text, record) => (
-        //   <span key={record.to?.id}>{record.to?.name}</span>
-        // )}
+        render={(text, record: VehicleResponse) => (
+          <span key={record.insurer?.id}>
+            {record.insurer?.firstName} {record.insurer?.lastName}
+          </span>
+        )}
       />
       <Table.Column
         title={t(table.headers.owner())}
         dataIndex="owner"
         width="20%"
         // {...getColumnSearchProps(orgOpts)}
-        // render={(text, record) => (
-        //   <span key={record.to?.id}>{record.to?.name}</span>
-        // )}
+        render={(text, record: VehicleResponse) => (
+          <span key={record.id}>
+            {record.ownerName} {record.ownerLastName}
+          </span>
+        )}
       />
       <Table.Column
         title={t(table.headers.engineNumber())}
         dataIndex="engineNumber"
         width="15%"
-        // {...getColumnSearchProps(orgOpts)}
+        {...getColumnSearchProps()}
         // render={(text, record) => (
         //   <span key={record.to?.id}>{record.to?.name}</span>
         // )}
@@ -136,7 +158,7 @@ export function InsuranceList() {
         title={t(table.headers.chassisNumber())}
         dataIndex="chassisNumber"
         width="15%"
-        // {...getColumnSearchProps(orgOpts)}
+        {...getColumnSearchProps()}
         // render={(text, record) => (
         //   <span key={record.to?.id}>{record.to?.name}</span>
         // )}
@@ -145,17 +167,21 @@ export function InsuranceList() {
         title={t(table.headers.plateNumber())}
         dataIndex="plateNumber"
         width="15%"
-        {...getColumnSearchProps()}
-        // render={(text, record) => (
-        //   <span key={record.to?.id}>{record.to?.name}</span>
-        // )}
+        render={(text, record: VehicleResponse) => (
+          <span key={record.id}>
+            {record.plateFirstTwoNumbers} {alphabet[record.plateLetter]}{' '}
+            {record.plateLastThreeNumbers}-{record.plateIRNumber}
+          </span>
+        )}
       />
       <Table.Column
         title={t(table.headers.actions())}
         width="15%"
-        render={() => (
+        render={(text, record: VehicleResponse) => (
           <span>
-            <Button>نمایش جزئیات</Button>
+            <Button onClick={() => dispatch(actions.fetchById(record.id))}>
+              نمایش جزئیات
+            </Button>
           </span>
         )}
       />

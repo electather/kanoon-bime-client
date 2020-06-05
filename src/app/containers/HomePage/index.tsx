@@ -3,9 +3,12 @@ import { Col, Row } from 'antd';
 import { PageContainer } from 'app/components/utils/PageContainer';
 import { LineChartWidget } from 'app/components/Widgets/Charts/LineChart';
 import { Sticker } from 'app/components/Widgets/Sticker';
+import { selectLoggedInUser } from 'auth/slice';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import chartData from 'utils/mock/chartData.json';
 export function Home() {
+  const loggedInUser = useSelector(selectLoggedInUser);
   return (
     <PageContainer>
       <Row gutter={[16, 16]}>
@@ -14,7 +17,7 @@ export function Home() {
             backgroundColor="#1abc9c"
             fontColor="#fff"
             description="سطح دسترسی"
-            value={3}
+            value={!loggedInUser ? 'در حال بارگذاری' : loggedInUser.role}
             icon={<StarFilled />}
           />
         </Col>
@@ -31,7 +34,7 @@ export function Home() {
           <Sticker
             backgroundColor="#2c3e50"
             fontColor="#fff"
-            description="کل افراد بیمه شده"
+            description="کل خودرو های بیمه شده"
             value={3}
             icon={<StarFilled />}
           />

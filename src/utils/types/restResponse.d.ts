@@ -1,10 +1,13 @@
 declare module 'userResponse' {
   export interface Info {
     id: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
     melliCode: string;
-    address?: any;
+    address: string;
+    melliCardScanFront?: FileResponse;
+    melliCardScanBack?: FileResponse;
+    payrollScan?: FileResponse;
   }
 
   export interface UserData {
@@ -15,11 +18,48 @@ declare module 'userResponse' {
     lastName: string;
     role: string;
     phone: string;
+    avatar?: FileResponse;
     info?: Info;
   }
 
-  export interface UsersPage {
-    readonly data: UserData[];
+  export interface UserDataMinimal {
+    id: string;
+    firstName: string;
+    lastName: string;
+    avatar?: FileResponse;
+    melliCode: string;
+  }
+
+  export interface VehicleResponse {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    ownerName: string;
+    ownerLastName: string;
+    address: string;
+    engineNumber: string;
+    chassisNumber: string;
+    plateFirstTwoNumbers: string;
+    plateLetter: string;
+    plateLastThreeNumbers: string;
+    plateIRNumber: string;
+    insurer?: UserData;
+  }
+
+  export interface TPIResponse {
+    bimeNumber: string;
+    startDate: Date;
+    endDate: Date;
+    isCash: boolean;
+    fullAmount: number;
+    insurer: UserData;
+    vehicle: VehicleResponse;
+    insurance: string;
+    attachment: FileResponse;
+  }
+
+  export interface Paginated<T> {
+    readonly data: T[];
     readonly meta: PageMeta;
   }
 
@@ -43,5 +83,13 @@ declare module 'userResponse' {
   export interface ErrorResponse {
     readonly statusCode: number;
     readonly message: string;
+  }
+  export interface FileResponse {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    description?: any;
+    creator: Creator;
+    url: string;
   }
 }

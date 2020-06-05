@@ -7,7 +7,7 @@ type Props = {
   backgroundColor: string;
   width?: number;
   icon: React.ReactNode;
-  value: number;
+  value: number | string;
   description: string;
 };
 

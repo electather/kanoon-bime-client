@@ -1,10 +1,15 @@
 import { CheckCircleOutlined, InboxOutlined } from '@ant-design/icons';
 import { Button, Form, Input, InputNumber, Select, Upload } from 'antd';
-import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
+import { debounce } from 'debounce';
 import { translations } from 'locales/i18n';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { getBearerToken } from 'utils';
+
+import { actions as usersActions, selectListState } from '../Users/redux/slice';
+import { alphabet } from './constants/alphabet';
+import { actions } from './redux/slice';
 
 const formItemLayout = {
   labelCol: {
@@ -26,35 +31,37 @@ const normFile = e => {
 
 export function NewInsuranceRequest() {
   const { t } = useTranslation();
-  const [fileList, setFileList] = useState<UploadFile<any>[]>([]);
+  const dispatch = useDispatch();
+  const { list, loading } = useSelector(selectListState);
+  const [form] = Form.useForm();
 
   const onFinish = values => {
     console.log('Received values of form: ', values);
+
+    const { attachment, insurer, ...rest } = values;
+
+    const payload = {
+      ...rest,
+      attachmentId: attachment[attachment.length - 1].response.id,
+      issuerId: insurer,
+    };
+
+    console.log('payload: ', payload);
+    dispatch(actions.create({ data: payload, clearFn: form.resetFields }));
   };
 
-  const handleUploadChange = (info: UploadChangeParam<UploadFile<any>>) => {
-    let fileList = [...info.fileList];
-
-    // 1. Limit the number of uploaded files
-    // Only to show two recent uploaded files, and old ones will be replaced by the new
-    fileList = fileList.slice(-1);
-
-    // 2. Read from response and show file link
-    fileList = fileList.map(file => {
-      if (file.response) {
-        // Component will show file.url as link
-        file.url = file.response.url;
-      }
-      return file;
-    });
-
-    setFileList(fileList);
+  const handleUserSearch = (melliCode: string) => {
+    console.log(melliCode);
+    if (melliCode) {
+      dispatch(usersActions.fetchList({ melliCode, page: 1 }));
+    }
   };
 
   const { form: VehicleTranslations } = translations.pages.vehicle.newTab;
   return (
     <Form
       {...formItemLayout}
+      form={form}
       name="newInsurance"
       onFinish={onFinish}
       scrollToFirstError
@@ -69,7 +76,18 @@ export function NewInsuranceRequest() {
           },
         ]}
       >
-        <Select></Select>
+        <Select
+          showSearch
+          showArrow={false}
+          onSearch={debounce(handleUserSearch, 500)}
+          loading={loading}
+        >
+          {list?.map(val => (
+            <Select.Option key={val.id} value={val.id}>
+              کد ملی : {val.melliCode} - {val.firstName} {val.lastName}
+            </Select.Option>
+          ))}
+        </Select>
       </Form.Item>
       <Form.Item label={t(VehicleTranslations.owner.label())}>
         <Input.Group compact>
@@ -161,8 +179,18 @@ export function NewInsuranceRequest() {
           >
             <Select
               style={{ width: '25%' }}
+              showSearch
               placeholder={t(VehicleTranslations.plateNumber.letter())}
-            />
+              filterOption={(input, option) =>
+                option?.children.indexOf(input) >= 0
+              }
+            >
+              {Object.keys(alphabet).map(key => (
+                <Select.Option key={key} value={key}>
+                  {alphabet[key]}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.Item
             name="plateLastThreeNumbers"
@@ -200,6 +228,19 @@ export function NewInsuranceRequest() {
           </Form.Item>
         </Input.Group>
       </Form.Item>
+      <Form.Item
+        name="address"
+        label={t(VehicleTranslations.address.label())}
+        rules={[
+          {
+            required: true,
+            message: t(VehicleTranslations.address.emptyError()),
+          },
+        ]}
+      >
+        <Input.TextArea />
+      </Form.Item>
+
       <Form.Item label={t(VehicleTranslations.attachment.label())}>
         <Form.Item
           name="attachment"
@@ -214,11 +255,9 @@ export function NewInsuranceRequest() {
           ]}
         >
           <Upload.Dragger
-            fileList={fileList}
             name="file"
             headers={{ Authorization: getBearerToken() }}
             action={process.env.REACT_APP_BASE_URL + 'file'}
-            onChange={handleUploadChange}
           >
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
@@ -231,18 +270,6 @@ export function NewInsuranceRequest() {
             </p>
           </Upload.Dragger>
         </Form.Item>
-      </Form.Item>
-      <Form.Item
-        name="address"
-        label={t(VehicleTranslations.address.label())}
-        rules={[
-          {
-            required: true,
-            message: t(VehicleTranslations.address.emptyError()),
-          },
-        ]}
-      >
-        <Input.TextArea />
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 4 }}>
         <Button type="primary" htmlType="submit" icon={<CheckCircleOutlined />}>

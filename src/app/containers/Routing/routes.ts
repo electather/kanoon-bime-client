@@ -7,6 +7,7 @@ import {
 import { translations } from 'locales/i18n';
 import { RouteKeyType } from 'types/data';
 
+import { BIIPage } from '../BIIPage/Loadable';
 import { HomePage } from '../HomePage/Loadable';
 import { TPIPage } from '../TPIPage/Loadable';
 import { UsersPage } from '../Users/Loadable';
@@ -34,6 +35,12 @@ export const privateRoutes: RouteKeyType[] = [
     label: translations.pages.thirdPartyInsurance.title(),
     Icon: MailFilled,
     component: TPIPage,
+  },
+  {
+    key: 'bii',
+    label: translations.pages.bodyInsurance.title(),
+    Icon: MailFilled,
+    component: BIIPage,
   },
   {
     key: 'vehicle',

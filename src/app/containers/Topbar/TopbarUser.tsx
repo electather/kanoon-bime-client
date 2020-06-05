@@ -46,6 +46,7 @@ export function TopBarUser() {
         <Avatar
           size="default"
           className="avatar"
+          src={loggedInUser?.avatar?.url}
           alt="avatar"
           icon={<UserOutlined />}
         />

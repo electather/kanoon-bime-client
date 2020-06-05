@@ -1,7 +1,12 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'types';
 import { CreateUser } from 'userRequest';
-import { ErrorResponse, UserData, UsersPage } from 'userResponse';
+import {
+  ErrorResponse,
+  Paginated,
+  UserData,
+  UserDataMinimal,
+} from 'userResponse';
 
 import { QuerySchema, UsersState } from './types';
 
@@ -18,13 +23,16 @@ const tpiSlice = createSlice({
       state.error = undefined;
       state.filterData = action.payload;
     },
-    fetchDone(state, action: PayloadAction<UsersPage>) {
+    fetchDone(state, action: PayloadAction<Paginated<UserDataMinimal>>) {
       state.loading = false;
       state.error = undefined;
       state.list = action.payload.data;
       state.paginationData = action.payload.meta;
     },
-    create(state, action: PayloadAction<CreateUser>) {
+    create(
+      state,
+      action: PayloadAction<{ data: CreateUser; clearFn: () => void }>,
+    ) {
       state.loading = true;
       state.selectedUser = undefined;
       state.error = undefined;

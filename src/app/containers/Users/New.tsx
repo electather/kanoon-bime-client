@@ -5,6 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBearerToken } from 'utils';
+import { melliCodeValidator } from 'utils/validation';
 
 import { selectFormData } from './redux/slice';
 import { actions } from './redux/slice';
@@ -31,6 +32,7 @@ export function NewInsuranceRequest() {
   const dispatch = useDispatch();
   const { loading } = useSelector(selectFormData);
 
+  const [form] = Form.useForm();
   const onFinish = values => {
     console.log('Received values of form: ', values);
     const {
@@ -52,7 +54,7 @@ export function NewInsuranceRequest() {
     };
 
     console.log('payload: ', payload);
-    dispatch(actions.create(payload));
+    dispatch(actions.create({ data: payload, clearFn: form.resetFields }));
   };
 
   const { form: UsersTranslations } = translations.pages.users.newTab;
@@ -60,18 +62,24 @@ export function NewInsuranceRequest() {
     <Form
       {...formItemLayout}
       name="newUser"
+      form={form}
       onFinish={onFinish}
       scrollToFirstError
     >
       <Form.Item label={t(UsersTranslations.fullName.label())}>
         <Input.Group compact>
           <Form.Item
-            name="ownerName"
+            name="firstName"
             noStyle
             rules={[
               {
                 required: true,
+                whitespace: true,
                 message: t(UsersTranslations.fullName.emptyError()),
+              },
+              {
+                pattern: /^[\u0600-\u06FF\s]+$/,
+                message: t(UsersTranslations.fullName.invalidError()),
               },
             ]}
           >
@@ -86,7 +94,12 @@ export function NewInsuranceRequest() {
             rules={[
               {
                 required: true,
+                whitespace: true,
                 message: t(UsersTranslations.fullName.emptyError()),
+              },
+              {
+                pattern: /^[\u0600-\u06FF\s]+$/,
+                message: t(UsersTranslations.fullName.invalidError()),
               },
             ]}
           >
@@ -105,9 +118,15 @@ export function NewInsuranceRequest() {
             required: true,
             message: t(UsersTranslations.melliCode.emptyError()),
           },
+          {
+            validator: (_, value) =>
+              melliCodeValidator(value)
+                ? Promise.resolve()
+                : Promise.reject(t(UsersTranslations.melliCode.invalidError())),
+          },
         ]}
       >
-        <Input />
+        <Input maxLength={10} />
       </Form.Item>
       <Form.Item
         name="phone"
@@ -117,9 +136,13 @@ export function NewInsuranceRequest() {
             required: true,
             message: t(UsersTranslations.phone.emptyError()),
           },
+          {
+            pattern: /^9[0|1|2|3][0-9]{8}$/,
+            message: t(UsersTranslations.phone.invalidError()),
+          },
         ]}
       >
-        <Input addonAfter="+98" />
+        <Input addonAfter="+98" maxLength={10} />
       </Form.Item>
       <Form.Item
         name="address"
@@ -127,6 +150,7 @@ export function NewInsuranceRequest() {
         rules={[
           {
             required: true,
+            whitespace: true,
             message: t(UsersTranslations.address.emptyError()),
           },
         ]}
@@ -224,7 +248,7 @@ export function NewInsuranceRequest() {
           </Upload.Dragger>
         </Form.Item>
       </Form.Item>
-      <Form.Item label={t(UsersTranslations.attachment.label())}>
+      <Form.Item label={t(UsersTranslations.avatar.label())}>
         <Form.Item
           name="avatar"
           valuePropName="attachment"
@@ -233,7 +257,7 @@ export function NewInsuranceRequest() {
           rules={[
             {
               required: true,
-              message: t(UsersTranslations.attachment.emptyError()),
+              message: t(UsersTranslations.avatar.emptyError()),
             },
           ]}
         >
@@ -246,10 +270,10 @@ export function NewInsuranceRequest() {
               <InboxOutlined />
             </p>
             <p className="ant-upload-text">
-              {t(UsersTranslations.attachment.guide())}
+              {t(UsersTranslations.avatar.guide())}
             </p>
             <p className="ant-upload-hint">
-              {t(UsersTranslations.attachment.help())}
+              {t(UsersTranslations.avatar.help())}
             </p>
           </Upload.Dragger>
         </Form.Item>

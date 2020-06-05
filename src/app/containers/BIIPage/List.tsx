@@ -3,12 +3,18 @@ import { Button, Input, Select, Table } from 'antd';
 import type { PaginationConfig } from 'antd/lib/pagination';
 import type { Key, SorterResult } from 'antd/lib/table/interface';
 import { translations } from 'locales/i18n';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { TPIResponse } from 'userResponse';
+
+import { actions, selectListState } from './redux/slice';
 
 export function InsuranceList() {
   const { t } = useTranslation();
   const { table } = translations.pages.thirdPartyInsurance.dataTab;
+  const { list, paginationData, loading } = useSelector(selectListState);
+  const dispatch = useDispatch();
 
   let searchInput: Input | null = null;
   const getColumnSearchProps = (options: object[] = []) => ({
@@ -83,23 +89,33 @@ export function InsuranceList() {
       }
     },
   });
+  useEffect(() => {
+    dispatch(actions.fetchList({ page: 1 }));
+  }, [dispatch]);
 
   const handleTableChange = (
     pagination: PaginationConfig,
     filters: Record<string, Key[] | null>,
     sorter: SorterResult<any> | SorterResult<any>[],
   ) => {
-    console.log(pagination, filters, sorter);
+    dispatch(
+      actions.fetchList({
+        page: pagination.current || 1,
+        take: pagination.pageSize || 10,
+        bimeNumber: filters.bimeNumber?.[0].toString(),
+      }),
+    );
   };
 
   return (
     <Table
       rowKey={record => record.id}
       onChange={handleTableChange}
-      dataSource={[{ id: '1' }]}
+      dataSource={list}
+      loading={loading}
       pagination={{
         defaultCurrent: 1,
-        total: 5,
+        total: paginationData?.itemCount,
         showSizeChanger: true,
         hideOnSinglePage: false,
         showTotal: total => t(table.general.found(), { items: total }),
@@ -116,16 +132,18 @@ export function InsuranceList() {
       />
       <Table.Column
         title={t(table.headers.Insurer())}
-        dataIndex="age"
+        dataIndex="Insurer"
         width="25%"
         // {...getColumnSearchProps(orgOpts)}
-        // render={(text, record) => (
-        //   <span key={record.to?.id}>{record.to?.name}</span>
-        // )}
+        render={(text, record: TPIResponse) => (
+          <span key={record?.insurer?.id}>
+            {record?.insurer?.firstName} {record?.insurer?.lastName}
+          </span>
+        )}
       />
       <Table.Column
         title={t(table.headers.startDate())}
-        dataIndex="age"
+        dataIndex="startDate"
         width="15%"
         // {...getColumnSearchProps(orgOpts)}
         // render={(text, record) => (
@@ -134,7 +152,7 @@ export function InsuranceList() {
       />
       <Table.Column
         title={t(table.headers.endDate())}
-        dataIndex="age"
+        dataIndex="endDate"
         width="15%"
         // {...getColumnSearchProps(orgOpts)}
         // render={(text, record) => (
@@ -143,9 +161,8 @@ export function InsuranceList() {
       />
       <Table.Column
         title={t(table.headers.price())}
-        dataIndex="age"
+        dataIndex="fullAmount"
         width="10%"
-        {...getColumnSearchProps()}
         // render={(text, record) => (
         //   <span key={record.to?.id}>{record.to?.name}</span>
         // )}

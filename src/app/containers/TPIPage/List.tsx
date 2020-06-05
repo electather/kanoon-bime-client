@@ -1,23 +1,21 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Avatar, Button, Input, Select, Table } from 'antd';
+import { Button, Input, Select, Table } from 'antd';
 import type { PaginationConfig } from 'antd/lib/pagination';
 import type { Key, SorterResult } from 'antd/lib/table/interface';
 import { translations } from 'locales/i18n';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserData } from 'userResponse';
+import { TPIResponse } from 'userResponse';
 
 import { actions, selectListState } from './redux/slice';
 
-export function List() {
+export function InsuranceList() {
   const { t } = useTranslation();
-  const { table } = translations.pages.users.dataTab;
+  const { table } = translations.pages.thirdPartyInsurance.dataTab;
   const { list, paginationData, loading } = useSelector(selectListState);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(actions.fetchList({ page: 1 }));
-  }, [dispatch]);
+
   let searchInput: Input | null = null;
   const getColumnSearchProps = (options: object[] = []) => ({
     filterDropdown: ({
@@ -91,6 +89,9 @@ export function List() {
       }
     },
   });
+  useEffect(() => {
+    dispatch(actions.fetchList({ page: 1 }));
+  }, [dispatch]);
 
   const handleTableChange = (
     pagination: PaginationConfig,
@@ -101,10 +102,9 @@ export function List() {
       actions.fetchList({
         page: pagination.current || 1,
         take: pagination.pageSize || 10,
-        melliCode: filters.melliCode?.[0].toString(),
+        bimeNumber: filters.bimeNumber?.[0].toString(),
       }),
     );
-    console.log(pagination, filters, sorter);
   };
 
   return (
@@ -122,37 +122,28 @@ export function List() {
       }}
     >
       <Table.Column
-        title={t(table.headers.avatar())}
-        dataIndex="avatar"
+        title={t(table.headers.bimeNumber())}
+        dataIndex="bimeNumber"
         width="10%"
-        render={(text, record: UserData) => (
-          <Avatar size="large" src={record.avatar?.url} />
-        )}
-      />
-      <Table.Column
-        title={t(table.headers.fullName())}
-        dataIndex="fullName"
-        width="30%"
-        // {...getColumnSearchProps(orgOpts)}
-        render={(text, record: UserData) => (
-          <span>
-            {record.firstName} {record.lastName}
-          </span>
-        )}
-      />
-      <Table.Column
-        title={t(table.headers.melliCode())}
-        dataIndex="melliCode"
-        width="20%"
         {...getColumnSearchProps()}
-        // {...getColumnSearchProps(orgOpts)}
         // render={(text, record) => (
         //   <span key={record.to?.id}>{record.to?.name}</span>
         // )}
       />
       <Table.Column
-        title={t(table.headers.role())}
-        dataIndex="role"
+        title={t(table.headers.Insurer())}
+        dataIndex="Insurer"
+        width="25%"
+        // {...getColumnSearchProps(orgOpts)}
+        render={(text, record: TPIResponse) => (
+          <span key={record?.insurer?.id}>
+            {record?.insurer?.firstName} {record?.insurer?.lastName}
+          </span>
+        )}
+      />
+      <Table.Column
+        title={t(table.headers.startDate())}
+        dataIndex="startDate"
         width="15%"
         // {...getColumnSearchProps(orgOpts)}
         // render={(text, record) => (
@@ -160,13 +151,28 @@ export function List() {
         // )}
       />
       <Table.Column
+        title={t(table.headers.endDate())}
+        dataIndex="endDate"
+        width="15%"
+        // {...getColumnSearchProps(orgOpts)}
+        // render={(text, record) => (
+        //   <span key={record.to?.id}>{record.to?.name}</span>
+        // )}
+      />
+      <Table.Column
+        title={t(table.headers.price())}
+        dataIndex="fullAmount"
+        width="10%"
+        // render={(text, record) => (
+        //   <span key={record.to?.id}>{record.to?.name}</span>
+        // )}
+      />
+      <Table.Column
         title={t(table.headers.actions())}
-        width="25%"
-        render={(text, record: UserData) => (
+        width="30%"
+        render={() => (
           <span>
-            <Button onClick={() => dispatch(actions.fetchById(record.id))}>
-              نمایش جزئیات
-            </Button>
+            <Button>نمایش جزئیات</Button>
           </span>
         )}
       />

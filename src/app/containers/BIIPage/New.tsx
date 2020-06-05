@@ -8,11 +8,22 @@ import {
   Select,
   Upload,
 } from 'antd';
-import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
+import { debounce } from 'debounce';
 import { translations } from 'locales/i18n';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { getBearerToken } from 'utils';
+
+import {
+  actions as usersActions,
+  selectListState as usersList,
+} from '../Users/redux/slice';
+import {
+  actions as vehicleActions,
+  selectListState as vehicleList,
+} from '../VehiclePage/redux/slice';
+import { actions } from './redux/slice';
 
 const formItemLayout = {
   labelCol: {
@@ -34,29 +45,42 @@ const normFile = e => {
 
 export function NewInsuranceRequest() {
   const { t } = useTranslation();
-  const [fileList, setFileList] = useState<UploadFile<any>[]>([]);
+  const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  const { list: usersListData, loading: usersListLoading } = useSelector(
+    usersList,
+  );
+  const { list: vehicleListData, loading: vehicleListLoading } = useSelector(
+    vehicleList,
+  );
 
   const onFinish = values => {
     console.log('Received values of form: ', values);
+
+    const { attachment, insurer, vehicle, isCash, ...rest } = values;
+
+    const payload = {
+      ...rest,
+      attachmentId: attachment[attachment.length - 1].response.id,
+      insurerId: insurer,
+      vehicleId: vehicle,
+      isCash: isCash === 'Cash',
+    };
+
+    console.log('payload: ', payload);
+    dispatch(actions.create({ data: payload, clearFn: form.resetFields }));
   };
 
-  const handleUploadChange = (info: UploadChangeParam<UploadFile<any>>) => {
-    let fileList = [...info.fileList];
+  const handleUserSearch = (melliCode: string) => {
+    if (melliCode) {
+      dispatch(usersActions.fetchList({ melliCode, page: 1 }));
+    }
+  };
 
-    // 1. Limit the number of uploaded files
-    // Only to show two recent uploaded files, and old ones will be replaced by the new
-    fileList = fileList.slice(-1);
-
-    // 2. Read from response and show file link
-    fileList = fileList.map(file => {
-      if (file.response) {
-        // Component will show file.url as link
-        file.url = file.response.url;
-      }
-      return file;
-    });
-
-    setFileList(fileList);
+  const handleVehicleSearch = (chassisNumber: string) => {
+    if (chassisNumber) {
+      dispatch(vehicleActions.fetchList({ chassisNumber, page: 1 }));
+    }
   };
 
   const {
@@ -68,9 +92,10 @@ export function NewInsuranceRequest() {
       name="newInsurance"
       onFinish={onFinish}
       scrollToFirstError
+      form={form}
     >
       <Form.Item
-        name="issuer"
+        name="insurance"
         label={t(FormTranslations.issuer.label())}
         rules={[
           {
@@ -79,7 +104,10 @@ export function NewInsuranceRequest() {
           },
         ]}
       >
-        <Select></Select>
+        <Select>
+          <Select.Option value="IRAN_INSURANCE">بیمه ایران</Select.Option>
+          <Select.Option value="KOSAR_INSURANCE">بیمه کوثر</Select.Option>
+        </Select>
       </Form.Item>
 
       <Form.Item
@@ -150,7 +178,7 @@ export function NewInsuranceRequest() {
         <InputNumber min={0} />
       </Form.Item>
       <Form.Item
-        name="insurerId"
+        name="insurer"
         label={t(FormTranslations.insurerId.label())}
         rules={[
           {
@@ -159,10 +187,21 @@ export function NewInsuranceRequest() {
           },
         ]}
       >
-        <Select></Select>
+        <Select
+          showSearch
+          showArrow={false}
+          onSearch={debounce(handleUserSearch, 500)}
+          loading={usersListLoading}
+        >
+          {usersListData?.map(val => (
+            <Select.Option key={val.id} value={val.id}>
+              کد ملی : {val.melliCode} - {val.firstName} {val.lastName}
+            </Select.Option>
+          ))}
+        </Select>
       </Form.Item>
       <Form.Item
-        name="vehicleId"
+        name="vehicle"
         label={t(FormTranslations.vehicleId.label())}
         rules={[
           {
@@ -171,7 +210,19 @@ export function NewInsuranceRequest() {
           },
         ]}
       >
-        <Select></Select>
+        <Select
+          showSearch
+          showArrow={false}
+          onSearch={debounce(handleVehicleSearch, 500)}
+          loading={vehicleListLoading}
+        >
+          {vehicleListData?.map(val => (
+            <Select.Option key={val.id} value={val.id}>
+              شماره شاسی : {val.chassisNumber}- به نام : {val.ownerName}{' '}
+              {val.ownerLastName}
+            </Select.Option>
+          ))}
+        </Select>
       </Form.Item>
       <Form.Item label={t(FormTranslations.attachment.label())}>
         <Form.Item
@@ -187,11 +238,9 @@ export function NewInsuranceRequest() {
           ]}
         >
           <Upload.Dragger
-            fileList={fileList}
             name="file"
             headers={{ Authorization: getBearerToken() }}
             action={process.env.REACT_APP_BASE_URL + 'file'}
-            onChange={handleUploadChange}
           >
             <p className="ant-upload-drag-icon">
               <InboxOutlined />

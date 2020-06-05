@@ -92,6 +92,113 @@
           "general": {
             "found": "{items, plural, =0 {nothing found, please check search criteria} =1 {found ONE Item} other {found # items in total.}}"
           }
+        },
+        "findOne": {
+          "title": "insurance details",
+          "elements": {
+            "createdAt": "created at",
+            "insurer": "insurer",
+            "owner": "owner",
+            "address": "address",
+            "engineNumber": "engine number",
+            "chassisNumber": "chassis number",
+            "plate": "plate"
+          }
+        }
+      },
+      "newTab": {
+        "title": "new insurance",
+        "form": {
+          "bimeNumber": {
+            "label": "Bime Number",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "issuer": {
+            "label": "Bime Issuer",
+            "emptyError": "please select the insurance issuer!"
+          },
+          "startDate": {
+            "label": "Insurance start Date",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "endDate": {
+            "label": "Insurance start Date",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "isCash": {
+            "label": "payment method",
+            "options": {
+              "cash": "Cash",
+              "Installments": "Installments"
+            },
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "fullAmount": {
+            "label": "full price",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "insurerId": {
+            "label": "Insurer",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "vehicleId": {
+            "label": "Vehicle",
+            "emptyError": "The input is not valid Bime Number!",
+            "invalidError": "The input is not valid Bime Number!"
+          },
+          "attachment": {
+            "label": "attachment",
+            "guide": "Click or drag file to this area to upload",
+            "help": "Support for a single or bulk upload",
+            "emptyError": "please upload required files"
+          },
+          "submit": "Submit insurance"
+        }
+      }
+    },
+    "bodyInsurance": {
+      "title": "Body insurance",
+      "overViewTab": {
+        "title": "OverView",
+        "submittedInsurances": "Submitted Insurances",
+        "iranInsuranceCases": "Iran insurance",
+        "kosarInsuranceCases": "Kosar insurance",
+        "revenue": "Revenue in the past 30 days",
+        "iranInsuranceRevenue": "Iran insurance",
+        "kosarInsuranceRevenue": "Kosar insurance"
+      },
+      "dataTab": {
+        "title": "submitted insurances",
+        "table": {
+          "headers": {
+            "bimeNumber": "bime number",
+            "Insurer": "Insurer",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "price": "price",
+            "actions": "actions"
+          },
+          "general": {
+            "found": "{items, plural, =0 {nothing found, please check search criteria} =1 {found ONE Item} other {found # items in total.}}"
+          }
+        },
+        "findOne": {
+          "title": "insurance details",
+          "elements": {
+            "createdAt": "created at",
+            "insurer": "insurer",
+            "owner": "owner",
+            "address": "address",
+            "engineNumber": "engine number",
+            "chassisNumber": "chassis number",
+            "plate": "plate"
+          }
         }
       },
       "newTab": {
@@ -170,6 +277,18 @@
           },
           "general": {
             "found": "{items, plural, =0 {nothing found, please check search criteria} =1 {found ONE Item} other {found # items in total.}}"
+          }
+        },
+        "findOne": {
+          "title": "vehicle details",
+          "elements": {
+            "createdAt": "created at",
+            "insurer": "insurer",
+            "owner": "owner",
+            "address": "address",
+            "engineNumber": "engine number",
+            "chassisNumber": "chassis number",
+            "plate": "plate"
           }
         }
       },
@@ -302,7 +421,7 @@
             "help": "Support for a single or bulk upload",
             "emptyError": "please upload required files"
           },
-          "attachment": {
+          "avatar": {
             "label": "avatar",
             "guide": "Click or drag file to this area to upload",
             "help": "Support for a single or bulk upload",

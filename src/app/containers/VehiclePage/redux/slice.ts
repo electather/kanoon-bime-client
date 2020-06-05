@@ -1,35 +1,80 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'types';
+import { CreateVehicle } from 'userRequest';
+import { ErrorResponse, Paginated, VehicleResponse } from 'userResponse';
 
-import { QuerySchema, TPIState } from './types';
+import { QuerySchema, VehicleState } from './types';
 
-export const initialState: TPIState = {
+export const initialState: VehicleState = {
   loading: true,
 };
 
 const tpiSlice = createSlice({
-  name: 'tpi',
+  name: 'vehicles',
   initialState,
   reducers: {
-    fetchTPIList(state, action: PayloadAction<QuerySchema>) {
+    fetchList(state, action: PayloadAction<QuerySchema>) {
       state.loading = true;
       state.error = undefined;
       state.filterData = action.payload;
     },
-    fetchTPIDone(state) {},
-    fetchTPIFailed(state) {},
-    createNewTPI(state) {},
-    createNewTPIDone(state) {},
-    createNewTPIFailed(state) {},
-    fetchOneTPI(state) {},
-    fetchOneTPIDone(state) {},
-    fetchOneTPIFailed(state) {},
+    fetchDone(state, action: PayloadAction<Paginated<VehicleResponse>>) {
+      state.loading = false;
+      state.error = undefined;
+      state.list = action.payload.data;
+      state.paginationData = action.payload.meta;
+    },
+    create(
+      state,
+      action: PayloadAction<{ data: CreateVehicle; clearFn: () => void }>,
+    ) {
+      state.loading = true;
+      state.selectedVehicle = undefined;
+      state.error = undefined;
+    },
+    createDone(state, action: PayloadAction<VehicleResponse>) {
+      state.loading = false;
+      state.error = undefined;
+      state.selectedVehicle = action.payload;
+    },
+    fetchById(state, action: PayloadAction<string>) {
+      state.loading = true;
+      state.selectedVehicle = undefined;
+      state.error = undefined;
+    },
+    fetchByIdDone(state, action: PayloadAction<VehicleResponse>) {
+      state.loading = false;
+      state.error = undefined;
+      state.selectedVehicle = action.payload;
+    },
+    clearSelectedVehicle(state) {
+      state.selectedVehicle = undefined;
+    },
+    requestFailed(state, action: PayloadAction<ErrorResponse>) {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
-export const selectTPIState = createSelector(
-  [(state: RootState) => state.tpi || initialState],
-  tpi => tpi,
+export const selectVehicleState = createSelector(
+  [(state: RootState) => state.vehicles || initialState],
+  vehicles => vehicles,
+);
+
+export const selectListState = createSelector(
+  [selectVehicleState],
+  ({ list, paginationData, loading }) => ({ list, paginationData, loading }),
+);
+
+export const selectDrawerData = createSelector(
+  [selectVehicleState],
+  ({ selectedVehicle: selectedUser }) => selectedUser,
+);
+
+export const selectFormData = createSelector(
+  [selectVehicleState],
+  ({ loading, selectedVehicle: selectedUser }) => ({ loading, selectedUser }),
 );
 
 export const { actions, reducer, name: sliceKey } = tpiSlice;

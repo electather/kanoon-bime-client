@@ -17,7 +17,7 @@ import { tpiSaga } from './redux/saga';
 import { reducer, sliceKey } from './redux/slice';
 import { StatisticsTab } from './StatisticsTab';
 
-export function TPI() {
+export function BII() {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: tpiSaga });
 

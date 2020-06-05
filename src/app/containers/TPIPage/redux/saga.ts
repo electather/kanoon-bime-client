@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { CreateUser } from 'userRequest';
+import { CreateTPI } from 'userRequest';
 import { Paginated, UserData, UserDataMinimal } from 'userResponse';
 import { getBearerToken } from 'utils';
 import { request } from 'utils/request';
@@ -23,7 +23,7 @@ export function* fetchList({ payload }: PayloadAction<QuerySchema>) {
 
     const response: Paginated<UserDataMinimal> = yield call(
       request,
-      `users`,
+      `third-party`,
       options,
       payload,
     );
@@ -38,7 +38,7 @@ export function* fetchList({ payload }: PayloadAction<QuerySchema>) {
 
 export function* createUser({
   payload,
-}: PayloadAction<{ data: CreateUser; clearFn: () => void }>) {
+}: PayloadAction<{ data: CreateTPI; clearFn: () => void }>) {
   if (process.env.REACT_APP_MOCK === 'true') {
     return;
   }
@@ -52,7 +52,7 @@ export function* createUser({
       body: JSON.stringify(payload.data),
     };
 
-    const response: UserData = yield call(request, `users`, options);
+    const response: UserData = yield call(request, `third-party`, options);
     payload.clearFn();
     yield put(actions.createDone(response));
   } catch (err) {
@@ -76,7 +76,11 @@ export function* fetchById({ payload }: PayloadAction<string>) {
       },
     };
 
-    const response: UserData = yield call(request, `users/${payload}`, options);
+    const response: UserData = yield call(
+      request,
+      `third-party/${payload}`,
+      options,
+    );
     yield put(actions.fetchByIdDone(response));
   } catch (err) {
     console.log(err);
@@ -89,7 +93,7 @@ export function* fetchById({ payload }: PayloadAction<string>) {
 /**
  * Root saga manages watcher lifecycle
  */
-export function* usersSaga() {
+export function* tpiSaga() {
   // Watches for fetchUserData actions and calls getUser when one comes in.
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution

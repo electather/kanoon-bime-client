@@ -1,4 +1,9 @@
-import { ErrorResponse, PageMeta, UserData } from 'userResponse';
+import {
+  ErrorResponse,
+  PageMeta,
+  UserData,
+  UserDataMinimal,
+} from 'userResponse';
 
 export type PaginationData = {
   username: string;
@@ -12,7 +17,7 @@ export type QuerySchema = {
 };
 
 export interface UsersState {
-  readonly list?: UserData[];
+  readonly list?: UserDataMinimal[];
   readonly selectedUser?: UserData;
   readonly paginationData?: PageMeta;
   readonly filterData?: QuerySchema;

@@ -36,4 +36,16 @@ declare module 'userRequest' {
     insurance: string;
     attachmentId: string;
   }
+
+  export interface CreateBodyInsurance {
+    bimeNumber: string;
+    startDate: string;
+    endDate: string;
+    isCash: boolean;
+    fullAmount: number;
+    insurerId: string;
+    vehicleId: string;
+    insurance: string;
+    attachmentId: string;
+  }
 }

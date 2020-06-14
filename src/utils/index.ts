@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { ViewType } from 'types/data';
 
 export const isServer = typeof window === 'undefined';
@@ -43,4 +44,59 @@ export function getToken(): string | undefined {
 
 export function getBearerToken(): string {
   return `Bearer ${getToken()}`;
+}
+
+export function formatDate(date?: Date): string {
+  if (!date) {
+    return 'تعیین نشده!';
+  }
+  return moment(date).format('D MMM YYYY');
+}
+
+export function formatAccess(access?: string): string {
+  switch (access) {
+    case 'BIME_GOZAR':
+      return 'بیمه گذار';
+    case 'ADMIN':
+      return 'مدیریت';
+    case 'KARSHENAS':
+      return 'کارشناس';
+    default:
+      return 'خطا';
+  }
+}
+
+export function formatMoney(
+  amount: any,
+  currency = 'ریال',
+  decimalCount = 0,
+  decimal = '.',
+  thousands = ',',
+) {
+  try {
+    decimalCount = Math.abs(decimalCount);
+    decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+    const negativeSign = amount < 0 ? '-' : '';
+
+    let i: any = parseInt(
+      (amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)),
+    ).toString();
+    let j = i.length > 3 ? i.length % 3 : 0;
+
+    return (
+      negativeSign +
+      (j ? i.substr(0, j) + thousands : '') +
+      i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) +
+      (decimalCount
+        ? decimal +
+          Math.abs(amount - i)
+            .toFixed(decimalCount)
+            .slice(2)
+        : '') +
+      currency
+    );
+  } catch (e) {
+    console.log(e);
+  }
 }

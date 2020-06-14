@@ -144,17 +144,7 @@ export function NewInsuranceRequest() {
       >
         <Input addonAfter="+98" maxLength={10} />
       </Form.Item>
-      <Form.Item
-        name="address"
-        label={t(UsersTranslations.address.label())}
-        rules={[
-          {
-            required: true,
-            whitespace: true,
-            message: t(UsersTranslations.address.emptyError()),
-          },
-        ]}
-      >
+      <Form.Item name="address" label={t(UsersTranslations.address.label())}>
         <Input.TextArea />
       </Form.Item>
 
@@ -164,12 +154,6 @@ export function NewInsuranceRequest() {
           valuePropName="melliCardScanFront"
           getValueFromEvent={normFile}
           noStyle
-          rules={[
-            {
-              required: true,
-              message: t(UsersTranslations.melliCardScanFront.emptyError()),
-            },
-          ]}
         >
           <Upload.Dragger
             name="file"
@@ -194,12 +178,6 @@ export function NewInsuranceRequest() {
           valuePropName="melliCardScanBack"
           getValueFromEvent={normFile}
           noStyle
-          rules={[
-            {
-              required: true,
-              message: t(UsersTranslations.melliCardScanBack.emptyError()),
-            },
-          ]}
         >
           <Upload.Dragger
             name="file"
@@ -224,12 +202,6 @@ export function NewInsuranceRequest() {
           valuePropName="attachment"
           getValueFromEvent={normFile}
           noStyle
-          rules={[
-            {
-              required: true,
-              message: t(UsersTranslations.payrollScan.emptyError()),
-            },
-          ]}
         >
           <Upload.Dragger
             name="file"
@@ -254,12 +226,6 @@ export function NewInsuranceRequest() {
           valuePropName="attachment"
           getValueFromEvent={normFile}
           noStyle
-          rules={[
-            {
-              required: true,
-              message: t(UsersTranslations.avatar.emptyError()),
-            },
-          ]}
         >
           <Upload.Dragger
             name="file"

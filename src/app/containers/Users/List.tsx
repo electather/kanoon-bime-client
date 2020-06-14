@@ -7,6 +7,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserData } from 'userResponse';
+import { formatAccess } from 'utils';
 
 import { actions, selectListState } from './redux/slice';
 
@@ -92,7 +93,7 @@ export function List() {
     },
   });
 
-  const handleTableChange = (
+  const handleTableChange: any = (
     pagination: PaginationConfig,
     filters: Record<string, Key[] | null>,
     sorter: SorterResult<any> | SorterResult<any>[],
@@ -155,9 +156,9 @@ export function List() {
         dataIndex="role"
         width="15%"
         // {...getColumnSearchProps(orgOpts)}
-        // render={(text, record) => (
-        //   <span key={record.to?.id}>{record.to?.name}</span>
-        // )}
+        render={(text, record: UserData) => (
+          <span>{formatAccess(record.role)}</span>
+        )}
       />
       <Table.Column
         title={t(table.headers.actions())}

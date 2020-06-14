@@ -7,6 +7,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { TPIResponse } from 'userResponse';
+import { formatDate, formatMoney } from 'utils';
 
 import { actions, selectListState } from './redux/slice';
 
@@ -93,7 +94,7 @@ export function InsuranceList() {
     dispatch(actions.fetchList({ page: 1 }));
   }, [dispatch]);
 
-  const handleTableChange = (
+  const handleTableChange: any = (
     pagination: PaginationConfig,
     filters: Record<string, Key[] | null>,
     sorter: SorterResult<any> | SorterResult<any>[],
@@ -144,35 +145,37 @@ export function InsuranceList() {
       <Table.Column
         title={t(table.headers.startDate())}
         dataIndex="startDate"
-        width="15%"
+        width="20%"
         // {...getColumnSearchProps(orgOpts)}
-        // render={(text, record) => (
-        //   <span key={record.to?.id}>{record.to?.name}</span>
-        // )}
+        render={(text, record: TPIResponse) => (
+          <span>{formatDate(record.startDate)}</span>
+        )}
       />
       <Table.Column
         title={t(table.headers.endDate())}
         dataIndex="endDate"
-        width="15%"
+        width="20%"
         // {...getColumnSearchProps(orgOpts)}
-        // render={(text, record) => (
-        //   <span key={record.to?.id}>{record.to?.name}</span>
-        // )}
+        render={(text, record: TPIResponse) => (
+          <span>{formatDate(record.endDate)}</span>
+        )}
       />
       <Table.Column
         title={t(table.headers.price())}
         dataIndex="fullAmount"
-        width="10%"
-        // render={(text, record) => (
-        //   <span key={record.to?.id}>{record.to?.name}</span>
-        // )}
+        width="20%"
+        render={(text, record: TPIResponse) => (
+          <span>{formatMoney(record.fullAmount)}</span>
+        )}
       />
       <Table.Column
         title={t(table.headers.actions())}
-        width="30%"
-        render={() => (
+        width="10%"
+        render={(text, record: TPIResponse) => (
           <span>
-            <Button>نمایش جزئیات</Button>
+            <Button onClick={() => dispatch(actions.fetchById(record.id))}>
+              نمایش جزئیات
+            </Button>
           </span>
         )}
       />

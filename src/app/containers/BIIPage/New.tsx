@@ -10,6 +10,7 @@ import {
 } from 'antd';
 import { debounce } from 'debounce';
 import { translations } from 'locales/i18n';
+import moment from 'moment';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -54,6 +55,11 @@ export function NewInsuranceRequest() {
     vehicleList,
   );
 
+  function disabledDate(current) {
+    // Can not select days before today and today
+    return current && current < moment().endOf('day');
+  }
+
   const onFinish = values => {
     console.log('Received values of form: ', values);
 
@@ -83,9 +89,7 @@ export function NewInsuranceRequest() {
     }
   };
 
-  const {
-    form: FormTranslations,
-  } = translations.pages.thirdPartyInsurance.newTab;
+  const { form: FormTranslations } = translations.pages.bodyInsurance.newTab;
   return (
     <Form
       {...formItemLayout}
@@ -132,19 +136,19 @@ export function NewInsuranceRequest() {
           },
         ]}
       >
-        <DatePicker />
+        <DatePicker format="jYYYY/jM/jD" />
       </Form.Item>
       <Form.Item
         name="endDate"
-        label={t(FormTranslations.startDate.label())}
+        label={t(FormTranslations.endDate.label())}
         rules={[
           {
             required: true,
-            message: t(FormTranslations.startDate.emptyError()),
+            message: t(FormTranslations.endDate.emptyError()),
           },
         ]}
       >
-        <DatePicker />
+        <DatePicker disabledDate={disabledDate} format="jYYYY/jM/jD" />
       </Form.Item>
       <Form.Item
         name="isCash"

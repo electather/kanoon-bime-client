@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { CreateTPI } from 'userRequest';
-import { Paginated, UserData, UserDataMinimal } from 'userResponse';
+import { BodyInsuranceResponse, Paginated } from 'userResponse';
 import { getBearerToken } from 'utils';
 import { request } from 'utils/request';
 
@@ -21,9 +21,9 @@ export function* fetchList({ payload }: PayloadAction<QuerySchema>) {
       },
     };
 
-    const response: Paginated<UserDataMinimal> = yield call(
+    const response: Paginated<BodyInsuranceResponse> = yield call(
       request,
-      `third-party`,
+      `body-insurance`,
       options,
       payload,
     );
@@ -52,7 +52,11 @@ export function* createUser({
       body: JSON.stringify(payload.data),
     };
 
-    const response: UserData = yield call(request, `third-party`, options);
+    const response: BodyInsuranceResponse = yield call(
+      request,
+      `body-insurance`,
+      options,
+    );
     payload.clearFn();
     yield put(actions.createDone(response));
   } catch (err) {
@@ -76,9 +80,9 @@ export function* fetchById({ payload }: PayloadAction<string>) {
       },
     };
 
-    const response: UserData = yield call(
+    const response: BodyInsuranceResponse = yield call(
       request,
-      `third-party/${payload}`,
+      `body-insurance/info/${payload}`,
       options,
     );
     yield put(actions.fetchByIdDone(response));

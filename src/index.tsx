@@ -10,12 +10,14 @@ import 'react-app-polyfill/stable';
 import 'sanitize.css/sanitize.css';
 // Initialize languages
 import './locales/i18n';
+import 'moment/locale/fa';
 
 // Import root app
 import { App } from 'app';
 import { AuthProvider } from 'auth/AuthProvider';
 import { ConnectedRouter } from 'connected-react-router';
 import FontFaceObserver from 'fontfaceobserver';
+import moment from 'moment';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { HelmetProvider } from 'react-helmet-async';
@@ -33,6 +35,8 @@ const openSansObserver = new FontFaceObserver('iranyekan', {});
 openSansObserver.load().then(() => {
   document.body.classList.add('ir-loaded');
 });
+
+moment.locale('fa');
 
 // Create redux store with history
 const store = configureAppStore(history);

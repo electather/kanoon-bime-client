@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 export function StatisticsTab() {
   const { t } = useTranslation();
-  const { overViewTab } = translations.pages.thirdPartyInsurance;
+  const { overViewTab } = translations.pages.bodyInsurance;
 
   return (
     <React.Fragment>

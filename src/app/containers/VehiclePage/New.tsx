@@ -138,28 +138,13 @@ export function NewInsuranceRequest() {
       <Form.Item
         name="chassisNumber"
         label={t(VehicleTranslations.chassisNumber.label())}
-        rules={[
-          {
-            required: true,
-            message: t(VehicleTranslations.chassisNumber.emptyError()),
-          },
-        ]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item label={t(VehicleTranslations.plateNumber.label())}>
         <Input.Group compact>
-          <Form.Item
-            name="plateFirstTwoNumbers"
-            noStyle
-            rules={[
-              {
-                required: true,
-                message: t(VehicleTranslations.plateNumber.emptyError()),
-              },
-            ]}
-          >
+          <Form.Item name="plateFirstTwoNumbers" noStyle>
             <InputNumber
               style={{ width: '20%' }}
               placeholder={t(VehicleTranslations.plateNumber.firstTwo())}
@@ -167,16 +152,7 @@ export function NewInsuranceRequest() {
               max={99}
             />
           </Form.Item>
-          <Form.Item
-            name="plateLetter"
-            noStyle
-            rules={[
-              {
-                required: true,
-                message: t(VehicleTranslations.plateNumber.emptyError()),
-              },
-            ]}
-          >
+          <Form.Item name="plateLetter" noStyle>
             <Select
               style={{ width: '25%' }}
               showSearch
@@ -192,16 +168,7 @@ export function NewInsuranceRequest() {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item
-            name="plateLastThreeNumbers"
-            noStyle
-            rules={[
-              {
-                required: true,
-                message: t(VehicleTranslations.plateNumber.emptyError()),
-              },
-            ]}
-          >
+          <Form.Item name="plateLastThreeNumbers" noStyle>
             <InputNumber
               style={{ width: '30%' }}
               placeholder={t(VehicleTranslations.plateNumber.lastThree())}
@@ -209,16 +176,7 @@ export function NewInsuranceRequest() {
               max={999}
             />
           </Form.Item>
-          <Form.Item
-            name="plateIRNumber"
-            noStyle
-            rules={[
-              {
-                required: true,
-                message: t(VehicleTranslations.plateNumber.emptyError()),
-              },
-            ]}
-          >
+          <Form.Item name="plateIRNumber" noStyle>
             <InputNumber
               style={{ width: '25%' }}
               placeholder={t(VehicleTranslations.plateNumber.irNum())}
@@ -228,16 +186,7 @@ export function NewInsuranceRequest() {
           </Form.Item>
         </Input.Group>
       </Form.Item>
-      <Form.Item
-        name="address"
-        label={t(VehicleTranslations.address.label())}
-        rules={[
-          {
-            required: true,
-            message: t(VehicleTranslations.address.emptyError()),
-          },
-        ]}
-      >
+      <Form.Item name="address" label={t(VehicleTranslations.address.label())}>
         <Input.TextArea />
       </Form.Item>
 
@@ -247,12 +196,6 @@ export function NewInsuranceRequest() {
           valuePropName="attachment"
           getValueFromEvent={normFile}
           noStyle
-          rules={[
-            {
-              required: true,
-              message: t(VehicleTranslations.attachment.emptyError()),
-            },
-          ]}
         >
           <Upload.Dragger
             name="file"

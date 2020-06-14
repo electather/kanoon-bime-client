@@ -1,5 +1,5 @@
-export function melliCodeValidator(value: string) {
-  if (value.length !== 10 || /(\d)(\1){9}/.test(value)) {
+export function melliCodeValidator(value?: string) {
+  if (!value || value.length !== 10 || /(\d)(\1){9}/.test(value)) {
     return false;
   }
 

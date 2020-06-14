@@ -102,7 +102,11 @@
             "address": "address",
             "engineNumber": "engine number",
             "chassisNumber": "chassis number",
-            "plate": "plate"
+            "plate": "plate",
+            "startDate": "start date",
+            "endDate": "end date",
+            "value": "value",
+            "isCash": "payment method"
           }
         }
       },
@@ -197,6 +201,10 @@
             "address": "address",
             "engineNumber": "engine number",
             "chassisNumber": "chassis number",
+            "startDate": "start date",
+            "endDate": "end date",
+            "value": "value",
+            "isCash": "payment method",
             "plate": "plate"
           }
         }

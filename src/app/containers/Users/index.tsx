@@ -9,6 +9,7 @@ import { translations } from 'locales/i18n';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { formatAccess } from 'utils';
 
 import { List } from './List';
 import { NewInsuranceRequest } from './New';
@@ -78,7 +79,7 @@ export function Users() {
             {selectedUser?.lastName}
           </Descriptions.Item>
           <Descriptions.Item label={t(findOne.elements.role())}>
-            {selectedUser?.role}
+            {formatAccess(selectedUser?.role)}
           </Descriptions.Item>
           <Descriptions.Item label={t(findOne.elements.phone())}>
             +98{selectedUser?.phone}

@@ -1,3 +1,4 @@
+import { BodyInsuranceState } from 'app/containers/BIIPage/redux/types';
 import { TPIState } from 'app/containers/TPIPage/redux/types';
 import { UsersState } from 'app/containers/Users/redux/types';
 import { VehicleState } from 'app/containers/VehiclePage/redux/types';
@@ -17,6 +18,7 @@ export interface RootState {
   auth?: AuthState;
   theme?: ThemeState;
   tpi?: TPIState;
+  bodyInsurance?: BodyInsuranceState;
   users?: UsersState;
   vehicles?: VehicleState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly

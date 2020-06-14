@@ -1,9 +1,4 @@
-import {
-  ErrorResponse,
-  PageMeta,
-  UserData,
-  UserDataMinimal,
-} from 'userResponse';
+import { ErrorResponse, PageMeta, TPIResponse } from 'userResponse';
 
 export type PaginationData = {
   username: string;
@@ -17,8 +12,8 @@ export type QuerySchema = {
 };
 
 export interface TPIState {
-  readonly list?: UserDataMinimal[];
-  readonly selectedTpi?: UserData;
+  readonly list?: TPIResponse[];
+  readonly selectedTpi?: TPIResponse;
   readonly paginationData?: PageMeta;
   readonly filterData?: QuerySchema;
   readonly error?: ErrorResponse;

@@ -95,7 +95,7 @@ export function InsuranceList() {
     },
   });
 
-  const handleTableChange = (
+  const handleTableChange: any = (
     pagination: PaginationConfig,
     filters: Record<string, Key[] | null>,
     sorter: SorterResult<any> | SorterResult<any>[],

@@ -23,13 +23,13 @@ export function BII() {
 
   const { t } = useTranslation();
   return (
-    <PageContainer title={t(translations.pages.thirdPartyInsurance.title())}>
+    <PageContainer title={t(translations.pages.bodyInsurance.title())}>
       <Tabs defaultActiveKey="data">
         <Tabs.TabPane
           tab={
             <span>
               <BarChartOutlined />
-              {t(translations.pages.thirdPartyInsurance.overViewTab.title())}
+              {t(translations.pages.bodyInsurance.overViewTab.title())}
             </span>
           }
           disabled
@@ -41,7 +41,7 @@ export function BII() {
           tab={
             <span>
               <ContainerOutlined />
-              {t(translations.pages.thirdPartyInsurance.dataTab.title())}
+              {t(translations.pages.bodyInsurance.dataTab.title())}
             </span>
           }
           key="data"
@@ -52,7 +52,7 @@ export function BII() {
           tab={
             <span>
               <FormOutlined />
-              {t(translations.pages.thirdPartyInsurance.newTab.title())}
+              {t(translations.pages.bodyInsurance.newTab.title())}
             </span>
           }
           key="new"

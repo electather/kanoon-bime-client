@@ -1,14 +1,4 @@
-import {
-  ErrorResponse,
-  PageMeta,
-  UserData,
-  UserDataMinimal,
-} from 'userResponse';
-
-export type PaginationData = {
-  username: string;
-  password: string;
-};
+import { BodyInsuranceResponse, ErrorResponse, PageMeta } from 'userResponse';
 
 export type QuerySchema = {
   bimeNumber?: string;
@@ -16,9 +6,9 @@ export type QuerySchema = {
   take?: number;
 };
 
-export interface TPIState {
-  readonly list?: UserDataMinimal[];
-  readonly selectedTpi?: UserData;
+export interface BodyInsuranceState {
+  readonly list?: BodyInsuranceResponse[];
+  readonly selectedInsurance?: BodyInsuranceResponse;
   readonly paginationData?: PageMeta;
   readonly filterData?: QuerySchema;
   readonly error?: ErrorResponse;

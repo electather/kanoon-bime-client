@@ -47,6 +47,7 @@ declare module 'userResponse' {
   }
 
   export interface TPIResponse {
+    id: string;
     bimeNumber: string;
     startDate: Date;
     endDate: Date;
@@ -56,6 +57,23 @@ declare module 'userResponse' {
     vehicle: VehicleResponse;
     insurance: string;
     attachment: FileResponse;
+    createdAt: Date;
+    updatedAt: Date;
+  }
+
+  export interface BodyInsuranceResponse {
+    id: string;
+    bimeNumber: string;
+    startDate: Date;
+    endDate: Date;
+    isCash: boolean;
+    fullAmount: number;
+    insurer: UserData;
+    vehicle: VehicleResponse;
+    insurance: string;
+    attachment: FileResponse;
+    createdAt: Date;
+    updatedAt: Date;
   }
 
   export interface Paginated<T> {

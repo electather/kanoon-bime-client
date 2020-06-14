@@ -1,21 +1,16 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'types';
-import { CreateTPI } from 'userRequest';
-import {
-  ErrorResponse,
-  Paginated,
-  UserData,
-  UserDataMinimal,
-} from 'userResponse';
+import { CreateBodyInsurance } from 'userRequest';
+import { BodyInsuranceResponse, ErrorResponse, Paginated } from 'userResponse';
 
-import { QuerySchema, TPIState } from './types';
+import { BodyInsuranceState, QuerySchema } from './types';
 
-export const initialState: TPIState = {
+export const initialState: BodyInsuranceState = {
   loading: false,
 };
 
 const tpiSlice = createSlice({
-  name: 'tpi',
+  name: 'bodyInsurance',
   initialState,
   reducers: {
     fetchList(state, action: PayloadAction<QuerySchema>) {
@@ -23,7 +18,7 @@ const tpiSlice = createSlice({
       state.error = undefined;
       state.filterData = action.payload;
     },
-    fetchDone(state, action: PayloadAction<Paginated<UserDataMinimal>>) {
+    fetchDone(state, action: PayloadAction<Paginated<BodyInsuranceResponse>>) {
       state.loading = false;
       state.error = undefined;
       state.list = action.payload.data;
@@ -31,29 +26,29 @@ const tpiSlice = createSlice({
     },
     create(
       state,
-      action: PayloadAction<{ data: CreateTPI; clearFn: () => void }>,
+      action: PayloadAction<{ data: CreateBodyInsurance; clearFn: () => void }>,
     ) {
       state.loading = true;
-      state.selectedTpi = undefined;
+      state.selectedInsurance = undefined;
       state.error = undefined;
     },
-    createDone(state, action: PayloadAction<UserData>) {
+    createDone(state, action: PayloadAction<BodyInsuranceResponse>) {
       state.loading = false;
       state.error = undefined;
-      state.selectedTpi = action.payload;
+      state.selectedInsurance = action.payload;
     },
     fetchById(state, action: PayloadAction<string>) {
       state.loading = true;
-      state.selectedTpi = undefined;
+      state.selectedInsurance = undefined;
       state.error = undefined;
     },
-    fetchByIdDone(state, action: PayloadAction<UserData>) {
+    fetchByIdDone(state, action: PayloadAction<BodyInsuranceResponse>) {
       state.loading = false;
       state.error = undefined;
-      state.selectedTpi = action.payload;
+      state.selectedInsurance = action.payload;
     },
     clearSelectedInsurance(state) {
-      state.selectedTpi = undefined;
+      state.selectedInsurance = undefined;
     },
     requestFailed(state, action: PayloadAction<ErrorResponse>) {
       state.loading = false;
@@ -63,8 +58,8 @@ const tpiSlice = createSlice({
 });
 
 export const selectTPIState = createSelector(
-  [(state: RootState) => state.tpi || initialState],
-  tpi => tpi,
+  [(state: RootState) => state.bodyInsurance || initialState],
+  bodyInsurance => bodyInsurance,
 );
 
 export const selectListState = createSelector(
@@ -74,12 +69,12 @@ export const selectListState = createSelector(
 
 export const selectDrawerData = createSelector(
   [selectTPIState],
-  ({ selectedTpi }) => selectedTpi,
+  ({ selectedInsurance }) => selectedInsurance,
 );
 
 export const selectFormData = createSelector(
   [selectTPIState],
-  ({ loading, selectedTpi }) => ({ loading, selectedTpi }),
+  ({ loading, selectedInsurance: selectedTpi }) => ({ loading, selectedTpi }),
 );
 
 export const { actions, reducer, name: sliceKey } = tpiSlice;

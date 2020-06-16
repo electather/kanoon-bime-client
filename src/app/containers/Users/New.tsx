@@ -45,12 +45,16 @@ export function NewInsuranceRequest() {
 
     const payload = {
       ...rest,
-      avatarId: avatar[avatar.length - 1].response.id,
-      melliCardScanFrontId:
-        melliCardScanFront[melliCardScanFront.length - 1].response.id,
-      melliCardScanBackId:
-        melliCardScanBack[melliCardScanBack.length - 1].response.id,
-      payrollScanId: payrollScan[payrollScan.length - 1].response.id,
+      avatarId: avatar ? avatar[avatar.length - 1].response.id : undefined,
+      melliCardScanFrontId: melliCardScanFront
+        ? melliCardScanFront[melliCardScanFront.length - 1].response.id
+        : undefined,
+      melliCardScanBackId: melliCardScanBack
+        ? melliCardScanBack[melliCardScanBack.length - 1].response.id
+        : undefined,
+      payrollScanId: payrollScan
+        ? payrollScan[payrollScan.length - 1].response.id
+        : undefined,
     };
 
     console.log('payload: ', payload);

@@ -42,7 +42,9 @@ export function NewInsuranceRequest() {
 
     const payload = {
       ...rest,
-      attachmentId: attachment[attachment.length - 1].response.id,
+      attachmentId: attachment
+        ? attachment[attachment.length - 1].response.id
+        : undefined,
       issuerId: insurer,
     };
 

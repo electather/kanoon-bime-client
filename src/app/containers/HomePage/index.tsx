@@ -1,12 +1,11 @@
 import { StarFilled } from '@ant-design/icons';
 import { Col, Row } from 'antd';
 import { PageContainer } from 'app/components/utils/PageContainer';
-import { LineChartWidget } from 'app/components/Widgets/Charts/LineChart';
 import { Sticker } from 'app/components/Widgets/Sticker';
 import { selectLoggedInUser } from 'auth/slice';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import chartData from 'utils/mock/chartData.json';
+import { formatAccess } from 'utils';
 export function Home() {
   const loggedInUser = useSelector(selectLoggedInUser);
   return (
@@ -17,7 +16,7 @@ export function Home() {
             backgroundColor="#1abc9c"
             fontColor="#fff"
             description="سطح دسترسی"
-            value={!loggedInUser ? 'در حال بارگذاری' : loggedInUser.role}
+            value={formatAccess(loggedInUser?.role)}
             icon={<StarFilled />}
           />
         </Col>
@@ -49,7 +48,7 @@ export function Home() {
           />
         </Col>
       </Row>
-      <Row gutter={[16, 16]}>
+      {/* <Row gutter={[16, 16]}>
         <Col lg={8} md={24} sm={24} xs={24}>
           <LineChartWidget
             height={500}
@@ -70,6 +69,14 @@ export function Home() {
             height={500}
             data={chartData.homepage}
           />
+        </Col>
+      </Row> */}
+      <Row gutter={[16, 16]}>
+        <Col lg={12} md={24} sm={24} xs={24}>
+          {/* <RenewalList /> */}
+        </Col>
+        <Col lg={12} md={24} sm={24} xs={24}>
+          {/* <RenewalList /> */}
         </Col>
       </Row>
     </PageContainer>

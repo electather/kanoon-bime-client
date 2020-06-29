@@ -1,14 +1,14 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'types';
-import { ErrorResponse, UserData, UserDataMinimal } from 'userResponse';
+import { ErrorResponse, UserDataMinimal } from 'userResponse';
 
-import { HomePageState, QuerySchema } from './types';
+import { ExpiryList, HomePageState, QuerySchema } from './types';
 
 export const initialState: HomePageState = {
   loading: false,
 };
 
-const tpiSlice = createSlice({
+const homeSlice = createSlice({
   name: 'homePage',
   initialState,
   reducers: {
@@ -26,7 +26,7 @@ const tpiSlice = createSlice({
       state.expireList = undefined;
       state.error = undefined;
     },
-    fetchExpiryListDone(state, action: PayloadAction<UserData>) {
+    fetchExpiryListDone(state, action: PayloadAction<ExpiryList>) {
       state.loading = false;
       state.error = undefined;
       state.expireList = action.payload;
@@ -39,8 +39,13 @@ const tpiSlice = createSlice({
 });
 
 export const selectUsersState = createSelector(
-  [(state: RootState) => state.users || initialState],
+  [(state: RootState) => state.homePage || initialState],
   users => users,
 );
 
-export const { actions, reducer, name: sliceKey } = tpiSlice;
+export const selectRenewal = createSelector(
+  [selectUsersState],
+  ({ expireList, loading }) => ({ expireList, loading }),
+);
+
+export const { actions, reducer, name: sliceKey } = homeSlice;

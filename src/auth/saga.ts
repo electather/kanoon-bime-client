@@ -28,7 +28,7 @@ export function* getUser() {
     const response: UserData = yield call(request, 'auth/me', options);
     yield put(actions.authSuccess(response));
   } catch (err) {
-    switch (err.response?.status) {
+    switch (err.response?.statusCode) {
       case 404:
         yield put(actions.authFailure(ErrorType.USER_NOT_FOUND));
         break;
@@ -60,7 +60,21 @@ export function* loginUser({ payload }: PayloadAction<LoginPayload>) {
 
     yield put(actions.authSuccess(response.user));
   } catch (err) {
-    if (err.response?.status === 404) {
+    switch (err.response?.statusCode) {
+      case 404:
+        yield put(actions.authFailure(ErrorType.USER_NOT_FOUND));
+        break;
+      case 400:
+        yield put(actions.authFailure(ErrorType.RESPONSE_ERROR));
+        break;
+      case 500:
+        yield put(actions.authFailure(ErrorType.SERVER_ERROR));
+        break;
+      default:
+        yield put(actions.authFailure(ErrorType.RESPONSE_ERROR));
+        break;
+    }
+    if (err.response?.statusCode === 404) {
       yield put(actions.authFailure(ErrorType.USER_NOT_FOUND));
     }
   }

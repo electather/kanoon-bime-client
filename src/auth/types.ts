@@ -15,6 +15,7 @@ export enum ErrorType {
   RESPONSE_ERROR = 'undefined',
   USER_NOT_FOUND = 'notFound',
   USER_NOT_AUTHORIZED = 'wrongUsernameOrPassword',
+  SERVER_ERROR = 'serverError',
 }
 
 export interface AuthState {

@@ -74,7 +74,7 @@ export const selectDrawerData = createSelector(
 
 export const selectFormData = createSelector(
   [selectVehicleState],
-  ({ loading, selectedVehicle: selectedUser }) => ({ loading, selectedUser }),
+  ({ loading, error }) => ({ loading, error }),
 );
 
 export const { actions, reducer, name: sliceKey } = tpiSlice;

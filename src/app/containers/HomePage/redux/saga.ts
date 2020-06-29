@@ -1,13 +1,13 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+import moment from 'moment';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { UserData, UserDataMinimal } from 'userResponse';
+import { BodyInsuranceResponse, Paginated, TPIResponse } from 'userResponse';
 import { getBearerToken } from 'utils';
 import { request } from 'utils/request';
 
 import { actions } from './slice';
-import { QuerySchema } from './types';
 
-export function* fetchList({ payload }: PayloadAction<QuerySchema>) {
+export function* fetchExpireList({ payload }: PayloadAction<string>) {
   if (process.env.REACT_APP_MOCK === 'true') {
     return;
   }
@@ -20,40 +20,45 @@ export function* fetchList({ payload }: PayloadAction<QuerySchema>) {
       },
     };
 
-    const response: UserDataMinimal = yield call(
+    const tpiResponse: Paginated<TPIResponse> = yield call(
       request,
-      `users`,
+      `third-party/`,
       options,
-      payload,
-    );
-    yield put(actions.fetchStatsDone(response));
-  } catch (err) {
-    console.log(err);
-    if (err.response?.status) {
-      yield put(actions.requestFailed(err.response));
-    }
-  }
-}
-
-export function* fetchById({ payload }: PayloadAction<string>) {
-  if (process.env.REACT_APP_MOCK === 'true') {
-    return;
-  }
-  try {
-    // Call our request helper (see 'utils/request')
-    const options: RequestInit = {
-      method: 'GET',
-      headers: {
-        Authorization: getBearerToken(),
+      {
+        expiryDateMin: moment().locale('en').format('YYYY-MM-DD'),
+        expiryDateMax: moment()
+          .add(10, 'day')
+          .locale('en')
+          .format('YYYY-MM-DD'),
+        take: 20,
       },
-    };
+    );
 
-    const response: UserData = yield call(request, `users/${payload}`, options);
-    yield put(actions.fetchExpiryListDone(response));
+    const biiResponse: Paginated<BodyInsuranceResponse> = yield call(
+      request,
+      `body-insurance/`,
+      options,
+      {
+        expiryDateMin: moment().locale('en').format('YYYY-MM-DD'),
+        expiryDateMax: moment()
+          .add(10, 'day')
+          .locale('en')
+          .format('YYYY-MM-DD'),
+        take: 20,
+      },
+    );
+
+    yield put(
+      actions.fetchExpiryListDone({
+        bii: biiResponse.data,
+        tpi: tpiResponse.data,
+      }),
+    );
   } catch (err) {
-    console.log(err);
-    if (err.response?.status) {
+    if (err.response?.statusCode) {
       yield put(actions.requestFailed(err.response));
+    } else {
+      yield put(actions.requestFailed({ message: 'خطا در ارتباط با سرور' }));
     }
   }
 }
@@ -61,13 +66,10 @@ export function* fetchById({ payload }: PayloadAction<string>) {
 /**
  * Root saga manages watcher lifecycle
  */
-export function* usersSaga() {
+export function* homepageSaga() {
   // Watches for fetchUserData actions and calls getUser when one comes in.
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield all([
-    takeLatest(actions.fetchStats.type, fetchList),
-    takeLatest(actions.fetchExpiryList.type, fetchById),
-  ]);
+  yield all([takeLatest(actions.fetchExpiryList.type, fetchExpireList)]);
 }

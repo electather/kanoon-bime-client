@@ -3,11 +3,29 @@ import { Col, Row } from 'antd';
 import { PageContainer } from 'app/components/utils/PageContainer';
 import { Sticker } from 'app/components/Widgets/Sticker';
 import { selectLoggedInUser } from 'auth/slice';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useInjectReducer, useInjectSaga } from 'redux-injectors';
 import { formatAccess } from 'utils';
+
+import { homepageSaga } from './redux/saga';
+import { actions, reducer, selectRenewal, sliceKey } from './redux/slice';
+import { RenewalList } from './RenewalList';
 export function Home() {
   const loggedInUser = useSelector(selectLoggedInUser);
+  const { expireList, loading } = useSelector(selectRenewal);
+  useInjectReducer({ key: sliceKey, reducer: reducer });
+  useInjectSaga({ key: sliceKey, saga: homepageSaga });
+
+  const dispatch = useDispatch();
+
+  const getList = () => {
+    dispatch(actions.fetchExpiryList({ page: 1 }));
+  };
+
+  useEffect(() => {
+    getList();
+  }, []);
   return (
     <PageContainer>
       <Row gutter={[16, 16]}>
@@ -72,11 +90,19 @@ export function Home() {
         </Col>
       </Row> */}
       <Row gutter={[16, 16]}>
-        <Col lg={12} md={24} sm={24} xs={24}>
-          {/* <RenewalList /> */}
+        <Col xxl={12} xl={24} lg={24} md={24} sm={24} xs={24}>
+          <RenewalList
+            data={expireList?.tpi}
+            loading={loading}
+            title="بیمه های شخص ثالث در حال انقضای شما "
+          />
         </Col>
-        <Col lg={12} md={24} sm={24} xs={24}>
-          {/* <RenewalList /> */}
+        <Col xxl={12} xl={24} lg={24} md={24} sm={24} xs={24}>
+          <RenewalList
+            data={expireList?.bii}
+            loading={loading}
+            title="بیمه های بدنه در حال انقضای شما"
+          />
         </Col>
       </Row>
     </PageContainer>

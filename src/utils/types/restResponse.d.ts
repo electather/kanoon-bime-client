@@ -99,8 +99,9 @@ declare module 'userResponse' {
   }
 
   export interface ErrorResponse {
-    readonly statusCode: number;
-    readonly message: string;
+    readonly statusCode?: number;
+    readonly message: string | string[];
+    readonly error?: string;
   }
   export interface FileResponse {
     id: string;

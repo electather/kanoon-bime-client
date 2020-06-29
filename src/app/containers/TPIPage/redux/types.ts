@@ -9,6 +9,7 @@ export type QuerySchema = {
   bimeNumber?: string;
   page: number;
   take?: number;
+  order?: 'ASC' | 'DESC';
 };
 
 export interface TPIState {

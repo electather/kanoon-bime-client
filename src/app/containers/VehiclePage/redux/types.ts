@@ -8,7 +8,9 @@ export type PaginationData = {
 export type QuerySchema = {
   page?: number;
   take?: number;
+  engineNumber?: string;
   chassisNumber?: string;
+  order?: 'ASC' | 'DESC';
 };
 
 export interface VehicleState {

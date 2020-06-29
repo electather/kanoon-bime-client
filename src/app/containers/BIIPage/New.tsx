@@ -5,6 +5,7 @@ import {
   Form,
   Input,
   InputNumber,
+  message,
   Select,
   Upload,
 } from 'antd';
@@ -24,7 +25,7 @@ import {
   actions as vehicleActions,
   selectListState as vehicleList,
 } from '../VehiclePage/redux/slice';
-import { actions } from './redux/slice';
+import { actions, selectFormData } from './redux/slice';
 
 const formItemLayout = {
   labelCol: {
@@ -37,7 +38,6 @@ const formItemLayout = {
   },
 };
 const normFile = e => {
-  console.log('Upload event:', e);
   if (Array.isArray(e)) {
     return e;
   }
@@ -54,15 +54,39 @@ export function NewInsuranceRequest() {
   const { list: vehicleListData, loading: vehicleListLoading } = useSelector(
     vehicleList,
   );
+  const { loading, error } = useSelector(selectFormData);
+
+  React.useEffect(() => {
+    if (error) {
+      if (typeof error.message === 'string') {
+        message.error({
+          content: t(error.message),
+          duration: 7,
+        });
+      } else {
+        for (const errorMessage in error.message) {
+          message.error({
+            content: t(errorMessage),
+            duration: 7,
+          });
+        }
+      }
+    }
+  }, [error, t]);
 
   function disabledDate(current) {
     // Can not select days before today and today
     return current && current < moment().endOf('day');
   }
 
-  const onFinish = values => {
-    console.log('Received values of form: ', values);
+  const onStartDateChange = (
+    date: moment.Moment | null,
+    dateString: string,
+  ) => {
+    form.setFieldsValue({ endDate: moment(date)?.add(1, 'year') });
+  };
 
+  const onFinish = values => {
     const { attachment, insurer, vehicle, isCash, ...rest } = values;
 
     const payload = {
@@ -75,7 +99,6 @@ export function NewInsuranceRequest() {
       isCash: isCash === 'Cash',
     };
 
-    console.log('payload: ', payload);
     dispatch(actions.create({ data: payload, clearFn: form.resetFields }));
   };
 
@@ -85,9 +108,9 @@ export function NewInsuranceRequest() {
     }
   };
 
-  const handleVehicleSearch = (chassisNumber: string) => {
-    if (chassisNumber) {
-      dispatch(vehicleActions.fetchList({ chassisNumber, page: 1 }));
+  const handleVehicleSearch = (engineNumber: string) => {
+    if (engineNumber) {
+      dispatch(vehicleActions.fetchList({ engineNumber, page: 1 }));
     }
   };
 
@@ -138,7 +161,7 @@ export function NewInsuranceRequest() {
           },
         ]}
       >
-        <DatePicker format="jYYYY/jM/jD" />
+        <DatePicker format="jYYYY/jM/jD" onChange={onStartDateChange} />
       </Form.Item>
       <Form.Item
         name="endDate"
@@ -150,7 +173,11 @@ export function NewInsuranceRequest() {
           },
         ]}
       >
-        <DatePicker disabledDate={disabledDate} format="jYYYY/jM/jD" />
+        <DatePicker
+          disabledDate={disabledDate}
+          showToday={false}
+          format="jYYYY/jM/jD"
+        />
       </Form.Item>
       <Form.Item
         name="isCash"
@@ -173,15 +200,30 @@ export function NewInsuranceRequest() {
       </Form.Item>
       <Form.Item
         name="fullAmount"
+        initialValue={0}
         label={t(FormTranslations.fullAmount.label())}
         rules={[
           {
             required: true,
             message: t(FormTranslations.fullAmount.emptyError()),
           },
+          {
+            min: 1000000,
+            message: 'حداقل مبلغ بیمه صد هزار تومان می باشد',
+          },
         ]}
       >
-        <InputNumber min={0} />
+        <InputNumber
+          min={0}
+          style={{ width: '150px' }}
+          formatter={value =>
+            `﷼ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          }
+          step={1000000}
+          parser={(value: string | undefined) =>
+            value ? value.replace(/﷼\s?|(,*)/g, '') : 0
+          }
+        />
       </Form.Item>
       <Form.Item
         name="insurer"
@@ -224,7 +266,7 @@ export function NewInsuranceRequest() {
         >
           {vehicleListData?.map(val => (
             <Select.Option key={val.id} value={val.id}>
-              شماره شاسی : {val.chassisNumber}- به نام : {val.ownerName}{' '}
+              شماره موتور : {val.engineNumber}- به نام : {val.ownerName}{' '}
               {val.ownerLastName}
             </Select.Option>
           ))}
@@ -236,12 +278,6 @@ export function NewInsuranceRequest() {
           valuePropName="attachment"
           getValueFromEvent={normFile}
           noStyle
-          rules={[
-            {
-              required: true,
-              message: t(FormTranslations.attachment.emptyError()),
-            },
-          ]}
         >
           <Upload.Dragger
             name="file"
@@ -261,7 +297,12 @@ export function NewInsuranceRequest() {
         </Form.Item>
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 4 }}>
-        <Button type="primary" htmlType="submit" icon={<CheckCircleOutlined />}>
+        <Button
+          type="primary"
+          htmlType="submit"
+          icon={<CheckCircleOutlined />}
+          loading={loading}
+        >
           {t(FormTranslations.submit())}
         </Button>
       </Form.Item>

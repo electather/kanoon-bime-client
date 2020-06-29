@@ -7,8 +7,8 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { VehicleResponse } from 'userResponse';
+import { formatDate } from 'utils';
 
-import { alphabet } from './constants/alphabet';
 import { actions, selectListState } from './redux/slice';
 
 export function InsuranceList() {
@@ -104,10 +104,11 @@ export function InsuranceList() {
       actions.fetchList({
         page: pagination.current || 1,
         take: pagination.pageSize || 10,
+        engineNumber: filters.engineNumber?.[0].toString(),
+        chassisNumber: filters.chassisNumber?.[0].toString(),
+        order: (sorter as any)?.order === 'ascend' ? 'ASC' : 'DESC',
       }),
     );
-
-    console.log(pagination, filters, sorter);
   };
 
   return (
@@ -164,14 +165,12 @@ export function InsuranceList() {
         // )}
       />
       <Table.Column
-        title={t(table.headers.plateNumber())}
-        dataIndex="plateNumber"
+        title={t(table.headers.creationDate())}
+        dataIndex="createdAt"
         width="15%"
+        sorter={true}
         render={(text, record: VehicleResponse) => (
-          <span key={record.id}>
-            {record.plateFirstTwoNumbers} {alphabet[record.plateLetter]}{' '}
-            {record.plateLastThreeNumbers}-{record.plateIRNumber}
-          </span>
+          <span>{formatDate(record.createdAt)}</span>
         )}
       />
       <Table.Column

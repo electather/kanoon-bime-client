@@ -29,9 +29,10 @@ export function* fetchList({ payload }: PayloadAction<QuerySchema>) {
     );
     yield put(actions.fetchDone(response));
   } catch (err) {
-    console.log(err);
-    if (err.response?.status) {
+    if (err.response?.statusCode) {
       yield put(actions.requestFailed(err.response));
+    } else {
+      yield put(actions.requestFailed({ message: 'خطا در ارتباط با سرور' }));
     }
   }
 }
@@ -56,9 +57,10 @@ export function* createUser({
     payload.clearFn();
     yield put(actions.createDone(response));
   } catch (err) {
-    console.log(err);
-    if (err.response?.status) {
+    if (err.response?.statusCode) {
       yield put(actions.requestFailed(err.response));
+    } else {
+      yield put(actions.requestFailed({ message: 'خطا در ارتباط با سرور' }));
     }
   }
 }
@@ -78,14 +80,15 @@ export function* fetchById({ payload }: PayloadAction<string>) {
 
     const response: TPIResponse = yield call(
       request,
-      `third-party/${payload}`,
+      `third-party/info/${payload}`,
       options,
     );
     yield put(actions.fetchByIdDone(response));
   } catch (err) {
-    console.log(err);
-    if (err.response?.status) {
+    if (err.response?.statusCode) {
       yield put(actions.requestFailed(err.response));
+    } else {
+      yield put(actions.requestFailed({ message: 'خطا در ارتباط با سرور' }));
     }
   }
 }

@@ -3,7 +3,7 @@ import {
   ContainerOutlined,
   FormOutlined,
 } from '@ant-design/icons';
-import { Avatar, Descriptions, Drawer, Tabs } from 'antd';
+import { Avatar, Button, Descriptions, Drawer, Tabs } from 'antd';
 import { PageContainer } from 'app/components/utils/PageContainer';
 import { translations } from 'locales/i18n';
 import React from 'react';
@@ -22,9 +22,16 @@ export function Users() {
   const { findOne } = translations.pages.users.dataTab;
   const { users: usersTranslations } = translations.pages;
   const { t } = useTranslation();
+
+  const refreshList = () => {
+    dispatch(actions.fetchList({ page: 1 }));
+  };
+
+  const operations = <Button onClick={refreshList}>بروز رسانی لیست</Button>;
+
   return (
     <PageContainer title={t(usersTranslations.title())}>
-      <Tabs defaultActiveKey="data">
+      <Tabs defaultActiveKey="data" tabBarExtraContent={operations}>
         <Tabs.TabPane
           tab={
             <span>

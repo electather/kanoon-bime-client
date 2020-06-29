@@ -1,5 +1,5 @@
 import { CheckCircleOutlined, InboxOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Upload } from 'antd';
+import { Button, Form, Input, message, Upload } from 'antd';
 import { translations } from 'locales/i18n';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -30,11 +30,27 @@ const normFile = e => {
 export function NewInsuranceRequest() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { loading } = useSelector(selectFormData);
+  const { loading, error } = useSelector(selectFormData);
+  React.useEffect(() => {
+    if (error) {
+      if (typeof error.message === 'string') {
+        message.error({
+          content: t(error.message),
+          duration: 7,
+        });
+      } else {
+        for (const errorMessage in error.message) {
+          message.error({
+            content: t(errorMessage),
+            duration: 7,
+          });
+        }
+      }
+    }
+  }, [error, t]);
 
   const [form] = Form.useForm();
   const onFinish = values => {
-    console.log('Received values of form: ', values);
     const {
       avatar,
       melliCardScanBack,
@@ -57,7 +73,6 @@ export function NewInsuranceRequest() {
         : undefined,
     };
 
-    console.log('payload: ', payload);
     dispatch(actions.create({ data: payload, clearFn: form.resetFields }));
   };
 
@@ -141,7 +156,7 @@ export function NewInsuranceRequest() {
             message: t(UsersTranslations.phone.emptyError()),
           },
           {
-            pattern: /^9[0|1|2|3][0-9]{8}$/,
+            pattern: /^9[0-9][0-9]{8}$/,
             message: t(UsersTranslations.phone.invalidError()),
           },
         ]}

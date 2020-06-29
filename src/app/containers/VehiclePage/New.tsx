@@ -1,5 +1,13 @@
 import { CheckCircleOutlined, InboxOutlined } from '@ant-design/icons';
-import { Button, Form, Input, InputNumber, Select, Upload } from 'antd';
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Select,
+  Upload,
+} from 'antd';
 import { debounce } from 'debounce';
 import { translations } from 'locales/i18n';
 import React from 'react';
@@ -9,7 +17,7 @@ import { getBearerToken } from 'utils';
 
 import { actions as usersActions, selectListState } from '../Users/redux/slice';
 import { alphabet } from './constants/alphabet';
-import { actions } from './redux/slice';
+import { actions, selectFormData } from './redux/slice';
 
 const formItemLayout = {
   labelCol: {
@@ -22,7 +30,6 @@ const formItemLayout = {
   },
 };
 const normFile = e => {
-  console.log('Upload event:', e);
   if (Array.isArray(e)) {
     return e;
   }
@@ -32,12 +39,31 @@ const normFile = e => {
 export function NewInsuranceRequest() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { list, loading } = useSelector(selectListState);
+  const { list: usersList, loading: usersListLoading } = useSelector(
+    selectListState,
+  );
   const [form] = Form.useForm();
+  const { loading, error } = useSelector(selectFormData);
+
+  React.useEffect(() => {
+    if (error) {
+      if (typeof error.message === 'string') {
+        message.error({
+          content: t(error.message),
+          duration: 7,
+        });
+      } else {
+        for (const errorMessage in error.message) {
+          message.error({
+            content: t(errorMessage),
+            duration: 7,
+          });
+        }
+      }
+    }
+  }, [error, t]);
 
   const onFinish = values => {
-    console.log('Received values of form: ', values);
-
     const { attachment, insurer, ...rest } = values;
 
     const payload = {
@@ -47,13 +73,14 @@ export function NewInsuranceRequest() {
         : undefined,
       issuerId: insurer,
     };
-
-    console.log('payload: ', payload);
     dispatch(actions.create({ data: payload, clearFn: form.resetFields }));
   };
 
+  const onUserSelect = (value: string | number, option: any) => {
+    const { firstName, lastName } = option;
+    form.setFieldsValue({ ownerName: firstName, ownerLastName: lastName });
+  };
   const handleUserSearch = (melliCode: string) => {
-    console.log(melliCode);
     if (melliCode) {
       dispatch(usersActions.fetchList({ melliCode, page: 1 }));
     }
@@ -82,10 +109,16 @@ export function NewInsuranceRequest() {
           showSearch
           showArrow={false}
           onSearch={debounce(handleUserSearch, 500)}
-          loading={loading}
+          loading={usersListLoading}
+          onSelect={onUserSelect}
         >
-          {list?.map(val => (
-            <Select.Option key={val.id} value={val.id}>
+          {usersList?.map(val => (
+            <Select.Option
+              key={val.id}
+              value={val.id}
+              firstName={val.firstName}
+              lastName={val.lastName}
+            >
               کد ملی : {val.melliCode} - {val.firstName} {val.lastName}
             </Select.Option>
           ))}
@@ -217,7 +250,12 @@ export function NewInsuranceRequest() {
         </Form.Item>
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 4 }}>
-        <Button type="primary" htmlType="submit" icon={<CheckCircleOutlined />}>
+        <Button
+          type="primary"
+          loading={loading}
+          htmlType="submit"
+          icon={<CheckCircleOutlined />}
+        >
           {t(VehicleTranslations.submit())}
         </Button>
       </Form.Item>

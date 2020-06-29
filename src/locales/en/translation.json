@@ -17,7 +17,24 @@
     "auth": {
       "undefined": "check your network connection",
       "notFound": "User not found",
-      "wrongUsernameOrPassword": "please check your username or password"
+      "wrongUsernameOrPassword": "please check your username or password",
+      "serverError": "server Error! please check connection!"
+    },
+    "bii": {
+      "undefined": "check your network connection",
+      "notFound": "insurance not found"
+    },
+    "tpi": {
+      "undefined": "check your network connection",
+      "notFound": "insurance not found"
+    },
+    "users": {
+      "undefined": "check your network connection",
+      "notFound": "insurance not found"
+    },
+    "vehicle": {
+      "undefined": "check your network connection",
+      "notFound": "insurance not found"
     }
   },
   "authPage": {
@@ -280,7 +297,7 @@
             "owner": "owner",
             "engineNumber": "engine number",
             "chassisNumber": "chassis number",
-            "plateNumber": "plate number",
+            "creationDate": "creation date",
             "actions": "actions"
           },
           "general": {

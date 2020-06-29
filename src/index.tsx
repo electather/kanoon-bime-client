@@ -36,7 +36,7 @@ openSansObserver.load().then(() => {
   document.body.classList.add('ir-loaded');
 });
 
-moment.locale('fa');
+moment.locale('fa', { useGregorianParser: true });
 
 // Create redux store with history
 const store = configureAppStore(history);

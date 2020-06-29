@@ -104,6 +104,7 @@ export function InsuranceList() {
         page: pagination.current || 1,
         take: pagination.pageSize || 10,
         bimeNumber: filters.bimeNumber?.[0].toString(),
+        order: (sorter as any)?.order === 'ascend' ? 'ASC' : 'DESC',
       }),
     );
   };
@@ -155,6 +156,7 @@ export function InsuranceList() {
         title={t(table.headers.endDate())}
         dataIndex="endDate"
         width="20%"
+        sorter={true}
         // {...getColumnSearchProps(orgOpts)}
         render={(text, record: BodyInsuranceResponse) => (
           <span>{formatDate(record.endDate)}</span>

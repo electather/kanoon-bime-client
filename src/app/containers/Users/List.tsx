@@ -103,6 +103,7 @@ export function List() {
         page: pagination.current || 1,
         take: pagination.pageSize || 10,
         melliCode: filters.melliCode?.[0].toString(),
+        order: (sorter as any)?.order === 'ascend' ? 'ASC' : 'DESC',
       }),
     );
     console.log(pagination, filters, sorter);
@@ -133,6 +134,7 @@ export function List() {
       <Table.Column
         title={t(table.headers.fullName())}
         dataIndex="fullName"
+        sorter={true}
         width="30%"
         // {...getColumnSearchProps(orgOpts)}
         render={(text, record: UserData) => (

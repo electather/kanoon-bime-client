@@ -29,9 +29,10 @@ export function* fetchList({ payload }: PayloadAction<QuerySchema>) {
     );
     yield put(actions.fetchDone(response));
   } catch (err) {
-    console.log(err);
-    if (err.response?.status) {
+    if (err.response?.statusCode) {
       yield put(actions.requestFailed(err.response));
+    } else {
+      yield put(actions.requestFailed({ message: 'خطا در ارتباط با سرور' }));
     }
   }
 }
@@ -39,7 +40,6 @@ export function* fetchList({ payload }: PayloadAction<QuerySchema>) {
 export function* createUser({
   payload,
 }: PayloadAction<{ data: CreateUser; clearFn: () => void }>) {
-  console.log('payload', payload, process.env.REACT_APP_MOCK);
   if (process.env.REACT_APP_MOCK === 'true') {
     return;
   }
@@ -57,9 +57,10 @@ export function* createUser({
     payload.clearFn();
     yield put(actions.createDone(response));
   } catch (err) {
-    console.log(err);
-    if (err.response?.status) {
+    if (err.response?.statusCode) {
       yield put(actions.requestFailed(err.response));
+    } else {
+      yield put(actions.requestFailed({ message: 'خطا در ارتباط با سرور' }));
     }
   }
 }
@@ -80,9 +81,10 @@ export function* fetchById({ payload }: PayloadAction<string>) {
     const response: UserData = yield call(request, `users/${payload}`, options);
     yield put(actions.fetchByIdDone(response));
   } catch (err) {
-    console.log(err);
-    if (err.response?.status) {
+    if (err.response?.statusCode) {
       yield put(actions.requestFailed(err.response));
+    } else {
+      yield put(actions.requestFailed({ message: 'خطا در ارتباط با سرور' }));
     }
   }
 }

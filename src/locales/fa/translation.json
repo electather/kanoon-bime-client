@@ -12,8 +12,12 @@
       "subTitle": "صفحه مورد نظر یافت نشد!"
     }
   },
-  "errorMessages": {
-    "global": {},
+  "error": {
+    "unique": {
+      "melliCode": "کد ملی قبلا ثبت شده است!",
+      "phoneNumber": "شماره موبایل قبلا ثبت شده است!",
+      "engineNumber": "شماره موتور قبلا در سیستم ثبت شده است!"
+    },
     "auth": {
       "undefined": "لطفا دسترسی اینترنت خود را برسی نمایید",
       "notFound": "کاربر یافت نشد",
@@ -190,6 +194,22 @@
           "general": {
             "found": "{items, plural, =0 {چیزی یافت نشد} =1 {یک عدد یافت شد} other {در مجموع # ایتم یافت شد.}}"
           }
+        },
+        "findOne": {
+          "title": "جزئیات بیمه",
+          "elements": {
+            "createdAt": "ایجاد شده در",
+            "insurer": "بیمه گزار",
+            "owner": "صاحب خودرو",
+            "address": "آدرس",
+            "engineNumber": "شماره موتور",
+            "chassisNumber": "شمار شاسی",
+            "plate": "پلاک",
+            "startDate": "تاریخ شروع",
+            "endDate": "تاریخ پایان",
+            "value": "ارزش",
+            "isCash": "نحوه پرداخت"
+          }
         }
       },
       "newTab": {
@@ -262,7 +282,7 @@
             "owner": "صاحب خودرو",
             "engineNumber": "شماره موتور",
             "chassisNumber": "شماره شاسی",
-            "plateNumber": "شماره پلاک",
+            "creationDate": "تاریخ ایجاد",
             "actions": "فعالیت ها"
           },
           "general": {

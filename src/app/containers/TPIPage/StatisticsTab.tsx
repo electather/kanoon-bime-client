@@ -1,12 +1,21 @@
 import { Col, Row, Statistic } from 'antd';
+import { DailyChart } from 'app/components/InsuranceCharts/DailyChart';
 import { translations } from 'locales/i18n';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { DailyStatPage } from 'userResponse';
+import { useDataApi } from 'utils/hooks/useDataApi';
 
 export function StatisticsTab() {
   const { t } = useTranslation();
   const { overViewTab } = translations.pages.thirdPartyInsurance;
-
+  const [{ data, isLoading, isError }] = useDataApi<DailyStatPage>(
+    'third-party/stats/daily',
+    {
+      dailyStats: [],
+    },
+  );
+  console.log(data);
   return (
     <React.Fragment>
       <Row gutter={[16, 16]}>
@@ -44,6 +53,11 @@ export function StatisticsTab() {
             value={700000}
             suffix={t(translations.global.rials())}
           />
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <DailyChart height={400} data={data.dailyStats} id="tpi" />
         </Col>
       </Row>
     </React.Fragment>

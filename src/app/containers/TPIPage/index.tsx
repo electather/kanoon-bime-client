@@ -41,7 +41,6 @@ export function TPI() {
               {t(translations.pages.thirdPartyInsurance.overViewTab.title())}
             </span>
           }
-          disabled
           key="statistics"
         >
           <StatisticsTab />

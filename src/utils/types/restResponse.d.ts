@@ -111,4 +111,16 @@ declare module 'userResponse' {
     creator: Creator;
     url: string;
   }
+
+  export interface DailyStatDto {
+    readonly totalValue: number;
+    readonly commission: number;
+    readonly avgValue: number;
+    readonly avgCommission: number;
+    readonly count: number;
+    readonly date: Date;
+  }
+  export interface DailyStatPage {
+    readonly dailyStats: DailyStatDto[];
+  }
 }
